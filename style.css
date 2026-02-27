@@ -4,8 +4,22 @@
     --dark-color: #2f2f2f;
     --light-color: #f7f7f7;
     --white: #ffffff;
+    --card-bg: #ffffff;
+    --text-primary: #2f2f2f;
+    --text-secondary: #666;
+    --border-color: #eee;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s ease;
+}
+
+[data-theme="dark"] {
+    --light-color: #1a1a1a;
+    --white: #2d2d2d;
+    --card-bg: #2d2d2d;
+    --text-primary: #f7f7f7;
+    --text-secondary: #bbb;
+    --border-color: #444;
+    --dark-color: #f7f7f7;
 }
 
 * {
@@ -17,16 +31,18 @@
 body {
     font-family: 'Noto Sans KR', sans-serif;
     background-color: var(--light-color);
-    color: var(--dark-color);
+    color: var(--text-primary);
     line-height: 1.6;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
+    position: relative;
     width: 100%;
     max-width: 600px;
     background-color: var(--white);
@@ -34,6 +50,30 @@ body {
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     text-align: center;
+    transition: var(--transition);
+}
+
+.theme-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: var(--transition);
+    line-height: 1;
+}
+
+.theme-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(1.1);
+}
+
+[data-theme="dark"] .theme-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 header {
@@ -48,7 +88,7 @@ header h1 {
 }
 
 header p {
-    color: #666;
+    color: var(--text-secondary);
     font-size: 1.1rem;
 }
 
@@ -57,8 +97,8 @@ main {
 }
 
 .card {
-    background-color: #fff;
-    border: 2px solid #eee;
+    background-color: var(--card-bg);
+    border: 2px solid var(--border-color);
     border-radius: 15px;
     padding: 30px;
     margin-bottom: 30px;
@@ -91,7 +131,7 @@ main {
 }
 
 .card p {
-    color: #555;
+    color: var(--text-secondary);
 }
 
 .action-section {
@@ -130,28 +170,29 @@ main {
 
 .filter-btn {
     padding: 8px 20px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 20px;
     background: transparent;
+    color: var(--text-primary);
     cursor: pointer;
     transition: var(--transition);
     font-size: 0.9rem;
 }
 
 .filter-btn:hover {
-    background-color: #eee;
+    background-color: var(--border-color);
 }
 
 .filter-btn.active {
     background-color: var(--dark-color);
-    color: white;
+    color: var(--light-color);
     border-color: var(--dark-color);
 }
 
 footer {
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border-color);
     padding-top: 20px;
-    color: #999;
+    color: var(--text-secondary);
     font-size: 0.85rem;
 }
 

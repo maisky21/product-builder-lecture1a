@@ -30,6 +30,26 @@ const menuName = document.getElementById('menu-name');
 const menuCategory = document.getElementById('menu-category');
 const menuDescription = document.getElementById('menu-description');
 const filterBtns = document.querySelectorAll('.filter-btn');
+const themeToggle = document.getElementById('theme-toggle');
+
+// Theme Toggle Logic
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+updateThemeIcon(savedTheme);
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+    themeToggle.textContent = theme === 'light' ? '☀️' : '🌙';
+    themeToggle.setAttribute('aria-label', theme === 'light' ? '다크 모드 전환' : '라이트 모드 전환');
+}
 
 // Category mapping for display
 const categoryMap = {
@@ -78,6 +98,3 @@ filterBtns.forEach(btn => {
         currentCategory = btn.getAttribute('data-category');
     });
 });
-
-// Initial display
-// displayMenu(); 
