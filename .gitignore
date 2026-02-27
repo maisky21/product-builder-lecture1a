@@ -1,1 +1,7 @@
-.firebaserc\nblueprint.md\n.idx/\n.vscode/
+.firebaserc
+blueprint.md
+.idx/
+.vscode/
+firebase-debug.log
+node_modules/
+.DS_Store
