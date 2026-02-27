@@ -184,15 +184,15 @@ header p {
 }
 
 .primary-btn {
-    padding: 10px 25px;
-    font-size: 0.95rem; /* 버튼 텍스트 축소 */
-    font-weight: bold;
+    padding: 12px 30px;
+    font-size: clamp(1.05rem, 4vw, 1.2rem); 
+    font-weight: 800;
     color: white;
     background-color: var(--primary-color);
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(142, 68, 173, 0.2);
+    box-shadow: 0 5px 15px rgba(142, 68, 173, 0.3);
     transition: var(--transition);
 }
 

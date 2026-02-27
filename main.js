@@ -13,7 +13,10 @@ const menus = [
     { name: "초밥", category: "japanese", emoji: "🍣", description: "신선한 생선과 깔끔한 밥의 조화" },
     { name: "돈가스", category: "japanese", emoji: "🍱", description: "바삭한 튀김옷 속 촉촉한 고기" },
     { name: "라멘", category: "japanese", emoji: "🍜", description: "깊은 국물 맛이 일품인 일본식 면 요리" },
-    { name: "짜장면", category: "japanese", emoji: "🍜", description: "달콤 짭짤한 소스의 국민 중식 메뉴" },
+    
+    { name: "짜장면", category: "chinese", emoji: "🍜", description: "달콤 짭짤한 소스의 국민 중식 메뉴" },
+    { name: "짬뽕", category: "chinese", emoji: "🍜", description: "얼큰한 국물과 해산물의 만남" },
+    { name: "탕수육", category: "chinese", emoji: "🍖", description: "바삭한 튀김과 새콤달콤한 소스" },
     
     { name: "샌드위치", category: "simple", emoji: "🥪", description: "가볍고 신선하게 즐기는 한 끼" },
     { name: "샐러드", category: "simple", emoji: "🥗", description: "건강하고 깔끔한 저녁 식사" },
@@ -23,8 +26,8 @@ const menus = [
 let currentCategory = 'all';
 
 // Sound Effects Logic
-const clickSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'); // Ting!
-const popSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3'); // Pop!
+const clickSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'); 
+const popSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3'); 
 
 function playSound(sound) {
     sound.currentTime = 0;
@@ -91,7 +94,11 @@ function displayMenu() {
         menuEmoji.textContent = menu.emoji;
         menuName.textContent = menu.name;
         menuCategory.textContent = {
-            korean: "한식", western: "양식", japanese: "일식/중식", simple: "간단식"
+            korean: "한식", 
+            western: "양식", 
+            japanese: "일식", 
+            chinese: "중식", 
+            simple: "간단식"
         }[menu.category];
         menuDescription.textContent = menu.description;
         
