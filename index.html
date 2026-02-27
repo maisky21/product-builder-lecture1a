@@ -13,20 +13,28 @@
     <div class="container">
         <button id="theme-toggle" class="theme-btn" aria-label="다크 모드 전환">☀️</button>
         <header>
-            <h1>오늘 뭐 먹지?</h1>
-            <p>당신의 저녁 메뉴 고민을 해결해드립니다!</p>
+            <h1>오늘의 미식 운세</h1>
+            <p>신비로운 별들이 당신의 저녁 식사를 점지해드립니다.</p>
         </header>
 
         <main>
-            <div id="result-card" class="card hidden">
-                <div class="menu-emoji" id="menu-emoji">🍽️</div>
-                <h2 id="menu-name">메뉴 이름</h2>
-                <div class="category-badge" id="menu-category">카테고리</div>
-                <p id="menu-description">메뉴에 대한 설명이 이곳에 표시됩니다.</p>
+            <div id="capture-area">
+                <div id="result-card" class="card hidden">
+                    <div class="fortune-decoration">✨ ✧ ･ﾟ * ✨</div>
+                    <div class="menu-emoji" id="menu-emoji">🍽️</div>
+                    <h2 id="menu-name">메뉴 이름</h2>
+                    <div class="category-badge" id="menu-category">카테고리</div>
+                    <p id="menu-description">메뉴에 대한 설명이 이곳에 표시됩니다.</p>
+                    <div class="lucky-number-section">
+                        <span>오늘의 행운 번호: </span>
+                        <strong id="lucky-number">??</strong>
+                    </div>
+                </div>
             </div>
 
             <div class="action-section">
-                <button id="recommend-btn" class="primary-btn">메뉴 추천받기</button>
+                <button id="recommend-btn" class="primary-btn">나의 미식 운세 확인하기</button>
+                <button id="share-btn" class="secondary-btn hidden">내 행운 공유하기</button>
             </div>
 
             <div class="filters">
@@ -39,7 +47,7 @@
         </main>
 
         <footer>
-            <p>&copy; 2026 Dinner Recommender. All rights reserved.</p>
+            <p>&copy; 2026 Cosmic Dinner Fortune. ✨</p>
         </footer>
     </div>
     <script src="main.js"></script>

@@ -24,11 +24,13 @@ let currentCategory = 'all';
 
 // DOM Elements
 const recommendBtn = document.getElementById('recommend-btn');
+const shareBtn = document.getElementById('share-btn');
 const resultCard = document.getElementById('result-card');
 const menuEmoji = document.getElementById('menu-emoji');
 const menuName = document.getElementById('menu-name');
 const menuCategory = document.getElementById('menu-category');
 const menuDescription = document.getElementById('menu-description');
+const luckyNumberDisplay = document.getElementById('lucky-number');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const themeToggle = document.getElementById('theme-toggle');
 
@@ -48,7 +50,6 @@ themeToggle.addEventListener('click', () => {
 
 function updateThemeIcon(theme) {
     themeToggle.textContent = theme === 'light' ? '☀️' : '🌙';
-    themeToggle.setAttribute('aria-label', theme === 'light' ? '다크 모드 전환' : '라이트 모드 전환');
 }
 
 // Category mapping for display
@@ -69,32 +70,64 @@ function getRandomMenu() {
     return filteredMenus[randomIndex];
 }
 
+function generateLuckyNumber() {
+    return Math.floor(Math.random() * 99) + 1;
+}
+
 function displayMenu() {
-    // Add animation effect
     resultCard.classList.add('hidden');
+    shareBtn.classList.add('hidden');
     
     setTimeout(() => {
         const menu = getRandomMenu();
+        const luckyNumber = generateLuckyNumber();
         
         menuEmoji.textContent = menu.emoji;
         menuName.textContent = menu.name;
         menuCategory.textContent = categoryMap[menu.category];
         menuDescription.textContent = menu.description;
+        luckyNumberDisplay.textContent = luckyNumber;
         
         resultCard.classList.remove('hidden');
+        shareBtn.classList.remove('hidden');
+        
+        // Scroll to result on mobile
+        resultCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 100);
+}
+
+async function shareResult() {
+    const text = `✨ 오늘의 미식 운세 ✨\n\n오늘 저의 행운의 메뉴는 "${menuName.textContent}"입니다!\n행운 번호: ${luckyNumberDisplay.textContent}\n\n여러분도 오늘 저녁 운세를 확인해보세요! 🌙`;
+    
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: '오늘의 미식 운세',
+                text: text,
+                url: window.location.href
+            });
+        } catch (err) {
+            console.log('Error sharing:', err);
+        }
+    } else {
+        // Fallback: Copy to clipboard
+        try {
+            await navigator.clipboard.writeText(text + "\n" + window.location.href);
+            alert('운세 결과가 클립보드에 복사되었습니다! SNS에 붙여넣어 공유해보세요. ✨');
+        } catch (err) {
+            alert('공유하기를 지원하지 않는 브라우저입니다. 화면을 캡처해서 공유해보세요!');
+        }
+    }
 }
 
 // Event Listeners
 recommendBtn.addEventListener('click', displayMenu);
+shareBtn.addEventListener('click', shareResult);
 
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        // Update active class
         filterBtns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        
-        // Update current category
         currentCategory = btn.getAttribute('data-category');
     });
 });
