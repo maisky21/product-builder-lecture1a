@@ -71,7 +71,7 @@ body {
 .container {
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 650px;
     background-color: var(--white);
     padding: 40px;
     border-radius: 30px;
@@ -102,7 +102,7 @@ header {
 
 header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.8rem;
+    font-size: clamp(2rem, 8vw, 2.8rem);
     background: var(--mystic-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -112,7 +112,7 @@ header h1 {
 
 header p {
     color: var(--text-secondary);
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
     font-weight: 300;
 }
 
@@ -123,7 +123,7 @@ header p {
     background-origin: border-box;
     background-clip: content-box, border-box;
     border-radius: 25px;
-    padding: 40px 30px;
+    padding: clamp(20px, 5vw, 40px) 30px;
     margin-bottom: 30px;
     transition: var(--transition);
     animation: sparkleUp 0.6s ease-out;
@@ -133,8 +133,13 @@ header p {
 .card.hidden { display: none; }
 
 .menu-emoji {
-    font-size: 5rem;
+    font-size: clamp(3.5rem, 15vw, 5rem);
     margin-bottom: 20px;
+}
+
+.card h2 {
+    font-size: clamp(1.5rem, 6vw, 2.2rem);
+    margin-bottom: 10px;
 }
 
 .lucky-number-section {
@@ -146,19 +151,19 @@ header p {
 #lucky-digits {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: clamp(10px, 3vw, 15px);
     margin-top: 10px;
 }
 
 .digit {
     display: inline-block;
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
     font-weight: 800;
     color: var(--primary-color);
     background: rgba(157, 80, 187, 0.1);
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
+    width: clamp(50px, 12vw, 60px);
+    height: clamp(50px, 12vw, 60px);
+    line-height: clamp(50px, 12vw, 60px);
     border-radius: 12px;
     animation: digitPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
@@ -166,6 +171,43 @@ header p {
 @keyframes digitPop {
     0% { transform: scale(0) rotate(-20deg); opacity: 0; }
     100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    padding: 8px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: clamp(0.8rem, 3vw, 0.9rem);
+    white-space: nowrap;
+}
+
+.filter-btn:hover {
+    background: rgba(157, 80, 187, 0.05);
+}
+
+.filter-btn.active {
+    background: var(--dark-color);
+    color: var(--white);
+    border-color: var(--dark-color);
+}
+
+.action-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 10px;
 }
 
 .rainbow-btn {
@@ -181,8 +223,8 @@ header p {
 }
 
 .primary-btn {
-    padding: 18px 40px;
-    font-size: 1.2rem;
+    padding: clamp(14px, 4vw, 18px) 40px;
+    font-size: clamp(1rem, 4vw, 1.2rem);
     font-weight: bold;
     color: white;
     border: none;
@@ -199,7 +241,7 @@ header p {
 
 .secondary-btn {
     padding: 12px 30px;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
     font-weight: 600;
     color: var(--primary-color);
     background: transparent;
@@ -211,19 +253,13 @@ header p {
 
 .secondary-btn.hidden { display: none; }
 
-.filter-btn {
-    padding: 8px 18px;
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    background: transparent;
+footer {
+    margin-top: 30px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 25px;
     color: var(--text-secondary);
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.filter-btn.active {
-    background: var(--dark-color);
-    color: var(--white);
+    font-size: 0.9rem;
+    opacity: 0.7;
 }
 
 @keyframes sparkleUp {
@@ -231,7 +267,27 @@ header p {
     100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+/* Tablet & Mobile specific adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px 20px;
+        margin: 10px;
+    }
+}
+
 @media (max-width: 480px) {
-    .container { padding: 30px 20px; }
-    header h1 { font-size: 2.2rem; }
+    header {
+        margin-bottom: 30px;
+    }
+    .filters {
+        gap: 6px;
+    }
+    .filter-btn {
+        padding: 6px 14px;
+    }
+    .theme-btn {
+        top: 15px;
+        right: 15px;
+        font-size: 1.2rem;
+    }
 }
