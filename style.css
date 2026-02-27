@@ -9,8 +9,8 @@
     --text-primary: #4a148c;
     --text-secondary: #7b1fa2;
     --border-color: #e1bee7;
-    --shadow: 0 10px 30px rgba(157, 80, 187, 0.2);
-    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --shadow: 0 5px 20px rgba(157, 80, 187, 0.15);
+    --transition: all 0.3s ease;
 }
 
 [data-theme="dark"] {
@@ -21,7 +21,6 @@
     --text-secondary: #ce93d8;
     --border-color: #4a148c;
     --dark-color: #f3e5f5;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -35,12 +34,12 @@ body {
     background: var(--light-color);
     background-attachment: fixed;
     color: var(--text-primary);
-    line-height: 1.6;
+    line-height: 1.4;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    padding: 10px; /* 여백 축소 */
     transition: background 0.5s ease;
     overflow-x: hidden;
 }
@@ -57,9 +56,9 @@ body {
 
 .floating-icon {
     position: absolute;
-    font-size: 2rem;
-    opacity: 0.15;
-    animation: float 15s linear infinite;
+    font-size: 1.5rem;
+    opacity: 0.1;
+    animation: float 20s linear infinite;
 }
 
 @keyframes float {
@@ -70,180 +69,162 @@ body {
 .container {
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 500px; /* 너비 축소 */
     background-color: var(--white);
-    padding: 30px;
-    border-radius: 25px;
+    padding: 20px; /* 내부 여백 축소 */
+    border-radius: 20px;
     box-shadow: var(--shadow);
     text-align: center;
-    transition: var(--transition);
     border: 1px solid var(--border-color);
     z-index: 1;
 }
 
 .theme-btn {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(157, 80, 187, 0.1);
+    top: 15px;
+    right: 15px;
+    background: rgba(157, 80, 187, 0.05);
     border: none;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     cursor: pointer;
-    padding: 6px;
+    padding: 5px;
     border-radius: 50%;
-    transition: var(--transition);
     line-height: 1;
 }
 
 header {
-    margin-bottom: 30px;
+    margin-bottom: 20px; /* 헤더 간격 축소 */
 }
 
 header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 7vw, 2.5rem);
+    font-size: clamp(1.5rem, 6vw, 2rem); /* 폰트 크기 축소 */
     background: var(--mystic-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 8px;
-    letter-spacing: -1px;
+    margin-bottom: 5px;
 }
 
 header p {
     color: var(--text-secondary);
-    font-size: clamp(0.85rem, 3.5vw, 1rem);
-    font-weight: 300;
+    font-size: 0.85rem;
 }
 
 .card {
     background: var(--card-bg);
-    border: 2px solid var(--border-color);
-    border-radius: 20px;
-    padding: clamp(20px, 4vw, 30px) 20px;
-    margin-bottom: 25px;
-    transition: var(--transition);
-    animation: sparkleUp 0.6s ease-out;
-    position: relative;
+    border: 1px solid var(--border-color); /* 테두리 굵기 축소 */
+    border-radius: 15px;
+    padding: 15px; /* 카드 내부 여백 대폭 축소 */
+    margin-bottom: 15px;
+    animation: sparkleUp 0.5s ease-out;
 }
 
 .card.hidden { display: none; }
 
 .fortune-decoration {
-    font-size: 0.8rem;
-    margin-bottom: 10px;
+    font-size: 0.7rem;
+    margin-bottom: 5px;
 }
 
 .menu-emoji {
-    font-size: clamp(3rem, 12vw, 4rem);
-    margin-bottom: 15px;
+    font-size: 3rem; /* 이모지 크기 축소 */
+    margin-bottom: 10px;
 }
 
 .card h2 {
-    font-size: clamp(1.4rem, 5vw, 2rem);
-    margin-bottom: 8px;
+    font-size: 1.5rem; /* 제목 크기 축소 */
+    margin-bottom: 5px;
 }
 
 .category-badge {
     display: inline-block;
-    padding: 4px 15px;
+    padding: 3px 12px;
     background: var(--mystic-gradient);
     color: white;
     border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    margin-bottom: 15px;
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 0.9rem;
 }
 
 .lucky-number-section {
-    margin-top: 15px;
-    padding-top: 15px;
+    margin-top: 10px;
+    padding-top: 10px;
     border-top: 1px dashed var(--border-color);
+    font-size: 0.85rem;
 }
 
 #lucky-digits {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 8px;
+    gap: 8px;
+    margin-top: 5px;
 }
 
 .digit {
-    display: inline-block;
-    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-size: 1.5rem; /* 숫자 크기 축소 */
     font-weight: 800;
     color: var(--primary-color);
     background: rgba(157, 80, 187, 0.1);
-    width: clamp(40px, 10vw, 50px);
-    height: clamp(40px, 10vw, 50px);
-    line-height: clamp(40px, 10vw, 50px);
-    border-radius: 10px;
-    animation: digitPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
-}
-
-@keyframes digitPop {
-    0% { transform: scale(0); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+    width: 35px; /* 숫자 박스 크기 축소 */
+    height: 35px;
+    line-height: 35px;
+    border-radius: 8px;
 }
 
 .action-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 25px;
+    gap: 8px;
+    margin-bottom: 15px;
 }
 
 .primary-btn {
-    padding: 12px 30px;
-    font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+    padding: 10px 25px;
+    font-size: 0.95rem; /* 버튼 텍스트 축소 */
     font-weight: bold;
     color: white;
     background-color: var(--primary-color);
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(142, 68, 173, 0.3);
+    box-shadow: 0 4px 10px rgba(142, 68, 173, 0.2);
     transition: var(--transition);
-    width: fit-content;
 }
 
 .primary-btn:hover {
     background-color: var(--secondary-color);
-    transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 8px 20px rgba(142, 68, 173, 0.4);
+    transform: translateY(-1px);
 }
 
 .secondary-btn {
-    padding: 10px 25px;
-    font-size: 0.9rem;
-    font-weight: 600;
+    padding: 8px 20px;
+    font-size: 0.85rem;
     color: var(--primary-color);
     background: transparent;
-    border: 1.5px solid var(--primary-color);
+    border: 1px solid var(--primary-color);
     border-radius: 50px;
-    cursor: pointer;
-    transition: var(--transition);
 }
-
-.secondary-btn.hidden { display: none; }
 
 .filters {
     display: flex;
     justify-content: center;
-    gap: 6px;
+    gap: 5px;
     flex-wrap: wrap;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
 .filter-btn {
-    padding: 6px 14px;
+    padding: 5px 12px;
     border: 1px solid var(--border-color);
     border-radius: 20px;
     background: transparent;
     color: var(--text-secondary);
-    cursor: pointer;
-    transition: var(--transition);
-    font-size: 0.8rem;
+    font-size: 0.75rem; /* 필터 버튼 축소 */
 }
 
 .filter-btn.active {
@@ -253,27 +234,25 @@ header p {
 }
 
 footer {
-    margin-top: 25px;
+    margin-top: 15px;
     border-top: 1px solid var(--border-color);
-    padding-top: 20px;
+    padding-top: 10px;
     color: var(--text-secondary);
-    font-size: 0.85rem;
-    opacity: 0.7;
+    font-size: 0.75rem;
+    opacity: 0.6;
 }
 
 @keyframes sparkleUp {
-    0% { opacity: 0; transform: translateY(20px); }
+    0% { opacity: 0; transform: translateY(10px); }
     100% { opacity: 1; transform: translateY(0); }
 }
 
+@media (max-height: 600px) {
+    body { align-items: flex-start; padding-top: 10px; }
+    .container { margin-bottom: 10px; }
+}
+
 @media (max-width: 480px) {
-    .container {
-        padding: 25px 15px;
-    }
-    .filters {
-        gap: 5px;
-    }
-    .filter-btn {
-        padding: 5px 12px;
-    }
+    .container { padding: 15px; }
+    header h1 { font-size: 1.5rem; }
 }
