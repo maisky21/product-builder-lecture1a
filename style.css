@@ -71,7 +71,7 @@ body {
     width: 100%;
     max-width: 500px; /* 너비 축소 */
     background-color: var(--white);
-    padding: 20px; /* 내부 여백 축소 */
+    padding: 40px 20px 20px 20px; /* 상단 여백 확대하여 버튼 공간 확보 */
     border-radius: 20px;
     box-shadow: var(--shadow);
     text-align: center;
@@ -85,6 +85,7 @@ body {
     right: 15px;
     display: flex;
     gap: 8px;
+    z-index: 10;
 }
 
 .control-btn {
@@ -101,6 +102,7 @@ body {
 
 header {
     margin-bottom: 20px; /* 헤더 간격 축소 */
+    padding-top: 20px; /* 버튼 공간 확보 */
 }
 
 header h1 {
@@ -110,6 +112,7 @@ header h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 5px;
+    padding: 0 10px; /* 좌우 여백 추가 */
 }
 
 header p {
