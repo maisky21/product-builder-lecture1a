@@ -138,7 +138,7 @@ header p {
 }
 
 .menu-emoji {
-    font-size: 6rem; /* 이모지 크기 확대 */
+    font-size: 3rem; /* 이모지 크기 복구 */
     margin-bottom: 10px;
 }
 
