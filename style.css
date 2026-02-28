@@ -39,7 +39,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 10px; /* 여백 축소 */
+    padding: 30px 15px; /* 상하 여백 확대 (기존 10px) */
     transition: background 0.5s ease;
     overflow-x: hidden;
 }
@@ -258,8 +258,8 @@ footer {
 }
 
 @media (max-height: 600px) {
-    body { align-items: flex-start; padding-top: 10px; }
-    .container { margin-bottom: 10px; }
+    body { align-items: flex-start; padding-top: 30px; }
+    .container { margin-bottom: 30px; }
 }
 
 @media (max-width: 480px) {
