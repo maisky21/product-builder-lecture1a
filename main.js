@@ -1,28 +1,154 @@
 const menus = [
-    { name: "김치찌개", category: "korean", emoji: "🥘", description: "얼큰하고 시원한 한국인의 소울푸드" },
-    { name: "불고기", category: "korean", emoji: "🍱", description: "달콤 짭짤한 양념이 매력적인 소고기 요리" },
-    { name: "비빔밥", category: "korean", emoji: "🥗", description: "각종 나물과 고추장의 조화로운 맛" },
-    { name: "삼겹살", category: "korean", emoji: "🥓", description: "지글지글 구워 먹는 즐거움이 있는 돼지고기" },
-    { name: "떡볶이", category: "korean", emoji: "🍡", description: "매콤달콤한 소스와 쫄깃한 떡의 만남" },
-    
-    { name: "까르보나라", category: "western", emoji: "🍝", description: "고소한 크림과 베이컨이 어우러진 파스타" },
-    { name: "스테이크", category: "western", emoji: "🥩", description: "육즙 가득한 고품격 저녁 식사" },
-    { name: "햄버거", category: "western", emoji: "🍔", description: "패티와 신선한 채소의 든든한 한 끼" },
-    { name: "피자", category: "western", emoji: "🍕", description: "다양한 토핑과 치즈의 완벽한 조화" },
-    
-    { name: "초밥", category: "japanese", emoji: "🍣", description: "신선한 생선과 깔끔한 밥의 조화" },
-    { name: "돈가스", category: "japanese", emoji: "🍱", description: "바삭한 튀김옷 속 촉촉한 고기" },
-    { name: "라멘", category: "japanese", emoji: "🍜", description: "깊은 국물 맛이 일품인 일본식 면 요리" },
-    
-    { name: "짜장면", category: "chinese", emoji: "🍜", description: "달콤 짭짤한 소스의 국민 중식 메뉴" },
-    { name: "짬뽕", category: "chinese", emoji: "🍜", description: "얼큰한 국물과 해산물의 만남" },
-    { name: "탕수육", category: "chinese", emoji: "🍖", description: "바삭한 튀김과 새콤달콤한 소스" },
-    
-    { name: "샌드위치", category: "simple", emoji: "🥪", description: "가볍고 신선하게 즐기는 한 끼" },
-    { name: "샐러드", category: "simple", emoji: "🥗", description: "건강하고 깔끔한 저녁 식사" },
-    { name: "컵라면", category: "simple", emoji: "🍜", description: "가장 빠르고 간편하게 해결하는 저녁" }
+    { 
+        name: { ko: "김치찌개", en: "Kimchi Jjigae" }, 
+        category: "korean", 
+        emoji: "🥘", 
+        description: { ko: "얼큰하고 시원한 한국인의 소울푸드", en: "Spicy and hearty Korean soul food" } 
+    },
+    { 
+        name: { ko: "불고기", en: "Bulgogi" }, 
+        category: "korean", 
+        emoji: "🍱", 
+        description: { ko: "달콤 짭짤한 양념이 매력적인 소고기 요리", en: "Sweet and savory marinated beef dish" } 
+    },
+    { 
+        name: { ko: "비빔밥", en: "Bibimbap" }, 
+        category: "korean", 
+        emoji: "🥗", 
+        description: { ko: "각종 나물과 고추장의 조화로운 맛", en: "Assorted vegetables with rice and spicy sauce" } 
+    },
+    { 
+        name: { ko: "삼겹살", en: "Samgyeopsal" }, 
+        category: "korean", 
+        emoji: "🥓", 
+        description: { ko: "지글지글 구워 먹는 즐거움이 있는 돼지고기", en: "Grilled pork belly, a favorite Korean BBQ" } 
+    },
+    { 
+        name: { ko: "떡볶이", en: "Tteokbokki" }, 
+        category: "korean", 
+        emoji: "🍡", 
+        description: { ko: "매콤달콤한 소스와 쫄깃한 떡의 만남", en: "Spicy and sweet rice cakes" } 
+    },
+    { 
+        name: { ko: "까르보나라", en: "Carbonara" }, 
+        category: "western", 
+        emoji: "🍝", 
+        description: { ko: "고소한 크림과 베이컨이 어우러진 파스타", en: "Creamy pasta with savory bacon" } 
+    },
+    { 
+        name: { ko: "스테이크", en: "Steak" }, 
+        category: "western", 
+        emoji: "🥩", 
+        description: { ko: "육즙 가득한 고품격 저녁 식사", en: "Juicy and premium beef dinner" } 
+    },
+    { 
+        name: { ko: "햄버거", en: "Hamburger" }, 
+        category: "western", 
+        emoji: "🍔", 
+        description: { ko: "패티와 신선한 채소의 든든한 한 끼", en: "Hearty patty with fresh vegetables" } 
+    },
+    { 
+        name: { ko: "피자", en: "Pizza" }, 
+        category: "western", 
+        emoji: "🍕", 
+        description: { ko: "다양한 토핑과 치즈의 완벽한 조화", en: "Perfect harmony of toppings and cheese" } 
+    },
+    { 
+        name: { ko: "초밥", en: "Sushi" }, 
+        category: "japanese", 
+        emoji: "🍣", 
+        description: { ko: "신선한 생선과 깔끔한 밥의 조화", en: "Fresh fish with seasoned rice" } 
+    },
+    { 
+        name: { ko: "돈가스", en: "Tonkatsu" }, 
+        category: "japanese", 
+        emoji: "🍱", 
+        description: { ko: "바삭한 튀김옷 속 촉촉한 고기", en: "Crispy fried pork cutlet" } 
+    },
+    { 
+        name: { ko: "라멘", en: "Ramen" }, 
+        category: "japanese", 
+        emoji: "🍜", 
+        description: { ko: "깊은 국물 맛이 일품인 일본식 면 요리", en: "Japanese noodle soup with rich broth" } 
+    },
+    { 
+        name: { ko: "짜장면", en: "Jajangmyeon" }, 
+        category: "chinese", 
+        emoji: "🍜", 
+        description: { ko: "달콤 짭짤한 소스의 국민 중식 메뉴", en: "Noodles in savory black bean sauce" } 
+    },
+    { 
+        name: { ko: "짬뽕", en: "Jjamppong" }, 
+        category: "chinese", 
+        emoji: "🍜", 
+        description: { ko: "얼큰한 국물과 해산물의 만남", en: "Spicy seafood noodle soup" } 
+    },
+    { 
+        name: { ko: "탕수육", en: "Tangsuyuk" }, 
+        category: "chinese", 
+        emoji: "🍖", 
+        description: { ko: "바삭한 튀김과 새콤달콤한 소스", en: "Crispy sweet and sour pork" } 
+    },
+    { 
+        name: { ko: "샌드위치", en: "Sandwich" }, 
+        category: "simple", 
+        emoji: "🥪", 
+        description: { ko: "가볍고 신선하게 즐기는 한 끼", en: "Light and fresh quick meal" } 
+    },
+    { 
+        name: { ko: "샐러드", en: "Salad" }, 
+        category: "simple", 
+        emoji: "🥗", 
+        description: { ko: "건강하고 깔끔한 저녁 식사", en: "Healthy and fresh dinner option" } 
+    },
+    { 
+        name: { ko: "컵라면", en: "Cup Noodles" }, 
+        category: "simple", 
+        emoji: "🍜", 
+        description: { ko: "가장 빠르고 간편하게 해결하는 저녁", en: "Fastest and easiest dinner solution" } 
+    }
 ];
 
+const uiStrings = {
+    ko: {
+        title: "오늘의 미식 운세",
+        subtitle: "신비로운 별들이 당신의 저녁 식사를 점지해드립니다.",
+        recommendBtn: "나의 미식 운세 확인하기",
+        shareBtn: "내 행운 공유하기",
+        luckyNumber: "오늘의 행운 번호",
+        categories: {
+            all: "전체",
+            korean: "한식",
+            western: "양식",
+            japanese: "일식",
+            chinese: "중식",
+            simple: "간단식"
+        },
+        shareText: (menu, num) => `✨ 오늘의 미식 운세 ✨\n\n행운의 메뉴: "${menu}"\n행운 번호: ${num}\n\n당신의 행운을 확인해보세요! 🌙`,
+        copied: "운세가 클립보드에 복사되었습니다! ✨",
+        langBtn: "🌐 EN"
+    },
+    en: {
+        title: "Cosmic Dinner Fortune",
+        subtitle: "The mysterious stars will divine your dinner tonight.",
+        recommendBtn: "Check My Dinner Fortune",
+        shareBtn: "Share My Fortune",
+        luckyNumber: "Today's Lucky Number",
+        categories: {
+            all: "All",
+            korean: "Korean",
+            western: "Western",
+            japanese: "Japanese",
+            chinese: "Chinese",
+            simple: "Simple"
+        },
+        shareText: (menu, num) => `✨ Cosmic Dinner Fortune ✨\n\nLucky Menu: "${menu}"\nLucky Number: ${num}\n\nCheck your luck now! 🌙`,
+        copied: "Fortune copied to clipboard! ✨",
+        langBtn: "🌐 KO"
+    }
+};
+
+let currentLang = localStorage.getItem('lang') || 'ko';
 let currentCategory = 'all';
 
 // Sound Effects Logic
@@ -62,6 +188,10 @@ const menuDescription = document.getElementById('menu-description');
 const luckyDigitsContainer = document.getElementById('lucky-digits');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const themeToggle = document.getElementById('theme-toggle');
+const langToggle = document.getElementById('lang-toggle');
+const luckyNumberLabel = document.querySelector('.lucky-number-section span');
+const headerTitle = document.querySelector('header h1');
+const headerSubtitle = document.querySelector('header p');
 
 // Theme Logic
 const savedTheme = localStorage.getItem('theme') || 'light';
@@ -74,6 +204,40 @@ themeToggle.addEventListener('click', () => {
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
     themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
+});
+
+// Language Logic
+function updateLanguageUI() {
+    const strings = uiStrings[currentLang];
+    headerTitle.textContent = strings.title;
+    headerSubtitle.textContent = strings.subtitle;
+    recommendBtn.textContent = strings.recommendBtn;
+    shareBtn.textContent = strings.shareBtn;
+    luckyNumberLabel.textContent = strings.luckyNumber;
+    langToggle.textContent = strings.langBtn;
+    
+    filterBtns.forEach(btn => {
+        const cat = btn.getAttribute('data-category');
+        btn.textContent = strings.categories[cat];
+    });
+
+    if (!resultCard.classList.contains('hidden')) {
+        // Update current result card if it's visible
+        // We need to find the current menu object
+        const currentMenuName = menuName.textContent;
+        const menu = menus.find(m => m.name.ko === currentMenuName || m.name.en === currentMenuName);
+        if (menu) {
+            menuName.textContent = menu.name[currentLang];
+            menuCategory.textContent = strings.categories[menu.category];
+            menuDescription.textContent = menu.description[currentLang];
+        }
+    }
+}
+
+langToggle.addEventListener('click', () => {
+    currentLang = currentLang === 'ko' ? 'en' : 'ko';
+    localStorage.setItem('lang', currentLang);
+    updateLanguageUI();
 });
 
 // Functions
@@ -92,15 +256,9 @@ function displayMenu() {
         const luckyNumStr = generateLuckyNumber();
         
         menuEmoji.textContent = menu.emoji;
-        menuName.textContent = menu.name;
-        menuCategory.textContent = {
-            korean: "한식", 
-            western: "양식", 
-            japanese: "일식", 
-            chinese: "중식", 
-            simple: "간단식"
-        }[menu.category];
-        menuDescription.textContent = menu.description;
+        menuName.textContent = menu.name[currentLang];
+        menuCategory.textContent = uiStrings[currentLang].categories[menu.category];
+        menuDescription.textContent = menu.description[currentLang];
         
         // Staggered Digits
         luckyDigitsContainer.innerHTML = '';
@@ -128,12 +286,14 @@ function getRandomMenu() {
 }
 
 async function shareResult() {
-    const text = `✨ 오늘의 미식 운세 ✨\n\n행운의 메뉴: "${menuName.textContent}"\n행운 번호: ${Array.from(luckyDigitsContainer.children).map(c => c.textContent).join('')}\n\n당신의 행운을 확인해보세요! 🌙`;
+    const luckyNum = Array.from(luckyDigitsContainer.children).map(c => c.textContent).join('');
+    const text = uiStrings[currentLang].shareText(menuName.textContent, luckyNum);
+    
     if (navigator.share) {
-        await navigator.share({ title: '오늘의 미식 운세', text, url: window.location.href });
+        await navigator.share({ title: uiStrings[currentLang].title, text, url: window.location.href });
     } else {
         await navigator.clipboard.writeText(text + "\n" + window.location.href);
-        alert('운세가 클립보드에 복사되었습니다! ✨');
+        alert(uiStrings[currentLang].copied);
     }
 }
 
@@ -148,4 +308,6 @@ filterBtns.forEach(btn => {
     });
 });
 
+// Initialize
+updateLanguageUI();
 createBgElements();

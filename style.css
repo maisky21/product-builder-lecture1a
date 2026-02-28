@@ -79,17 +79,24 @@ body {
     z-index: 1;
 }
 
-.theme-btn {
+.top-controls {
     position: absolute;
     top: 15px;
     right: 15px;
+    display: flex;
+    gap: 8px;
+}
+
+.control-btn {
     background: rgba(157, 80, 187, 0.05);
     border: none;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     cursor: pointer;
-    padding: 5px;
-    border-radius: 50%;
+    padding: 5px 10px;
+    border-radius: 20px;
     line-height: 1;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
 }
 
 header {
@@ -127,7 +134,7 @@ header p {
 }
 
 .menu-emoji {
-    font-size: 3rem; /* 이모지 크기 축소 */
+    font-size: 6rem; /* 이모지 크기 확대 */
     margin-bottom: 10px;
 }
 
