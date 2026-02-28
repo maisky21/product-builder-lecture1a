@@ -92,8 +92,14 @@ let currentLang = localStorage.getItem('lang') || 'ko';
 let currentCategory = 'all';
 
 // Sound Effects Logic
-const clickSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'); 
-const popSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3'); 
+const clickSound = new Audio('https://assets.mixkit.co/active_storage/sfx/1107/1107-preview.mp3'); // Soft chime for click
+const dinnerSounds = [
+    new Audio('https://assets.mixkit.co/active_storage/sfx/602/602-preview.mp3'),   // Relaxing bell chime
+    new Audio('https://assets.mixkit.co/active_storage/sfx/601/601-preview.mp3'),   // Uplifting bells
+    new Audio('https://assets.mixkit.co/active_storage/sfx/933/933-preview.mp3'),   // Bell notification
+    new Audio('https://assets.mixkit.co/active_storage/sfx/1061/1061-preview.mp3') // Gentle notification
+];
+let soundIndex = 0;
 
 function playSound(sound) {
     sound.currentTime = 0;
@@ -213,7 +219,11 @@ function displayMenu() {
         resultCard.classList.remove('hidden');
         shareBtn.classList.remove('hidden');
         
-        setTimeout(() => playSound(popSound), 100);
+        // Use rotating dinner sounds
+        const currentDinnerSound = dinnerSounds[soundIndex];
+        setTimeout(() => playSound(currentDinnerSound), 100);
+        soundIndex = (soundIndex + 1) % dinnerSounds.length;
+        
         resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 150);
 }
