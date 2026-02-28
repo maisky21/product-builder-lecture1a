@@ -42,11 +42,9 @@ const menus = [
     { name: { ko: "딤섬", en: "Dim Sum" }, category: "chinese", emoji: "🥟", description: { ko: "한 입에 즐기는 다채로운 맛", en: "Bite-sized delights in various styles" } },
 
     // Simple
-    { name: { ko: "샌드위치", en: "Sandwich" }, category: "simple", emoji: "🥪", description: { ko: "가볍고 신선하게 즐기는 한 끼", en: "Light and fresh quick meal" } },
     { name: { ko: "샐러드", en: "Salad" }, category: "simple", emoji: "🥗", description: { ko: "건강하고 깔끔한 저녁 식사", en: "Healthy and fresh dinner option" } },
     { name: { ko: "컵라면", en: "Cup Noodles" }, category: "simple", emoji: "🍜", description: { ko: "가장 빠르고 간편하게 해결하는 저녁", en: "Fastest and easiest dinner solution" } },
     { name: { ko: "포케", en: "Poke" }, category: "simple", emoji: "🥗", description: { ko: "신선한 재료를 한 그릇에 담은 건강식", en: "Healthy bowl of fresh ingredients" } },
-    { name: { ko: "베이글", en: "Bagel" }, category: "simple", emoji: "🥯", description: { ko: "쫀득한 식감이 매력적인 빵", en: "Dense and chewy bread delight" } },
     { name: { ko: "타코", en: "Taco" }, category: "simple", emoji: "🌮", description: { ko: "멕시코 풍미를 가볍게 즐기는 한 끼", en: "Light meal with Mexican flavors" } },
     { name: { ko: "요거트 볼", en: "Yogurt Bowl" }, category: "simple", emoji: "🥣", description: { ko: "과일과 견과류를 곁들인 가벼운 저녁", en: "Light dinner with fruit and nuts" } }
 ];
