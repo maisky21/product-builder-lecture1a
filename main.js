@@ -274,7 +274,7 @@ function displayMenu() {
         shareBtn.classList.remove('hidden');
         
         setTimeout(() => playSound(popSound), 100);
-        resultCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 150);
 }
 

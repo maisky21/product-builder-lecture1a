@@ -127,6 +127,7 @@ header p {
     padding: 15px; /* 카드 내부 여백 대폭 축소 */
     margin-bottom: 15px;
     animation: sparkleUp 0.5s ease-out;
+    scroll-margin-top: 80px; /* 스크롤 시 상단 여백 확보 */
 }
 
 .card.hidden { display: none; }
