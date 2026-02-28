@@ -92,12 +92,12 @@ let currentLang = localStorage.getItem('lang') || 'ko';
 let currentCategory = 'all';
 
 // Sound Effects Logic
-const clickSound = new Audio('https://assets.mixkit.co/active_storage/sfx/1107/1107-preview.mp3'); // Soft chime for click
+const clickSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'); // Discrete click
 const dinnerSounds = [
-    new Audio('https://assets.mixkit.co/active_storage/sfx/602/602-preview.mp3'),   // Relaxing bell chime
-    new Audio('https://assets.mixkit.co/active_storage/sfx/601/601-preview.mp3'),   // Uplifting bells
-    new Audio('https://assets.mixkit.co/active_storage/sfx/933/933-preview.mp3'),   // Bell notification
-    new Audio('https://assets.mixkit.co/active_storage/sfx/1061/1061-preview.mp3') // Gentle notification
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3'),   // Short pop
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2004/2004-preview.mp3'),   // Quick digital click
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3'),   // Subtle blip
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2017/2017-preview.mp3')   // Soft interface tap
 ];
 let soundIndex = 0;
 
@@ -219,7 +219,7 @@ function displayMenu() {
         resultCard.classList.remove('hidden');
         shareBtn.classList.remove('hidden');
         
-        // Use rotating dinner sounds
+        // Use rotating discrete dinner sounds
         const currentDinnerSound = dinnerSounds[soundIndex];
         setTimeout(() => playSound(currentDinnerSound), 100);
         soundIndex = (soundIndex + 1) % dinnerSounds.length;
