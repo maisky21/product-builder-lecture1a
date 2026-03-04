@@ -92,12 +92,12 @@ let currentLang = localStorage.getItem('lang') || 'ko';
 let currentCategory = 'all';
 
 // Sound Effects Logic
-const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3'); // Discrete click
+const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-interface-device-click-2577.mp3'); // Very short dry click
 const dinnerSounds = [
-    new Audio('https://assets.mixkit.co/sfx/preview/mixkit-confirmation-tone-2867.mp3'),   // Confirmation
-    new Audio('https://assets.mixkit.co/sfx/preview/mixkit-digital-quick-tone-2866.mp3'),   // Quick digital
-    new Audio('https://assets.mixkit.co/sfx/preview/mixkit-success-software-tone-2865.mp3'),   // Success
-    new Audio('https://assets.mixkit.co/sfx/preview/mixkit-game-user-interface-tone-2569.mp3')   // UI tone
+    new Audio('https://assets.mixkit.co/sfx/preview/mixkit-short-low-frequency-bleep-2868.mp3'),   // Quick low blip
+    new Audio('https://assets.mixkit.co/sfx/preview/mixkit-water-sci-fi-bleep-2578.mp3'),   // Clean "pop" blip
+    new Audio('https://assets.mixkit.co/sfx/preview/mixkit-modern-technology-select-3124.mp3'),   // Sharp UI select
+    new Audio('https://assets.mixkit.co/sfx/preview/mixkit-single-key-press-in-a-laptop-2541.mp3')   // Dry key press
 ];
 let soundIndex = 0;
 
