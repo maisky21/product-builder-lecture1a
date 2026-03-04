@@ -92,12 +92,12 @@ let currentLang = localStorage.getItem('lang') || 'ko';
 let currentCategory = 'all';
 
 // Sound Effects Logic
-const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-interface-device-click-2577.mp3'); // Very short dry click
+const clickSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2004/2004-preview.mp3'); // Quick digital click (~1s)
 const dinnerSounds = [
-    new Audio('https://assets.mixkit.co/sfx/preview/mixkit-short-low-frequency-bleep-2868.mp3'),   // Quick low blip
-    new Audio('https://assets.mixkit.co/sfx/preview/mixkit-water-sci-fi-bleep-2578.mp3'),   // Clean "pop" blip
-    new Audio('https://assets.mixkit.co/sfx/preview/mixkit-modern-technology-select-3124.mp3'),   // Sharp UI select
-    new Audio('https://assets.mixkit.co/sfx/preview/mixkit-single-key-press-in-a-laptop-2541.mp3')   // Dry key press
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3'),   // Short pop (~1s)
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3'),   // Subtle blip (~1s)
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2017/2017-preview.mp3'),   // Soft interface tap (~1s)
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2004/2004-preview.mp3')    // Quick digital click (~1s)
 ];
 let soundIndex = 0;
 
