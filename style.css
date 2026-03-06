@@ -244,13 +244,44 @@ header p {
     border-color: var(--dark-color);
 }
 
-footer {
-    margin-top: 15px;
-    border-top: 1px solid var(--border-color);
-    padding-top: 10px;
-    color: var(--text-secondary);
+.service-info {
+    margin-top: 30px;
+    padding: 15px;
+    border-top: 1px dashed var(--border-color);
+    text-align: left;
+}
+
+.service-info .intro {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+
+.service-info .disclaimer {
     font-size: 0.75rem;
-    opacity: 0.6;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.site-footer {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.site-footer p {
+    font-size: 11px;
+    color: #888;
+}
+
+.site-footer a {
+    color: #888;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
 }
 
 @keyframes sparkleUp {
