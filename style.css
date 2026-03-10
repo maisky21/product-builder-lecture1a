@@ -29,10 +29,10 @@
     box-sizing: border-box;
 }
 
-/* PC 레이아웃: 수직/수평 중앙 정렬 및 스크롤 허용 */
+/* 공통 레이아웃 */
 html, body {
     height: auto;
-    min-height: 100vh;
+    min-height: 100%;
     overflow-x: hidden;
 }
 
@@ -42,10 +42,7 @@ body {
     background-attachment: fixed;
     color: var(--text-primary);
     line-height: 1.3;
-    display: flex;
-    justify-content: center;
-    align-items: center; /* 수직 중앙 정렬 */
-    padding: 40px 10px; /* 상단 여백 확보 */
+    padding: 30px 10px; /* 상단 여백 30px 확보 */
     transition: background 0.5s ease;
 }
 
@@ -74,17 +71,62 @@ body {
 .container {
     position: relative;
     width: 100%;
-    max-width: 500px; /* PC에서도 콤팩트하게 너비 조정 */
     margin: 0 auto;
     background-color: var(--white);
-    padding: 25px 30px;
-    border-radius: 30px;
     box-shadow: var(--shadow);
     text-align: center;
     border: 1px solid var(--border-color);
     z-index: 1;
 }
 
+/* PC 최적화 (768px 이상) */
+@media (min-width: 768px) {
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 50px;
+    }
+    .container {
+        max-width: 500px;
+        margin: 50px auto; /* 중앙 배치 및 상하 여백 */
+        padding: 30px;
+        border-radius: 30px;
+        transform: scale(0.9); /* 전체 10% 축소 */
+        transform-origin: top center;
+    }
+    .menu-image-wrapper { height: 220px; }
+}
+
+/* 모바일 최적화 (480px 이하) */
+@media (max-width: 480px) {
+    body { 
+        height: 100%; 
+        overflow: hidden; /* 슬림 모드: 스크롤 방지 */
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+    }
+    .container { 
+        max-width: 100%;
+        padding: calc(25px + env(safe-area-inset-top)) 12px 10px 12px;
+        border-radius: 20px;
+    }
+    header { margin-bottom: 8px; }
+    header h1 { font-size: 1.3rem; }
+    header p { font-size: 0.75rem; }
+    .menu-image-wrapper { height: 140px; margin-bottom: 6px; } /* 이미지 높이 축소 */
+    .card { padding: 8px; margin-bottom: 8px; }
+    .card h2 { font-size: 1.1rem; }
+    .category-badge { font-size: 0.65rem; padding: 1px 8px; margin-bottom: 5px; }
+    .primary-btn { padding: 8px 20px; font-size: 0.95rem; }
+    .filters { margin-bottom: 8px; gap: 3px; }
+    .filter-btn { padding: 3px 8px; font-size: 0.65rem; }
+    .service-info { padding: 5px; margin-top: 5px; }
+    .service-info .intro { font-size: 11px; line-height: 1.2; } /* 폰트 및 줄간격 축소 */
+}
+
+/* 공통 컴포넌트 스타일 유지 */
 .top-controls {
     position: absolute;
     top: 15px;
@@ -104,30 +146,9 @@ body {
     color: var(--text-primary);
 }
 
-header {
-    margin-bottom: 15px;
-}
-
-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    background: var(--mystic-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 2px;
-}
-
-header p {
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-}
-
 .card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 15px;
     animation: sparkleUp 0.5s ease-out;
 }
 
@@ -139,7 +160,7 @@ header p {
     overflow: hidden;
     border-radius: 12px;
     background: #f8f8f8;
-    height: 220px; /* PC용 높이 250px 이하로 제한 */
+    position: relative;
 }
 
 .menu-image {
@@ -153,25 +174,11 @@ header p {
 
 .menu-image.loaded { opacity: 1; }
 
-.card h2 {
-    font-size: 1.4rem;
-    margin-bottom: 3px;
-}
-
 .category-badge {
     display: inline-block;
-    padding: 2px 12px;
     background: var(--mystic-gradient);
     color: white;
     border-radius: 50px;
-    font-size: 0.75rem;
-    margin-bottom: 8px;
-}
-
-.lucky-number-section {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px dashed var(--border-color);
 }
 
 #lucky-digits {
@@ -196,14 +203,9 @@ header p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 15px;
 }
 
 .primary-btn {
-    padding: 10px 30px;
-    font-size: 1.05rem;
-    font-weight: 800;
     color: white;
     background-color: var(--primary-color);
     border: none;
@@ -212,21 +214,12 @@ header p {
     box-shadow: 0 5px 15px rgba(142, 68, 173, 0.3);
 }
 
-.filters {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    flex-wrap: wrap;
-    margin-bottom: 15px;
-}
-
 .filter-btn {
-    padding: 4px 12px;
     border: 1px solid var(--border-color);
     border-radius: 20px;
     background: transparent;
     color: var(--text-secondary);
-    font-size: 0.75rem;
+    cursor: pointer;
 }
 
 .filter-btn.active {
@@ -236,20 +229,11 @@ header p {
 }
 
 .service-info {
-    margin-top: 5px;
-    padding: 10px;
     border-top: 1px solid var(--border-color);
     text-align: left;
 }
 
-.service-info .intro {
-    font-size: 11px;
-    color: var(--text-primary);
-    line-height: 1.4;
-}
-
 .site-footer {
-    margin-top: 15px;
     padding-top: 10px;
     border-top: 1px solid var(--border-color);
 }
@@ -257,28 +241,4 @@ header p {
 @keyframes sparkleUp {
     0% { opacity: 0; transform: translateY(10px); }
     100% { opacity: 1; transform: translateY(0); }
-}
-
-/* 모바일 최적화 (767px 이하) */
-@media (max-width: 767px) {
-    body { 
-        height: 100%; 
-        overflow: hidden;
-        align-items: center;
-        padding: 0 10px;
-    }
-    .container { 
-        max-width: 380px;
-        padding: calc(15px + env(safe-area-inset-top)) 15px 10px 15px;
-        border-radius: 25px;
-    }
-    header { margin-bottom: 8px; }
-    header h1 { font-size: 1.3rem; }
-    header p { font-size: 0.7rem; }
-    .menu-image-wrapper { height: 140px; margin-bottom: 6px; }
-    .card { padding: 10px; margin-bottom: 8px; }
-    .card h2 { font-size: 1.1rem; }
-    .primary-btn { padding: 8px 22px; font-size: 0.9rem; }
-    .filters { margin-bottom: 8px; gap: 3px; }
-    .filter-btn { padding: 3px 8px; font-size: 0.65rem; }
 }
