@@ -9,7 +9,7 @@
     --text-primary: #4a148c;
     --text-secondary: #7b1fa2;
     --border-color: #e1bee7;
-    --shadow: 0 10px 30px rgba(157, 80, 187, 0.2);
+    --shadow: 0 15px 40px rgba(157, 80, 187, 0.25);
     --transition: all 0.3s ease;
 }
 
@@ -29,9 +29,10 @@
     box-sizing: border-box;
 }
 
+/* 기본 설정: PC 레이아웃 (스크롤 허용) */
 html, body {
-    height: 100%;
-    /* PC에서는 스크롤을 허용하고 모바일에서만 억제하기 위해 overflow 조정 */
+    height: auto;
+    min-height: 100%;
     overflow-x: hidden;
 }
 
@@ -41,10 +42,8 @@ body {
     background-attachment: fixed;
     color: var(--text-primary);
     line-height: 1.4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 10px;
+    display: block; /* 중앙 정렬을 위한 display 변경 */
+    padding: 50px 10px 30px; /* PC 상단 여백 50px 확보 */
     transition: background 0.5s ease;
 }
 
@@ -73,23 +72,21 @@ body {
 .container {
     position: relative;
     width: 100%;
-    max-width: 600px; /* PC용 넓은 레이아웃 */
+    max-width: 600px;
+    margin: 0 auto; /* 가로 중앙 정렬 */
     background-color: var(--white);
-    padding: 30px 40px;
+    padding: 40px;
     border-radius: 30px;
     box-shadow: var(--shadow);
     text-align: center;
     border: 1px solid var(--border-color);
     z-index: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: auto;
 }
 
 .top-controls {
     position: absolute;
-    top: 20px;
-    right: 25px;
+    top: 25px;
+    right: 30px;
     display: flex;
     gap: 10px;
     z-index: 10;
@@ -103,16 +100,10 @@ body {
     padding: 5px 12px;
     border-radius: 20px;
     color: var(--text-primary);
-    transition: var(--transition);
-}
-
-.control-btn:hover {
-    background: var(--light-color);
 }
 
 header {
-    margin-bottom: 20px;
-    padding-top: 10px;
+    margin-bottom: 25px;
 }
 
 header h1 {
@@ -126,44 +117,39 @@ header h1 {
 
 header p {
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
     animation: sparkleUp 0.5s ease-out;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 .card.hidden { display: none; }
 
 .menu-image-wrapper {
     width: 100%;
-    max-width: 100%;
     margin: 0 auto 15px;
     overflow: hidden;
     border-radius: 15px;
     background: #f8f8f8;
-    position: relative;
-    height: 250px; /* PC에서는 더 큰 이미지 */
+    height: 280px; /* PC용 넉넉한 높이 */
 }
 
 .menu-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 이미지가 잘리지 않고 꽉 차게 */
+    object-fit: cover;
     display: block;
     opacity: 0;
     transition: opacity 0.5s ease;
 }
 
-.menu-image.loaded {
-    opacity: 1;
-}
+.menu-image.loaded { opacity: 1; }
 
 .card h2 {
     font-size: 1.8rem;
@@ -178,12 +164,6 @@ header p {
     border-radius: 50px;
     font-size: 0.85rem;
     margin-bottom: 10px;
-}
-
-.card p {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--text-secondary);
 }
 
 .lucky-number-section {
@@ -204,9 +184,9 @@ header p {
     font-weight: 800;
     color: var(--primary-color);
     background: rgba(157, 80, 187, 0.1);
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
     border-radius: 10px;
 }
 
@@ -215,7 +195,7 @@ header p {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .primary-btn {
@@ -228,21 +208,6 @@ header p {
     border-radius: 50px;
     cursor: pointer;
     box-shadow: 0 5px 20px rgba(142, 68, 173, 0.3);
-    transition: var(--transition);
-}
-
-.primary-btn:hover {
-    transform: scale(1.02);
-    box-shadow: 0 8px 25px rgba(142, 68, 173, 0.4);
-}
-
-.secondary-btn {
-    padding: 10px 25px;
-    font-size: 0.9rem;
-    color: var(--primary-color);
-    background: transparent;
-    border: 1.5px solid var(--primary-color);
-    border-radius: 50px;
 }
 
 .filters {
@@ -250,14 +215,14 @@ header p {
     justify-content: center;
     gap: 8px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .filter-btn {
     padding: 6px 15px;
     border: 1px solid var(--border-color);
     border-radius: 20px;
-    background: var(--white);
+    background: transparent;
     color: var(--text-secondary);
     font-size: 0.85rem;
     cursor: pointer;
@@ -271,41 +236,21 @@ header p {
 
 .service-info {
     margin-top: 10px;
-    padding: 15px;
+    padding: 20px;
     border-top: 1px solid var(--border-color);
     text-align: left;
 }
 
-.service-info h3 {
-    font-size: 1rem;
-    margin-bottom: 5px;
-}
-
 .service-info .intro {
-    font-size: 13px; /* 가독성 위해 약간 축소 */
+    font-size: 13px;
     color: var(--text-primary);
-    line-height: 1.5;
-}
-
-.service-info .disclaimer {
-    font-size: 11px;
-    margin-top: 5px;
-    opacity: 0.7;
+    line-height: 1.6;
 }
 
 .site-footer {
-    margin-top: 20px;
-    padding-top: 15px;
+    margin-top: 25px;
+    padding-top: 20px;
     border-top: 1px solid var(--border-color);
-}
-
-.footer-nav {
-    font-size: 12px;
-    margin-bottom: 5px;
-}
-
-.site-footer p {
-    font-size: 11px;
 }
 
 @keyframes sparkleUp {
@@ -313,22 +258,31 @@ header p {
     100% { opacity: 1; transform: translateY(0); }
 }
 
-/* 모바일 최적화 (아이폰 12 기준) */
-@media (max-width: 480px) {
-    body { padding: 10px; overflow: hidden; }
+/* 모바일 최적화 (767px 이하) */
+@media (max-width: 767px) {
+    body { 
+        height: 100%; 
+        overflow: hidden; /* 모바일 슬림 모드: 스크롤 방지 */
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+    }
     .container { 
-        padding: calc(15px + env(safe-area-inset-top)) 15px 15px 15px; 
-        max-width: 100%;
+        max-width: 400px;
+        padding: calc(20px + env(safe-area-inset-top)) 15px 15px 15px; /* Safari 상단 20px 여백 확보 */
         border-radius: 25px;
     }
-    header h1 { font-size: 1.5rem; }
+    header { margin-bottom: 10px; }
+    header h1 { font-size: 1.4rem; }
     header p { font-size: 0.8rem; }
-    .menu-image-wrapper { height: 140px; }
-    .card { padding: 10px; margin-bottom: 10px; }
-    .card h2 { font-size: 1.3rem; }
+    .menu-image-wrapper { height: 150px; margin-bottom: 8px; } /* 이미지 높이 150px로 축소 */
+    .card { padding: 12px; margin-bottom: 10px; }
+    .card h2 { font-size: 1.2rem; }
+    .category-badge { font-size: 0.7rem; padding: 2px 10px; }
     .primary-btn { padding: 10px 25px; font-size: 1rem; }
-    .filters { margin-bottom: 10px; }
+    .filters { margin-bottom: 10px; gap: 4px; }
     .filter-btn { padding: 4px 10px; font-size: 0.75rem; }
-    .service-info { padding: 5px; }
-    .service-info .intro { font-size: 12px; }
+    .service-info { padding: 8px; }
+    .service-info .intro { font-size: 12px; line-height: 1.4; }
+    .site-footer { margin-top: auto; padding-top: 10px; }
 }
