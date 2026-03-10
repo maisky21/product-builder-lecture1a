@@ -92,18 +92,32 @@ let currentLang = localStorage.getItem('lang') || 'ko';
 let currentCategory = 'all';
 
 // Sound Effects Logic
-const clickSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2004/2004-preview.mp3'); // Quick digital click (~1s)
+const clickSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'); // Very soft subtle click
 const dinnerSounds = [
-    new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3'),   // Short pop (~1s)
-    new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3'),   // Subtle blip (~1s)
-    new Audio('https://assets.mixkit.co/active_storage/sfx/2017/2017-preview.mp3'),   // Soft interface tap (~1s)
-    new Audio('https://assets.mixkit.co/active_storage/sfx/2004/2004-preview.mp3')    // Quick digital click (~1s)
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2017/2017-preview.mp3'),   // Soft interface tap
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3'),   // Subtle blip
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2830/2830-preview.mp3'),   // Minimalist click
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2570/2570-preview.mp3')    // Tiny electronic click
 ];
 let soundIndex = 0;
 
-function playSound(sound) {
+function playSound(sound, volume = 0.3) {
     sound.currentTime = 0;
+    sound.volume = volume; // 기본 볼륨을 낮게 설정 (은은하게)
     sound.play().catch(e => console.log("Sound play prevented"));
+
+    // 1초 후 페이드아웃 및 정지 로직
+    setTimeout(() => {
+        let fadeOut = setInterval(() => {
+            if (sound.volume > 0.05) {
+                sound.volume -= 0.05;
+            } else {
+                sound.pause();
+                sound.volume = volume; // 볼륨 원복
+                clearInterval(fadeOut);
+            }
+        }, 50);
+    }, 800); // 0.8초 지점부터 페이드아웃 시작하여 1초 내외로 종료
 }
 
 // Floating Background Elements
