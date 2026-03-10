@@ -3,43 +3,43 @@ const menus = [
     { 
         name: { ko: "김치찌개", en: "Kimchi Jjigae" }, 
         category: "korean", 
-        imagePrompt: "A close-up, high-quality photograph of Korean Kimchi Stew (Kimchi-jjigae) simmering in a traditional black stone pot (Ttukbaegi), vibrant red broth, tofu, pork, and scallions, traditional Korean tableware.",
+        imageUrl: "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=500&q=80",
         description: { ko: "얼큰하고 시원한 한국인의 소울푸드", en: "Spicy and hearty Korean soul food" } 
     },
     { 
         name: { ko: "불고기", en: "Bulgogi" }, 
         category: "korean", 
-        imagePrompt: "A professional food photograph of Korean Beef Bulgogi, thinly sliced marinated beef grilled with onions and mushrooms, served on a traditional Korean plate, authentic atmosphere.",
+        imageUrl: "https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=500&q=80",
         description: { ko: "달콤 짭짤한 양념이 매력적인 소고기 요리", en: "Sweet and savory marinated beef dish" } 
     },
     { 
         name: { ko: "비빔밥", en: "Bibimbap" }, 
         category: "korean", 
-        imagePrompt: "A high-angle, bright photograph of Korean Bibimbap in a brass bowl, assorted colorful vegetables, seasoned beef, and a fried egg on top with gochujang sauce, traditional Korean style.",
+        imageUrl: "https://images.unsplash.com/photo-1590301157461-460d3d5272a8?auto=format&fit=crop&w=500&q=80",
         description: { ko: "각종 나물과 고추장의 조화로운 맛", en: "Assorted vegetables with rice and spicy sauce" } 
     },
     { 
         name: { ko: "삼겹살", en: "Samgyeopsal" }, 
         category: "korean", 
-        imagePrompt: "A delicious photograph of Korean grilled pork belly (Samgyeopsal) on a grill, crispy texture, served with garlic, ssamjang, and fresh lettuce wraps in a Korean BBQ restaurant setting.",
+        imageUrl: "https://images.unsplash.com/photo-1629814203649-1be773950663?auto=format&fit=crop&w=500&q=80",
         description: { ko: "지글지글 구워 먹는 즐거움이 있는 돼지고기", en: "Grilled pork belly, a favorite Korean BBQ" } 
     },
     { 
         name: { ko: "떡볶이", en: "Tteokbokki" }, 
         category: "korean", 
-        imagePrompt: "A close-up photograph of Korean Spicy Rice Cakes (Tteokbokki), chewy rice cakes in thick, glossy red spicy sauce, served with boiled eggs and fish cakes, Korean street food style.",
+        imageUrl: "https://images.unsplash.com/photo-1662116206135-7ce3203f13f1?auto=format&fit=crop&w=500&q=80",
         description: { ko: "매콤달콤한 소스와 쫄깃한 떡의 만남", en: "Spicy and sweet rice cakes" } 
     },
     { 
         name: { ko: "제육볶음", en: "Jeyuk Bokkeum" }, 
         category: "korean", 
-        imagePrompt: "A spicy and savory photograph of Korean Stir-fried Pork (Jeyuk Bokkeum), bright red seasoning, garnished with sesame seeds and green onions, served on a traditional Korean plate.",
+        imageUrl: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=500&q=80",
         description: { ko: "매콤한 양념으로 볶아낸 밥도둑 돼지고기", en: "Spicy stir-fried pork, a true rice thief" } 
     },
     { 
         name: { ko: "냉면", en: "Naengmyeon" }, 
         category: "korean", 
-        imagePrompt: "A close-up, high-quality photograph of Korean Cold Buckwheat Noodles (Naengmyeon) in a stainless steel bowl with ice-cold broth, half a boiled egg, sliced cucumber, and beef, served with mustard and vinegar on a traditional wooden table.",
+        imageUrl: "https://images.unsplash.com/photo-1605333396915-47ed6b68a00e?auto=format&fit=crop&w=500&q=80",
         description: { ko: "가슴속까지 시원해지는 메밀면 요리", en: "Refreshing cold buckwheat noodles" } 
     },
 
@@ -47,43 +47,43 @@ const menus = [
     { 
         name: { ko: "까르보나라", en: "Carbonara" }, 
         category: "western", 
-        imagePrompt: "A gourmet photograph of authentic Italian Spaghetti Carbonara, creamy sauce made with egg yolk and pecorino cheese, crispy guanciale, and freshly cracked black pepper.",
+        imageUrl: "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=500&q=80",
         description: { ko: "고소한 크림과 베이컨이 어우러진 파스타", en: "Creamy pasta with savory bacon" } 
     },
     { 
         name: { ko: "스테이크", en: "Steak" }, 
         category: "western", 
-        imagePrompt: "A close-up, juicy photograph of a grilled Ribeye Steak, medium-rare, served with rosemary, roasted garlic, and buttery potatoes on a dark plate, restaurant style.",
+        imageUrl: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=500&q=80",
         description: { ko: "육즙 가득한 고품격 저녁 식사", en: "Juicy and premium beef dinner" } 
     },
     { 
         name: { ko: "햄버거", en: "Hamburger" }, 
         category: "western", 
-        imagePrompt: "A large, appetizing Gourmet Cheeseburger photograph, thick juicy beef patty, melting cheese, fresh lettuce, tomato, and onion in a toasted brioche bun, high-quality food photography.",
+        imageUrl: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80",
         description: { ko: "패티와 신선한 채소의 든든한 한 끼", en: "Hearty patty with fresh vegetables" } 
     },
     { 
         name: { ko: "피자", en: "Pizza" }, 
         category: "western", 
-        imagePrompt: "A delicious photograph of a fresh Neapolitan Pizza, bubbling mozzarella cheese, bright red tomato sauce, and fresh basil leaves, straight from a wood-fired oven.",
+        imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80",
         description: { ko: "다양한 토핑과 치즈의 완벽한 조화", en: "Perfect harmony of toppings and cheese" } 
     },
     { 
         name: { ko: "리조또", en: "Risotto" }, 
         category: "western", 
-        imagePrompt: "A creamy and elegant photograph of Italian Mushroom Risotto, garnished with parmesan cheese shavings, fresh parsley, and drizzled with truffle oil on a white ceramic plate.",
+        imageUrl: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=500&q=80",
         description: { ko: "부드럽고 고소한 이탈리아식 쌀 요리", en: "Creamy and savory Italian rice dish" } 
     },
     { 
         name: { ko: "에그베네딕트", en: "Egg Benedict" }, 
         category: "western", 
-        imagePrompt: "A beautiful photograph of Eggs Benedict, perfectly poached eggs with golden hollandaise sauce on English muffins with smoked salmon and avocado, brunch cafe setting.",
+        imageUrl: "https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=500&q=80",
         description: { ko: "수란과 홀랜다이즈 소스의 만남", en: "Poached eggs with hollandaise sauce" } 
     },
     { 
         name: { ko: "감바스", en: "Gambas" }, 
         category: "western", 
-        imagePrompt: "A sizzling photograph of Gambas al Ajillo (Spanish Garlic Shrimp), fresh shrimp in bubbling olive oil with lots of garlic and chili peppers, served with crusty bread slices.",
+        imageUrl: "https://images.unsplash.com/photo-1559742811-822873691df8?auto=format&fit=crop&w=500&q=80",
         description: { ko: "마늘 향 가득한 올리브유와 새우", en: "Shrimp in garlic-infused olive oil" } 
     },
 
@@ -91,31 +91,31 @@ const menus = [
     { 
         name: { ko: "초밥", en: "Sushi" }, 
         category: "japanese", 
-        imagePrompt: "A high-quality photograph of an Assorted Sushi Platter (Nigiri), fresh salmon, tuna, and shrimp on seasoned rice, served with ginger and wasabi on a wooden board, Japanese style.",
+        imageUrl: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=500&q=80",
         description: { ko: "신선한 생선과 깔끔한 밥의 조화", en: "Fresh fish with seasoned rice" } 
     },
     { 
         name: { ko: "돈가스", en: "Tonkatsu" }, 
         category: "japanese", 
-        imagePrompt: "A crispy photograph of Japanese Tonkatsu (Fried Pork Cutlet), thick meat with golden breadcrumbs, served with shredded cabbage and savory brown sauce on a modern plate.",
+        imageUrl: "https://images.unsplash.com/photo-1651586790924-f7b588390b39?auto=format&fit=crop&w=500&q=80",
         description: { ko: "바삭한 튀김옷 속 촉촉한 고기", en: "Crispy fried pork cutlet" } 
     },
     { 
         name: { ko: "라멘", en: "Ramen" }, 
         category: "japanese", 
-        imagePrompt: "A steaming bowl of Japanese Tonkotsu Ramen, rich pork broth, ramen noodles, soft-boiled marinated egg, chashu pork slices, and nori, authentic Japanese restaurant setting.",
+        imageUrl: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=500&q=80",
         description: { ko: "깊은 국물 맛이 일품인 일본식 면 요리", en: "Japanese noodle soup with rich broth" } 
     },
     { 
         name: { ko: "우동", en: "Udon" }, 
         category: "japanese", 
-        imagePrompt: "A warm photograph of Japanese Udon noodles in clear broth, thick chewy noodles, tempura shrimp on top, and green onions, served in a traditional ceramic bowl.",
+        imageUrl: "https://images.unsplash.com/photo-1548946522-4a313e8972a4?auto=format&fit=crop&w=500&q=80",
         description: { ko: "통통한 면발과 따뜻한 국물", en: "Thick noodles in warm, comforting broth" } 
     },
     { 
         name: { ko: "카레라이스", en: "Japanese Curry" }, 
         category: "japanese", 
-        imagePrompt: "A comforting photograph of Japanese Style Curry Rice, thick dark curry sauce with potatoes and carrots, served with steamed white rice and red pickled ginger (Fukujinzuke).",
+        imageUrl: "https://images.unsplash.com/photo-1628102431706-96b6d85915d5?auto=format&fit=crop&w=500&q=80",
         description: { ko: "진하고 부드러운 일본식 카레", en: "Thick and smooth Japanese-style curry" } 
     },
 
@@ -123,25 +123,25 @@ const menus = [
     { 
         name: { ko: "짜장면", en: "Jajangmyeon" }, 
         category: "chinese", 
-        imagePrompt: "A close-up photograph of Korean-style Chinese Black Bean Noodles (Jajangmyeon), thick noodles covered in glossy black bean sauce with diced pork and onions, topped with cucumber slices.",
+        imageUrl: "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=500&q=80",
         description: { ko: "달콤 짭짤한 소스의 국민 중식 메뉴", en: "Noodles in savory black bean sauce" } 
     },
     { 
         name: { ko: "탕수육", en: "Tangsuyuk" }, 
         category: "chinese", 
-        imagePrompt: "A close-up, delicious photograph of deep-fried pork with sweet and sour sauce (Tangsuyuk), mixed with colorful vegetables like bell peppers and onions, crispy texture visible, served on a modern plate in a restaurant setting.",
+        imageUrl: "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=500&q=80",
         description: { ko: "바삭한 튀김과 새콤달콤한 소스", en: "Crispy sweet and sour pork" } 
     },
     { 
         name: { ko: "마라탕", en: "Malatang" }, 
         category: "chinese", 
-        imagePrompt: "A spicy and vibrant bowl of Chinese Malatang, red numbing broth, variety of ingredients like tofu skin, beef, mushrooms, and bok choy, authentic Sichuan style.",
+        imageUrl: "https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=500&q=80",
         description: { ko: "중독성 강한 매콤하고 얼얼한 맛", en: "Spicy and numbing Szechuan soup" } 
     },
     { 
         name: { ko: "딤섬", en: "Dim Sum" }, 
         category: "chinese", 
-        imagePrompt: "A beautiful photograph of Assorted Chinese Dim Sum in bamboo steamers, translucent Har Gow (shrimp dumplings) and Siu Mai, steaming hot, traditional tea house atmosphere.",
+        imageUrl: "https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=500&q=80",
         description: { ko: "한 입에 즐기는 다채로운 맛", en: "Bite-sized delights in various styles" } 
     },
 
@@ -149,25 +149,25 @@ const menus = [
     { 
         name: { ko: "샐러드", en: "Salad" }, 
         category: "simple", 
-        imagePrompt: "A fresh and colorful Garden Salad photograph, mixed greens, cherry tomatoes, cucumbers, avocado slices, and nuts with balsamic dressing in a white bowl, healthy meal.",
+        imageUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=500&q=80",
         description: { ko: "건강하고 깔끔한 저녁 식사", en: "Healthy and fresh dinner option" } 
     },
     { 
         name: { ko: "컵라면", en: "Cup Noodles" }, 
         category: "simple", 
-        imagePrompt: "A photograph of instant Cup Noodles, steaming hot noodles in spicy broth with visible dried vegetables and corn, casual convenience store setting.",
+        imageUrl: "https://images.unsplash.com/photo-1526318896980-cf78c088247c?auto=format&fit=crop&w=500&q=80",
         description: { ko: "가장 빠르고 간편하게 해결하는 저녁", en: "Fastest and easiest dinner solution" } 
     },
     { 
         name: { ko: "타코", en: "Taco" }, 
         category: "simple", 
-        imagePrompt: "A vibrant photograph of Mexican Street Tacos, soft corn tortillas filled with grilled meat, fresh cilantro, onions, and lime wedges, served on a colorful plate.",
+        imageUrl: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=80",
         description: { ko: "멕시코 풍미를 가볍게 즐기는 한 끼", en: "Light meal with Mexican flavors" } 
     },
     { 
         name: { ko: "요거트 볼", en: "Yogurt Bowl" }, 
         category: "simple", 
-        imagePrompt: "A beautiful Yogurt Bowl photograph, thick Greek yogurt topped with fresh blueberries, strawberries, granola, and a drizzle of honey, healthy breakfast or light dinner style.",
+        imageUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=500&q=80",
         description: { ko: "과일과 견과류를 곁들인 가벼운 저녁", en: "Light dinner with fruit and nuts" } 
     }
 ];
@@ -334,14 +334,21 @@ function displayMenu() {
     resultCard.classList.add('hidden');
     shareBtn.classList.add('hidden');
     
+    // 이미지 로딩 상태 초기화
+    menuImage.classList.remove('loaded');
+    
     setTimeout(() => {
         const menu = getRandomMenu();
         const luckyNumStr = generateLuckyNumber();
         
-        // 이미지 검색용 프롬프트 인코딩 및 URL 생성
-        const searchPrompt = encodeURIComponent(menu.imagePrompt);
-        menuImage.src = `https://source.unsplash.com/featured/800x600/?${searchPrompt}`;
-        menuImage.alt = menu.name[currentLang];
+        // 정적 고화질 URL 사용 (안정성 확보)
+        menuImage.src = menu.imageUrl;
+        menuImage.alt = ''; // 대체 텍스트 중복 방지를 위해 비움
+        
+        // 이미지 로드 완료 이벤트 핸들러
+        menuImage.onload = () => {
+            menuImage.classList.add('loaded');
+        };
         
         menuName.textContent = menu.name[currentLang];
         menuCategory.textContent = uiStrings[currentLang].categories[menu.category];
