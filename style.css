@@ -29,11 +29,12 @@
     box-sizing: border-box;
 }
 
-/* 기본 설정: PC 레이아웃 (스크롤 허용) */
+/* PC 레이아웃: 스크롤 허용 및 상단 여백 확보 */
 html, body {
     height: auto;
-    min-height: 100%;
+    min-height: 100vh;
     overflow-x: hidden;
+    overflow-y: auto; /* 스크롤 허용 */
 }
 
 body {
@@ -42,9 +43,11 @@ body {
     background-attachment: fixed;
     color: var(--text-primary);
     line-height: 1.4;
-    display: block; /* 중앙 정렬을 위한 display 변경 */
-    padding: 50px 10px 30px; /* PC 상단 여백 50px 확보 */
+    padding: 80px 10px 50px; /* 상단 여백 80px로 확대하여 제목 잘림 방지 */
     transition: background 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 중앙 정렬 대신 상단부터 배치 */
 }
 
 #bg-elements {
@@ -72,10 +75,10 @@ body {
 .container {
     position: relative;
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto; /* 가로 중앙 정렬 */
+    max-width: 550px; /* 기본 너비 소폭 축소 */
+    margin: 0 auto;
     background-color: var(--white);
-    padding: 40px;
+    padding: 35px;
     border-radius: 30px;
     box-shadow: var(--shadow);
     text-align: center;
@@ -85,8 +88,8 @@ body {
 
 .top-controls {
     position: absolute;
-    top: 25px;
-    right: 30px;
+    top: 20px;
+    right: 25px;
     display: flex;
     gap: 10px;
     z-index: 10;
@@ -95,20 +98,20 @@ body {
 .control-btn {
     background: rgba(157, 80, 187, 0.05);
     border: 1px solid var(--border-color);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     cursor: pointer;
-    padding: 5px 12px;
+    padding: 4px 10px;
     border-radius: 20px;
     color: var(--text-primary);
 }
 
 header {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
+    font-size: 2rem;
     background: var(--mystic-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -117,15 +120,15 @@ header h1 {
 
 header p {
     color: var(--text-secondary);
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 20px;
-    padding: 25px;
-    margin-bottom: 25px;
+    padding: 20px;
+    margin-bottom: 20px;
     animation: sparkleUp 0.5s ease-out;
 }
 
@@ -137,7 +140,7 @@ header p {
     overflow: hidden;
     border-radius: 15px;
     background: #f8f8f8;
-    height: 280px; /* PC용 넉넉한 높이 */
+    height: 250px; /* PC용 기본 높이 제한 */
 }
 
 .menu-image {
@@ -152,80 +155,79 @@ header p {
 .menu-image.loaded { opacity: 1; }
 
 .card h2 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin-bottom: 5px;
 }
 
 .category-badge {
     display: inline-block;
-    padding: 4px 15px;
+    padding: 3px 12px;
     background: var(--mystic-gradient);
     color: white;
     border-radius: 50px;
-    font-size: 0.85rem;
-    margin-bottom: 10px;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
 }
 
 .lucky-number-section {
-    margin-top: 15px;
-    padding-top: 15px;
+    margin-top: 12px;
+    padding-top: 12px;
     border-top: 1px dashed var(--border-color);
 }
 
 #lucky-digits {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 8px;
+    gap: 8px;
+    margin-top: 5px;
 }
 
 .digit {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 800;
     color: var(--primary-color);
     background: rgba(157, 80, 187, 0.1);
-    width: 45px;
-    height: 45px;
-    line-height: 45px;
-    border-radius: 10px;
+    width: 38px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 8px;
 }
 
 .action-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 25px;
+    gap: 8px;
+    margin-bottom: 20px;
 }
 
 .primary-btn {
-    padding: 15px 40px;
-    font-size: 1.2rem;
+    padding: 12px 35px;
+    font-size: 1.1rem;
     font-weight: 800;
     color: white;
     background-color: var(--primary-color);
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 5px 20px rgba(142, 68, 173, 0.3);
+    box-shadow: 0 5px 15px rgba(142, 68, 173, 0.3);
 }
 
 .filters {
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .filter-btn {
-    padding: 6px 15px;
+    padding: 5px 12px;
     border: 1px solid var(--border-color);
     border-radius: 20px;
     background: transparent;
     color: var(--text-secondary);
-    font-size: 0.85rem;
-    cursor: pointer;
+    font-size: 0.8rem;
 }
 
 .filter-btn.active {
@@ -236,20 +238,20 @@ header p {
 
 .service-info {
     margin-top: 10px;
-    padding: 20px;
+    padding: 15px;
     border-top: 1px solid var(--border-color);
     text-align: left;
 }
 
 .service-info .intro {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-primary);
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .site-footer {
-    margin-top: 25px;
-    padding-top: 20px;
+    margin-top: 20px;
+    padding-top: 15px;
     border-top: 1px solid var(--border-color);
 }
 
@@ -258,31 +260,40 @@ header p {
     100% { opacity: 1; transform: translateY(0); }
 }
 
+/* 대형 화면(PC) 최적화: 전체 스케일 85% 수준으로 축소 */
+@media (min-width: 1024px) {
+    .container {
+        transform: scale(0.9); /* 85%~90% 수준으로 시각적 축소 */
+        transform-origin: top center;
+        margin-bottom: -50px; /* scale로 인한 하단 여백 보정 */
+    }
+    .menu-image-wrapper {
+        height: 300px; /* PC에서도 이미지가 너무 커지지 않도록 제한 */
+    }
+}
+
 /* 모바일 최적화 (767px 이하) */
 @media (max-width: 767px) {
     body { 
         height: 100%; 
-        overflow: hidden; /* 모바일 슬림 모드: 스크롤 방지 */
-        display: flex;
+        overflow: hidden;
         align-items: center;
         padding: 0 10px;
     }
     .container { 
         max-width: 400px;
-        padding: calc(20px + env(safe-area-inset-top)) 15px 15px 15px; /* Safari 상단 20px 여백 확보 */
+        padding: calc(15px + env(safe-area-inset-top)) 15px 10px 15px;
         border-radius: 25px;
     }
-    header { margin-bottom: 10px; }
+    header { margin-bottom: 8px; }
     header h1 { font-size: 1.4rem; }
-    header p { font-size: 0.8rem; }
-    .menu-image-wrapper { height: 150px; margin-bottom: 8px; } /* 이미지 높이 150px로 축소 */
-    .card { padding: 12px; margin-bottom: 10px; }
+    header p { font-size: 0.75rem; }
+    .menu-image-wrapper { height: 150px; margin-bottom: 6px; }
+    .card { padding: 10px; margin-bottom: 8px; }
     .card h2 { font-size: 1.2rem; }
-    .category-badge { font-size: 0.7rem; padding: 2px 10px; }
-    .primary-btn { padding: 10px 25px; font-size: 1rem; }
-    .filters { margin-bottom: 10px; gap: 4px; }
-    .filter-btn { padding: 4px 10px; font-size: 0.75rem; }
-    .service-info { padding: 8px; }
-    .service-info .intro { font-size: 12px; line-height: 1.4; }
-    .site-footer { margin-top: auto; padding-top: 10px; }
+    .primary-btn { padding: 8px 22px; font-size: 0.95rem; }
+    .filters { margin-bottom: 8px; }
+    .filter-btn { padding: 3px 8px; font-size: 0.7rem; }
+    .service-info { padding: 5px; }
+    .service-info .intro { font-size: 11px; }
 }
