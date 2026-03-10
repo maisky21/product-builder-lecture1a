@@ -255,7 +255,7 @@ function createBgElements() {
         span.textContent = icons[Math.floor(Math.random() * icons.length)];
         span.style.left = Math.random() * 100 + 'vw';
         span.style.animationDelay = Math.random() * 15 + 's';
-        span.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
+        span.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
         bgContainer.appendChild(span);
     }
 }
@@ -341,20 +341,19 @@ function displayMenu() {
         const menu = getRandomMenu();
         const luckyNumStr = generateLuckyNumber();
         
-        // 검색 키워드 보강: "delicious [카테고리] food [메뉴이름]"
-        const categoryKeyword = menu.category === 'simple' ? 'simple meal' : `${menu.category} food`;
-        const enhancedPrompt = `delicious ${categoryKeyword} ${menu.name.en}`;
+        // 검색 키워드 보강: "delicious [메뉴영문명] photo"
+        const enhancedPrompt = `delicious ${menu.name.en} photo`;
         
-        // 동적 이미지 URL 생성: Unsplash Featured 사용 (검색 키워드 보강 및 캐시 방지)
+        // 동적 이미지 URL 생성: Unsplash Featured 사용 (정확도 향상 및 캐시 방지)
         menuImage.src = `https://source.unsplash.com/800x600/?${encodeURIComponent(enhancedPrompt)}&sig=${Math.random()}`;
-        menuImage.alt = ''; 
+        menuImage.alt = ''; // 이미지 위 중복 텍스트 방지를 위해 alt를 비움
         
         // 이미지 로드 완료 이벤트 핸들러
         menuImage.onload = () => {
             menuImage.classList.add('loaded');
         };
         
-        // 이미지 로드 실패 시 정적 백업 URL 사용 (안정성 보장)
+        // 이미지 로드 실패 시 정적 백업 URL 사용
         menuImage.onerror = () => {
             menuImage.src = menu.imageUrl;
             menuImage.classList.add('loaded');
