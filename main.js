@@ -381,7 +381,7 @@ function displayMenu() {
         setTimeout(() => playSound(currentDinnerSound), 100);
         soundIndex = (soundIndex + 1) % dinnerSounds.length;
         
-        resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Removed scrollIntoView to prevent automatic jumping/cutting off the header
     }, 150);
 }
 
