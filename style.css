@@ -34,12 +34,12 @@ body {
     background: var(--light-color);
     background-attachment: fixed;
     color: var(--text-primary);
-    line-height: 1.4;
+    line-height: 1.3;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 30px 15px; /* 상하 여백 확대 (기존 10px) */
+    padding: 10px 15px; /* 상하 여백 대폭 축소 */
     transition: background 0.5s ease;
     overflow-x: hidden;
 }
@@ -69,9 +69,9 @@ body {
 .container {
     position: relative;
     width: 100%;
-    max-width: 500px; /* 너비 축소 */
+    max-width: 480px; /* 너비 소폭 축소 */
     background-color: var(--white);
-    padding: 40px 20px 20px 20px; /* 상단 여백 확대하여 버튼 공간 확보 */
+    padding: 25px 20px 15px 20px; /* 패딩 축소 */
     border-radius: 20px;
     box-shadow: var(--shadow);
     text-align: center;
@@ -81,7 +81,7 @@ body {
 
 .top-controls {
     position: absolute;
-    top: 15px;
+    top: 10px;
     right: 15px;
     display: flex;
     gap: 8px;
@@ -91,135 +91,128 @@ body {
 .control-btn {
     background: rgba(157, 80, 187, 0.05);
     border: none;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 20px;
+    padding: 4px 8px;
+    border-radius: 15px;
     line-height: 1;
     color: var(--text-primary);
     border: 1px solid var(--border-color);
 }
 
 header {
-    margin-bottom: 20px; /* 헤더 간격 축소 */
-    padding-top: 20px; /* 버튼 공간 확보 */
+    margin-bottom: 12px; /* 헤더 여백 축소 */
 }
 
 header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.5rem, 6vw, 2rem); /* 폰트 크기 축소 */
+    font-size: clamp(1.3rem, 5vw, 1.7rem); /* 폰트 크기 축소 */
     background: var(--mystic-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 5px;
-    padding: 0 10px; /* 좌우 여백 추가 */
+    margin-bottom: 2px;
 }
 
 header p {
     color: var(--text-secondary);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 }
 
 .card {
     background: var(--card-bg);
-    border: 1px solid var(--border-color); /* 테두리 굵기 축소 */
-    border-radius: 15px;
-    padding: 15px; /* 카드 내부 여백 대폭 축소 */
-    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 10px; /* 내부 패딩 축소 */
+    margin-bottom: 10px; /* 여백 축소 */
     animation: sparkleUp 0.5s ease-out;
-    scroll-margin-top: 80px; /* 스크롤 시 상단 여백 확보 */
 }
 
 .card.hidden { display: none; }
 
 .fortune-decoration {
-    font-size: 0.7rem;
-    margin-bottom: 5px;
+    font-size: 0.6rem;
+    margin-bottom: 4px;
 }
 
 .menu-image-wrapper {
     width: 100%;
-    max-width: 280px;
-    margin: 0 auto 15px;
+    max-width: 240px; /* 너비 축소 */
+    margin: 0 auto 8px; /* 여백 축소 */
     overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .menu-image {
     width: 100%;
-    height: 180px;
+    height: 140px; /* 높이 대폭 축소 (기존 180px) */
     object-fit: cover;
+    object-position: center top; /* 이미지 위쪽이 잘리지 않도록 설정 */
     display: block;
-    transition: transform 0.3s ease;
-}
-
-.menu-image:hover {
-    transform: scale(1.05);
 }
 
 .card h2 {
-    font-size: 1.5rem; /* 제목 크기 축소 */
-    margin-bottom: 5px;
+    font-size: 1.3rem; /* 메뉴 이름 크기 축소 */
+    margin-bottom: 2px;
 }
 
 .category-badge {
     display: inline-block;
-    padding: 3px 12px;
+    padding: 2px 10px;
     background: var(--mystic-gradient);
     color: white;
     border-radius: 50px;
-    font-size: 0.75rem;
-    margin-bottom: 10px;
+    font-size: 0.7rem;
+    margin-bottom: 6px;
 }
 
 .card p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .lucky-number-section {
-    margin-top: 10px;
-    padding-top: 10px;
+    margin-top: 8px;
+    padding-top: 8px;
     border-top: 1px dashed var(--border-color);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 }
 
 #lucky-digits {
     display: flex;
     justify-content: center;
-    gap: 8px;
-    margin-top: 5px;
+    gap: 6px;
+    margin-top: 4px;
 }
 
 .digit {
-    font-size: 1.5rem; /* 숫자 크기 축소 */
+    font-size: 1.2rem; /* 숫자 크기 축소 */
     font-weight: 800;
     color: var(--primary-color);
     background: rgba(157, 80, 187, 0.1);
-    width: 35px; /* 숫자 박스 크기 축소 */
-    height: 35px;
-    line-height: 35px;
-    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 6px;
 }
 
 .action-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 15px;
+    gap: 6px;
+    margin-bottom: 10px; /* 여백 축소 */
 }
 
 .primary-btn {
-    padding: 12px 30px;
-    font-size: clamp(1.05rem, 4vw, 1.2rem); 
+    padding: 10px 25px; /* 버튼 패딩 축소 */
+    font-size: 1rem; /* 폰트 크기 조정 */
     font-weight: 800;
     color: white;
     background-color: var(--primary-color);
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(142, 68, 173, 0.3);
+    box-shadow: 0 4px 10px rgba(142, 68, 173, 0.2);
     transition: var(--transition);
 }
 
@@ -229,8 +222,8 @@ header p {
 }
 
 .secondary-btn {
-    padding: 8px 20px;
-    font-size: 0.85rem;
+    padding: 6px 15px;
+    font-size: 0.8rem;
     color: var(--primary-color);
     background: transparent;
     border: 1px solid var(--primary-color);
@@ -240,18 +233,18 @@ header p {
 .filters {
     display: flex;
     justify-content: center;
-    gap: 5px;
+    gap: 4px;
     flex-wrap: wrap;
-    padding-top: 5px;
+    margin-bottom: 10px;
 }
 
 .filter-btn {
-    padding: 5px 12px;
+    padding: 4px 10px;
     border: 1px solid var(--border-color);
     border-radius: 20px;
     background: transparent;
     color: var(--text-secondary);
-    font-size: 0.75rem; /* 필터 버튼 축소 */
+    font-size: 0.7rem;
 }
 
 .filter-btn.active {
@@ -261,41 +254,47 @@ header p {
 }
 
 .service-info {
-    margin-top: 30px;
-    padding: 15px;
+    margin-top: 10px; /* 여백 축소 */
+    padding: 8px; /* 내부 패딩 축소 */
     border-top: 1px dashed var(--border-color);
     text-align: left;
 }
 
-.service-info .intro {
+.service-info h3 {
     font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+.service-info .intro {
+    font-size: 12px; /* 요청하신 12px 설정 */
     color: var(--text-primary);
-    margin-bottom: 10px;
+    margin-bottom: 6px;
+    line-height: 1.5;
 }
 
 .service-info .disclaimer {
-    font-size: 0.75rem;
+    font-size: 11px;
     color: var(--text-secondary);
     font-style: italic;
 }
 
 .site-footer {
-    margin-top: 20px;
-    padding-top: 15px;
+    margin-top: 10px; /* 여백 축소 */
+    padding-top: 10px;
     border-top: 1px solid var(--border-color);
     text-align: center;
 }
 
 .footer-nav {
-    font-size: 12px;
+    font-size: 11px; /* 폰트 크기 축소 */
     color: #888;
-    line-height: 1.6;
+    line-height: 1.4;
     word-break: keep-all;
 }
 
 .site-footer p {
-    font-size: 11px;
-    color: #888;
+    font-size: 10px; /* 저작권 텍스트 크기 축소 */
+    color: #999;
 }
 
 .site-footer a {
@@ -313,12 +312,11 @@ header p {
 }
 
 @media (max-height: 600px) {
-    body { align-items: flex-start; padding-top: 30px; }
-    .container { margin-bottom: 30px; }
+    body { align-items: flex-start; padding-top: 10px; }
+    .container { margin-bottom: 10px; }
 }
 
 @media (max-width: 480px) {
-    .container { padding: 50px 15px 15px 15px; } /* 상단 패딩 대폭 확대 */
-    header { padding-top: 10px; }
-    header h1 { font-size: 1.5rem; }
+    .container { padding: 30px 15px 12px 15px; } /* 상단 패딩 축소 */
+    header h1 { font-size: 1.3rem; }
 }
