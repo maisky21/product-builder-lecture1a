@@ -341,12 +341,23 @@ function displayMenu() {
         const menu = getRandomMenu();
         const luckyNumStr = generateLuckyNumber();
         
-        // 정적 고화질 URL 사용 (안정성 확보)
-        menuImage.src = menu.imageUrl;
-        menuImage.alt = ''; // 대체 텍스트 중복 방지를 위해 비움
+        // 검색 키워드 보강: "delicious [카테고리] food [메뉴이름]"
+        const categoryKeyword = menu.category === 'simple' ? 'simple meal' : `${menu.category} food`;
+        const enhancedPrompt = `delicious ${categoryKeyword} ${menu.name.en}`;
+        
+        // 동적 이미지 URL 생성 (Unsplash Featured 사용)
+        // 엑박 방지를 위해 고화질 원본 소스와 검색 키워드 결합
+        menuImage.src = `https://source.unsplash.com/featured/800x600/?${encodeURIComponent(enhancedPrompt)}&sig=${Math.random()}`;
+        menuImage.alt = ''; 
         
         // 이미지 로드 완료 이벤트 핸들러
         menuImage.onload = () => {
+            menuImage.classList.add('loaded');
+        };
+        
+        // 이미지 로드 실패 시 정적 백업 URL 사용 (안정성 보장)
+        menuImage.onerror = () => {
+            menuImage.src = menu.imageUrl;
             menuImage.classList.add('loaded');
         };
         
