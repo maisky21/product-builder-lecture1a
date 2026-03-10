@@ -270,6 +270,13 @@ header p {
     text-align: center;
 }
 
+.footer-nav {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.6;
+    word-break: keep-all;
+}
+
 .site-footer p {
     font-size: 11px;
     color: #888;
