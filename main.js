@@ -315,14 +315,34 @@ function displayMenu() {
     resultCard.classList.add('hidden');
     shareBtn.classList.add('hidden');
     
+    // 이미지 로딩 상태 초기화
+    menuImage.classList.remove('loaded');
+    
     setTimeout(() => {
         const menu = getRandomMenu();
         const luckyNumStr = generateLuckyNumber();
         
-        // Unsplash API: 800x600 resolution with keywords
-        const enhancedPrompt = `delicious ${menu.name.en} dish`;
-        menuImage.src = `https://source.unsplash.com/800x600/?${encodeURIComponent(enhancedPrompt)}&sig=${Math.random()}`;
+        // 검색 키워드 보강: "delicious [메뉴영문명] photo"
+        const enhancedPrompt = `delicious ${menu.name.en} photo`;
+        
+        // 동적 이미지 URL 생성 (sig 파라미터로 캐시 방지 및 랜덤성 확보)
+        // source.unsplash.com이 불안정할 경우를 대비하여 lorenflickr 등을 혼합하거나 fallback 강화
+        const dynamicUrl = `https://source.unsplash.com/800x600/?${encodeURIComponent(enhancedPrompt)}&sig=${Math.random()}`;
+        
+        menuImage.src = dynamicUrl;
         menuImage.alt = menu.name[currentLang];
+        
+        // 이미지 로드 완료 이벤트 핸들러
+        menuImage.onload = () => {
+            menuImage.classList.add('loaded');
+        };
+        
+        // 이미지 로드 실패 시 정적 백업 URL 사용 (메뉴 객체에 정의된 고화질 URL)
+        menuImage.onerror = () => {
+            console.log("Dynamic image load failed, using fallback.");
+            menuImage.src = menu.imageUrl;
+            menuImage.classList.add('loaded');
+        };
         
         menuName.textContent = menu.name[currentLang];
         menuCategory.textContent = uiStrings[currentLang].categories[menu.category];
@@ -343,6 +363,8 @@ function displayMenu() {
         const currentDinnerSound = dinnerSounds[soundIndex];
         setTimeout(() => playSound(currentDinnerSound), 100);
         soundIndex = (soundIndex + 1) % dinnerSounds.length;
+
+        // 모든 자동 스크롤(scrollTo, scrollIntoView) 비활성화 유지
     }, 150);
 }
 
