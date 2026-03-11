@@ -243,23 +243,6 @@ function playSound(sound, volume = 0.3) {
     }, 800); // 0.8초 지점부터 페이드아웃 시작하여 1초 내외로 종료
 }
 
-// Floating Background Elements
-function createBgElements() {
-    const bgContainer = document.getElementById('bg-elements');
-    const icons = ['🍀', '💰', '✨', '💎', '🌈'];
-    const count = 15;
-
-    for (let i = 0; i < count; i++) {
-        const span = document.createElement('span');
-        span.className = 'floating-icon';
-        span.textContent = icons[Math.floor(Math.random() * icons.length)];
-        span.style.left = Math.random() * 100 + 'vw';
-        span.style.animationDelay = Math.random() * 15 + 's';
-        span.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
-        bgContainer.appendChild(span);
-    }
-}
-
 // DOM Elements
 const recommendBtn = document.getElementById('recommend-btn');
 const shareBtn = document.getElementById('share-btn');
@@ -305,8 +288,6 @@ function updateLanguageUI() {
     });
 
     if (!resultCard.classList.contains('hidden')) {
-        // Update current result card if it's visible
-        // We need to find the current menu object
         const currentMenuName = menuName.textContent;
         const menu = menus.find(m => m.name.ko === currentMenuName || m.name.en === currentMenuName);
         if (menu) {
@@ -334,30 +315,14 @@ function displayMenu() {
     resultCard.classList.add('hidden');
     shareBtn.classList.add('hidden');
     
-    // 이미지 로딩 상태 초기화
-    menuImage.classList.remove('loaded');
-    
     setTimeout(() => {
         const menu = getRandomMenu();
         const luckyNumStr = generateLuckyNumber();
         
-        // 검색 키워드 보강: "delicious [메뉴영문명] photo"
-        const enhancedPrompt = `delicious ${menu.name.en} photo`;
-        
-        // 동적 이미지 URL 생성: Unsplash Featured 사용 (정확도 향상 및 캐시 방지)
+        // Unsplash API: 800x600 resolution with keywords
+        const enhancedPrompt = `delicious ${menu.name.en} dish`;
         menuImage.src = `https://source.unsplash.com/800x600/?${encodeURIComponent(enhancedPrompt)}&sig=${Math.random()}`;
-        menuImage.alt = ''; // 이미지 위 중복 텍스트 방지를 위해 alt를 비움
-        
-        // 이미지 로드 완료 이벤트 핸들러
-        menuImage.onload = () => {
-            menuImage.classList.add('loaded');
-        };
-        
-        // 이미지 로드 실패 시 정적 백업 URL 사용
-        menuImage.onerror = () => {
-            menuImage.src = menu.imageUrl;
-            menuImage.classList.add('loaded');
-        };
+        menuImage.alt = menu.name[currentLang];
         
         menuName.textContent = menu.name[currentLang];
         menuCategory.textContent = uiStrings[currentLang].categories[menu.category];
@@ -369,19 +334,15 @@ function displayMenu() {
             const span = document.createElement('span');
             span.className = 'digit';
             span.textContent = char;
-            span.style.animationDelay = (index * 0.2) + 's';
             luckyDigitsContainer.appendChild(span);
         });
         
         resultCard.classList.remove('hidden');
         shareBtn.classList.remove('hidden');
         
-        // Use rotating discrete dinner sounds
         const currentDinnerSound = dinnerSounds[soundIndex];
         setTimeout(() => playSound(currentDinnerSound), 100);
         soundIndex = (soundIndex + 1) % dinnerSounds.length;
-        
-        // Removed scrollIntoView to prevent automatic jumping/cutting off the header
     }, 150);
 }
 
@@ -417,4 +378,3 @@ filterBtns.forEach(btn => {
 
 // Initialize
 updateLanguageUI();
-createBgElements();
