@@ -1,7 +1,7 @@
 const menus = [
     // Korean
     { 
-        name: { ko: "김치찌개", en: "Korean Kimchi Stew" }, 
+        name: { ko: "김치찌개", en: "Kimchi Stew" }, 
         category: "korean", 
         imageUrl: "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=800&q=80",
         description: { ko: "얼큰하고 시원한 한국인의 소울푸드", en: "Spicy and hearty Korean soul food" } 
@@ -215,32 +215,19 @@ let currentLang = localStorage.getItem('lang') || 'ko';
 let currentCategory = 'all';
 
 // Sound Effects Logic
-const clickSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'); // Very soft subtle click
+const clickSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3'); 
 const dinnerSounds = [
-    new Audio('https://assets.mixkit.co/active_storage/sfx/2017/2017-preview.mp3'),   // Soft interface tap
-    new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3'),   // Subtle blip
-    new Audio('https://assets.mixkit.co/active_storage/sfx/2830/2830-preview.mp3'),   // Minimalist click
-    new Audio('https://assets.mixkit.co/active_storage/sfx/2570/2570-preview.mp3')    // Tiny electronic click
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2017/2017-preview.mp3'),
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3'),
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2830/2830-preview.mp3'),
+    new Audio('https://assets.mixkit.co/active_storage/sfx/2570/2570-preview.mp3')
 ];
 let soundIndex = 0;
 
 function playSound(sound, volume = 0.3) {
     sound.currentTime = 0;
-    sound.volume = volume; // 기본 볼륨을 낮게 설정 (은은하게)
+    sound.volume = volume;
     sound.play().catch(e => console.log("Sound play prevented"));
-
-    // 1초 후 페이드아웃 및 정지 로직
-    setTimeout(() => {
-        let fadeOut = setInterval(() => {
-            if (sound.volume > 0.05) {
-                sound.volume -= 0.05;
-            } else {
-                sound.pause();
-                sound.volume = volume; // 볼륨 원복
-                clearInterval(fadeOut);
-            }
-        }, 50);
-    }, 800); // 0.8초 지점부터 페이드아웃 시작하여 1초 내외로 종료
 }
 
 // DOM Elements
@@ -304,68 +291,78 @@ langToggle.addEventListener('click', () => {
     updateLanguageUI();
 });
 
-// Functions
 function generateLuckyNumber() {
     const num = Math.floor(Math.random() * 99) + 1;
     return num.toString().padStart(2, '0');
 }
 
-function displayMenu() {
+async function fetchUnsplashImage(keyword) {
+    // Note: Official Unsplash API requires a client_id. 
+    // If you have one, replace 'YOUR_ACCESS_KEY' below.
+    const ACCESS_KEY = ''; 
+    
+    if (ACCESS_KEY) {
+        try {
+            const response = await fetch(`https://api.unsplash.com/search/photos?query=${encodeURIComponent(keyword)}&per_page=1&client_id=${ACCESS_KEY}`);
+            const data = await response.json();
+            if (data.results && data.results.length > 0) {
+                return data.results[0].urls.regular;
+            }
+        } catch (error) {
+            console.error("Unsplash API Fetch Error:", error);
+        }
+    }
+    
+    // Fallback to Unsplash Source (Featured) if no Access Key or fetch fails
+    return `https://source.unsplash.com/featured/800x600/?${encodeURIComponent(keyword)}&sig=${Math.random()}`;
+}
+
+async function displayMenu() {
     playSound(clickSound);
     resultCard.classList.add('hidden');
     shareBtn.classList.add('hidden');
     
-    // 이미지 로딩 상태 초기화
     menuImage.classList.remove('loaded');
     
-    setTimeout(() => {
-        const menu = getRandomMenu();
-        const luckyNumStr = generateLuckyNumber();
-        
-        // 검색 키워드 보강: "delicious [메뉴영문명] photo"
-        const enhancedPrompt = `delicious ${menu.name.en} photo`;
-        
-        // 동적 이미지 URL 생성 (sig 파라미터로 캐시 방지 및 랜덤성 확보)
-        // source.unsplash.com이 불안정할 경우를 대비하여 lorenflickr 등을 혼합하거나 fallback 강화
-        const dynamicUrl = `https://source.unsplash.com/800x600/?${encodeURIComponent(enhancedPrompt)}&sig=${Math.random()}`;
-        
-        menuImage.src = dynamicUrl;
-        menuImage.alt = menu.name[currentLang];
-        
-        // 이미지 로드 완료 이벤트 핸들러
-        menuImage.onload = () => {
-            menuImage.classList.add('loaded');
-        };
-        
-        // 이미지 로드 실패 시 정적 백업 URL 사용 (메뉴 객체에 정의된 고화질 URL)
-        menuImage.onerror = () => {
-            console.log("Dynamic image load failed, using fallback.");
-            menuImage.src = menu.imageUrl;
-            menuImage.classList.add('loaded');
-        };
-        
-        menuName.textContent = menu.name[currentLang];
-        menuCategory.textContent = uiStrings[currentLang].categories[menu.category];
-        menuDescription.textContent = menu.description[currentLang];
-        
-        // Staggered Digits
-        luckyDigitsContainer.innerHTML = '';
-        luckyNumStr.split('').forEach((char, index) => {
-            const span = document.createElement('span');
-            span.className = 'digit';
-            span.textContent = char;
-            luckyDigitsContainer.appendChild(span);
-        });
-        
-        resultCard.classList.remove('hidden');
-        shareBtn.classList.remove('hidden');
-        
-        const currentDinnerSound = dinnerSounds[soundIndex];
-        setTimeout(() => playSound(currentDinnerSound), 100);
-        soundIndex = (soundIndex + 1) % dinnerSounds.length;
-
-        // 모든 자동 스크롤(scrollTo, scrollIntoView) 비활성화 유지
-    }, 150);
+    const menu = getRandomMenu();
+    const luckyNumStr = generateLuckyNumber();
+    
+    // 검색 키워드 보강: "delicious Korean [EnglishName] food"
+    const keyword = menu.category === 'korean' ? `Korean ${menu.name.en}` : menu.name.en;
+    const searchKeyword = `delicious ${keyword} food`;
+    
+    const imageUrl = await fetchUnsplashImage(searchKeyword);
+    menuImage.src = imageUrl;
+    menuImage.alt = menu.name[currentLang];
+    
+    menuImage.onload = () => {
+        menuImage.classList.add('loaded');
+    };
+    
+    menuImage.onerror = () => {
+        console.log("Image load failed, using static fallback.");
+        menuImage.src = menu.imageUrl;
+        menuImage.classList.add('loaded');
+    };
+    
+    menuName.textContent = menu.name[currentLang];
+    menuCategory.textContent = uiStrings[currentLang].categories[menu.category];
+    menuDescription.textContent = menu.description[currentLang];
+    
+    luckyDigitsContainer.innerHTML = '';
+    luckyNumStr.split('').forEach((char) => {
+        const span = document.createElement('span');
+        span.className = 'digit';
+        span.textContent = char;
+        luckyDigitsContainer.appendChild(span);
+    });
+    
+    resultCard.classList.remove('hidden');
+    shareBtn.classList.remove('hidden');
+    
+    const currentDinnerSound = dinnerSounds[soundIndex];
+    setTimeout(() => playSound(currentDinnerSound), 100);
+    soundIndex = (soundIndex + 1) % dinnerSounds.length;
 }
 
 function getRandomMenu() {
@@ -387,7 +384,6 @@ async function shareResult() {
     }
 }
 
-// Event Listeners
 recommendBtn.addEventListener('click', displayMenu);
 shareBtn.addEventListener('click', shareResult);
 filterBtns.forEach(btn => {
@@ -398,5 +394,4 @@ filterBtns.forEach(btn => {
     });
 });
 
-// Initialize
 updateLanguageUI();
