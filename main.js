@@ -1,7 +1,7 @@
 const menus = [
     // Korean
     { 
-        name: { ko: "김치찌개", en: "Kimchi Jjigae" }, 
+        name: { ko: "김치찌개", en: "Korean Kimchi Stew" }, 
         category: "korean", 
         imageUrl: "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=800&q=80",
         description: { ko: "얼큰하고 시원한 한국인의 소울푸드", en: "Spicy and hearty Korean soul food" } 

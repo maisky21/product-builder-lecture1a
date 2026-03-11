@@ -41,8 +41,8 @@ body {
     background: var(--light-color);
     background-attachment: fixed;
     color: var(--text-primary);
-    line-height: 1.3;
-    padding: 30px 10px; /* 상단 여백 30px 확보 */
+    line-height: 1.6;
+    padding: 40px 20px;
     transition: background 0.5s ease;
 }
 
@@ -85,45 +85,59 @@ body {
         display: flex;
         justify-content: center;
         align-items: flex-start;
-        padding-top: 50px;
+        padding: 60px 20px;
     }
     .container {
         max-width: 500px;
-        margin: 50px auto; /* 중앙 배치 및 상하 여백 */
-        padding: 30px;
+        margin: 60px auto; /* 중앙 배치 및 상하 여백 */
+        padding: 40px;
         border-radius: 30px;
-        transform: scale(0.9); /* 전체 10% 축소 */
-        transform-origin: top center;
+        /* zoom/scale 제거 */
     }
-    .menu-image-wrapper { height: 220px; }
+    .menu-image-wrapper { height: 280px; }
+    header { margin-bottom: 30px; }
+    .action-section { margin-bottom: 25px; }
+    .filters { margin-bottom: 30px; }
 }
 
 /* 모바일 최적화 (480px 이하) */
 @media (max-width: 480px) {
     body { 
-        height: 100%; 
-        overflow: hidden; /* 슬림 모드: 스크롤 방지 */
-        display: flex;
-        align-items: center;
-        padding: 0 8px;
+        height: auto; 
+        overflow-y: auto; /* 스크롤 허용 */
+        display: block;
+        padding: 20px 15px;
     }
     .container { 
         max-width: 100%;
-        padding: calc(25px + env(safe-area-inset-top)) 12px 10px 12px;
+        padding: calc(30px + env(safe-area-inset-top)) 15px 20px 15px;
         border-radius: 20px;
     }
-    header { margin-bottom: 8px; }
-    header h1 { font-size: 1.3rem; }
-    header p { font-size: 0.75rem; }
-    .menu-image-wrapper { height: 140px; margin-bottom: 6px; } /* 이미지 높이 축소 */
-    .card { padding: 8px; margin-bottom: 8px; }
-    .card h2 { font-size: 1.1rem; }
-    .category-badge { font-size: 0.65rem; padding: 1px 8px; margin-bottom: 5px; }
-    .primary-btn { padding: 8px 20px; font-size: 0.95rem; }
-    .filters { margin-bottom: 8px; gap: 3px; }
-    .filter-btn { padding: 3px 8px; font-size: 0.65rem; }
-    .service-info { padding: 5px; margin-top: 5px; }
-    .service-info .intro { font-size: 11px; line-height: 1.2; } /* 폰트 및 줄간격 축소 */
+    header { margin-bottom: 20px; }
+    header h1 { font-size: 1.5rem; }
+    header p { font-size: 0.9rem; }
+    
+    .menu-image-wrapper { 
+        height: auto;
+        max-height: 160px; /* 이미지 높이 고정 */
+        margin-bottom: 15px; 
+    } 
+    
+    .card { padding: 15px; margin-bottom: 20px; }
+    .card h2 { font-size: 1.3rem; }
+    .category-badge { font-size: 0.8rem; padding: 2px 10px; margin-bottom: 10px; }
+    .primary-btn { padding: 12px 25px; font-size: 1rem; }
+    
+    .filters { 
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 한 줄에 3개씩 */
+        gap: 8px;
+        margin-bottom: 20px; 
+    }
+    .filter-btn { padding: 8px 5px; font-size: 0.8rem; }
+    
+    .service-info { padding: 15px 5px; margin-top: 20px; }
+    .service-info .intro { font-size: 13px; line-height: 1.5; margin-bottom: 10px; } /* 폰트 13px 조정 */
 }
 
 /* 공통 컴포넌트 스타일 유지 */
