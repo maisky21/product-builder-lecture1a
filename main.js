@@ -199,39 +199,47 @@ async function displayMenu() {
     // 1. 초기화 및 로딩 상태 (Skeleton) 표시
     resultCard.classList.add('hidden');
     document.querySelector('.app-container').classList.remove('result-shown');
-    menuImage.classList.remove('loaded');
-    menuImage.src = ""; // 이전 이미지 즉시 제거
+    
+    const foodImg = document.getElementById('menu-image'); 
+    foodImg.classList.remove('loaded');
+    foodImg.src = ""; // 이전 이미지 즉시 제거하여 스켈레톤 노출 보장
     
     const menu = getRandomMenu();
     const luckyNumStr = generateLuckyNumber();
     const menuNameEng = menu.name.en;
     
     // 2. 동적 이미지 URL 생성 및 강제 업데이트 (Cache-Busting)
-    const newImageUrl = `https://source.unsplash.com/featured/800x800/?food,${encodeURIComponent(menuNameEng)}&t=${Date.now()}`;
+    // 브라우저가 사진을 기억하지 못하도록 타임스탬프를 강제로 붙임
+    const timestamp = new Date().getTime();
+    const newImageUrl = `https://source.unsplash.com/featured/800x800/?food,${encodeURIComponent(menuNameEng)}&t=${timestamp}`;
+    
+    // 3. 콘솔 로그 출력 (주소 변경 확인용)
+    console.log(`새로운 이미지 주소: ${newImageUrl}`);
+    
     const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"; 
     
-    // 3. 이미지 src 강제 업데이트 (Critical Fix)
-    menuImage.src = newImageUrl;
-    menuImage.alt = menu.name[currentLang];
+    // 4. DOM 즉시 반영 (이미지 태그 src 할당)
+    foodImg.src = newImageUrl;
+    foodImg.alt = menu.name[currentLang];
     
-    // 4. 이미지 로드 완료 시 결과 화면 표시
-    menuImage.onload = () => {
-        menuImage.classList.add('loaded');
+    // 5. 로딩 연출 및 에러 핸들링
+    foodImg.onload = () => {
+        foodImg.classList.add('loaded');
         resultCard.classList.remove('hidden');
         document.querySelector('.app-container').classList.add('result-shown');
     };
     
-    menuImage.onerror = () => {
-        console.log("Image load failed, using fallback.");
-        menuImage.src = FALLBACK_IMAGE;
-        menuImage.onload = () => {
-            menuImage.classList.add('loaded');
+    foodImg.onerror = () => {
+        console.log("Unsplash 이미지 로드 실패, 예비 이미지로 대체합니다.");
+        foodImg.src = FALLBACK_IMAGE;
+        foodImg.onload = () => {
+            foodImg.classList.add('loaded');
             resultCard.classList.remove('hidden');
             document.querySelector('.app-container').classList.add('result-shown');
         };
     };
     
-    // 5. 콘텐츠 자동 생성 (3줄 상세 설명)
+    // 6. 콘텐츠 자동 생성 (상세 설명)
     menuName.textContent = menu.name[currentLang];
     menuCategory.textContent = menu.category.toUpperCase();
     
@@ -243,7 +251,7 @@ async function displayMenu() {
         menuDescription.appendChild(p);
     });
     
-    // 6. 럭키 넘버 업데이트
+    // 7. 럭키 넘버 업데이트
     luckyDigitsContainer.innerHTML = '';
     luckyNumStr.split('').forEach((char) => {
         const span = document.createElement('span');
