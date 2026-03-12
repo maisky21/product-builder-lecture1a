@@ -353,26 +353,31 @@ footerModal.addEventListener('click', (e) => { if(e.target === footerModal) foot
 
 async function displayMenu() {
     playSound(clickSound);
+    
+    // 초기화 및 로딩 상태 (Skeleton) 표시
     resultCard.classList.add('hidden');
     shareBtn.classList.add('hidden');
     document.querySelector('.app-container').classList.remove('result-shown');
-    
-    // Skeleton State Reset
     menuImage.classList.remove('loaded');
     
     const menu = getRandomMenu();
     const luckyNumStr = generateLuckyNumber();
     
-    // 이미지 검색 키워드 고도화: 'delicious Korean [Name] food photography'
-    const baseKeyword = menu.category === 'korean' ? `Korean ${menu.name.en}` : menu.name.en;
-    const searchKeyword = `delicious ${baseKeyword} food photography`;
+    // 검색 키워드 정교화: delicious,Korean,food,[menuEnglishName]
+    const categories = ['delicious', 'food', 'photography'];
+    if (menu.category === 'korean') categories.push('Korean');
+    categories.push(menu.name.en);
+    const searchKeyword = categories.join(',');
     
-    const imageUrl = await fetchUnsplashImage(searchKeyword);
-    const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80"; // 맛있는 샐러드/스테이크 기본 이미지
+    // Unsplash Source URL 생성 (캐시 방지 sig 추가)
+    const imageUrl = `https://source.unsplash.com/featured/800x800/?${encodeURIComponent(searchKeyword)}&sig=${Math.random()}`;
+    const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"; // 맛있는 고기/스테이크 기본 이미지
     
+    // 이미지 소스 업데이트
     menuImage.src = imageUrl;
     menuImage.alt = menu.name[currentLang];
     
+    // 이미지 로드 완료 시 처리
     menuImage.onload = () => {
         menuImage.classList.add('loaded');
         resultCard.classList.remove('hidden');
@@ -380,10 +385,11 @@ async function displayMenu() {
         document.querySelector('.app-container').classList.add('result-shown');
     };
     
+    // 이미지 로드 실패 시 Fallback 처리
     menuImage.onerror = () => {
-        console.log("Image load failed, using fallback.");
+        console.log("Dynamic image load failed, using fallback.");
         menuImage.src = FALLBACK_IMAGE;
-        // Fallback 이미지 로드 시에도 카드 표시 로직 실행
+        // Fallback 이미지도 로드되면 카드를 표시
         menuImage.onload = () => {
             menuImage.classList.add('loaded');
             resultCard.classList.remove('hidden');
@@ -392,10 +398,12 @@ async function displayMenu() {
         };
     };
     
+    // 텍스트 정보 업데이트
     menuName.textContent = menu.name[currentLang];
     menuCategory.textContent = uiStrings[currentLang].categories[menu.category];
     menuDescription.textContent = menu.description[currentLang];
     
+    // 행운의 번호 업데이트
     luckyDigitsContainer.innerHTML = '';
     luckyNumStr.split('').forEach((char) => {
         const span = document.createElement('span');
