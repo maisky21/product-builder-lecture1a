@@ -296,27 +296,6 @@ function generateLuckyNumber() {
     return num.toString().padStart(2, '0');
 }
 
-// Unsplash 이미지 획득 함수 (정확도 및 안정성 강화)
-async function fetchUnsplashImage(keyword) {
-    const ACCESS_KEY = ''; // API 키가 없을 경우 Source API 사용
-    
-    if (ACCESS_KEY) {
-        try {
-            const response = await fetch(`https://api.unsplash.com/search/photos?query=${encodeURIComponent(keyword)}&per_page=1&client_id=${ACCESS_KEY}`);
-            const data = await response.json();
-            if (data.results && data.results.length > 0) {
-                return data.results[0].urls.regular;
-            }
-        } catch (error) {
-            console.error("Unsplash API Fetch Error:", error);
-        }
-    }
-    
-    // Fallback: Unsplash Source API (사용자 요청에 따른 sig 및 키워드 최적화)
-    // Date.now()를 사용하여 브라우저 캐시를 완벽하게 방지
-    return `https://source.unsplash.com/featured/800x800/?${encodeURIComponent(keyword)}&sig=${Date.now()}`;
-}
-
 // Footer Modal Logic
 const footerModal = document.getElementById('footer-modal');
 const modalTitle = document.getElementById('modal-title');
@@ -359,26 +338,24 @@ async function displayMenu() {
     shareBtn.classList.add('hidden');
     document.querySelector('.app-container').classList.remove('result-shown');
     menuImage.classList.remove('loaded');
-    menuImage.src = ""; // 이전 이미지 즉시 제거하여 스켈레톤 노출 보장
+    menuImage.src = ""; // 이전 사진 즉시 제거 (중요)
     
     const menu = getRandomMenu();
     const luckyNumStr = generateLuckyNumber();
     
-    // 2. 추천된 메뉴의 영문 이름(menuNameEng) 가져오기 및 키워드 최적화
+    // 2. 추천된 메뉴의 영문 이름(menuNameEng) 추출
     const menuNameEng = menu.name.en;
-    const categories = ['delicious', 'food', 'photography'];
-    if (menu.category === 'korean') categories.push('Korean');
-    categories.push(menuNameEng);
-    const searchKeyword = categories.join(',');
     
-    // 3. 실시간 이미지 획득 (Date.now()를 통한 강제 갱신 보장)
-    const imageUrl = await fetchUnsplashImage(searchKeyword);
+    // 3. 동적 URL 생성 및 강제 업데이트 (Cache-Busting)
+    // 요청하신 필수 코드 형식을 기반으로 최적화된 URL 생성
+    const imageUrl = `https://source.unsplash.com/featured/800x800/?food,${encodeURIComponent(menuNameEng)}&t=${new Date().getTime()}`;
     const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"; 
     
-    // 4. 생성된 imageUrl을 이미지 태그 src에 즉시 할당
+    // 4. DOM 즉시 반영 (이미지 태그 src 할당)
     menuImage.src = imageUrl;
     menuImage.alt = menu.name[currentLang];
     
+    // 5. 로딩 연출: 이미지 로드 완료 시 페이드인
     menuImage.onload = () => {
         menuImage.classList.add('loaded');
         resultCard.classList.remove('hidden');
@@ -387,7 +364,7 @@ async function displayMenu() {
     };
     
     menuImage.onerror = () => {
-        console.log("Image load failed, using fallback.");
+        console.log("Dynamic image load failed, using fallback.");
         menuImage.src = FALLBACK_IMAGE;
         menuImage.onload = () => {
             menuImage.classList.add('loaded');
@@ -397,7 +374,7 @@ async function displayMenu() {
         };
     };
     
-    // 5. 텍스트 정보 및 럭키 넘버 업데이트
+    // 텍스트 정보 및 럭키 넘버 업데이트
     menuName.textContent = menu.name[currentLang];
     menuCategory.textContent = uiStrings[currentLang].categories[menu.category];
     menuDescription.textContent = menu.description[currentLang];
