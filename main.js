@@ -321,7 +321,7 @@ async function displayMenu() {
     playSound(clickSound);
     resultCard.classList.add('hidden');
     shareBtn.classList.add('hidden');
-    document.querySelector('.container').classList.remove('result-shown');
+    document.querySelector('.app-container').classList.remove('result-shown');
     
     menuImage.classList.remove('loaded');
     
@@ -340,7 +340,7 @@ async function displayMenu() {
         menuImage.classList.add('loaded');
         resultCard.classList.remove('hidden');
         shareBtn.classList.remove('hidden');
-        document.querySelector('.container').classList.add('result-shown');
+        document.querySelector('.app-container').classList.add('result-shown');
     };
     
     menuImage.onerror = () => {
@@ -349,7 +349,7 @@ async function displayMenu() {
         menuImage.classList.add('loaded');
         resultCard.classList.remove('hidden');
         shareBtn.classList.remove('hidden');
-        document.querySelector('.container').classList.add('result-shown');
+        document.querySelector('.app-container').classList.add('result-shown');
     };
     
     menuName.textContent = menu.name[currentLang];
