@@ -296,9 +296,9 @@ function generateLuckyNumber() {
     return num.toString().padStart(2, '0');
 }
 
+// Unsplash 이미지 획득 함수 (정확도 및 안정성 강화)
 async function fetchUnsplashImage(keyword) {
-    // Note: Official Unsplash API requires a client_id. 
-    const ACCESS_KEY = ''; 
+    const ACCESS_KEY = ''; // API 키가 없을 경우 Source API 사용
     
     if (ACCESS_KEY) {
         try {
@@ -312,7 +312,7 @@ async function fetchUnsplashImage(keyword) {
         }
     }
     
-    // Fallback to Unsplash Source patterns (Updated for reliability)
+    // Fallback: Unsplash Source API (사용자 요청에 따른 sig 및 키워드 최적화)
     return `https://source.unsplash.com/featured/800x800/?${encodeURIComponent(keyword)}&sig=${Math.random()}`;
 }
 
@@ -358,22 +358,20 @@ async function displayMenu() {
     shareBtn.classList.add('hidden');
     document.querySelector('.app-container').classList.remove('result-shown');
     menuImage.classList.remove('loaded');
-    menuImage.src = ""; // 이전 이미지 즉시 제거
+    menuImage.src = ""; // 이전 이미지 즉시 제거하여 스켈레톤 노출 보장
     
     const menu = getRandomMenu();
     const luckyNumStr = generateLuckyNumber();
     
     // 2. 검색 키워드 최적화: delicious,food,[menuEnglishName]
-    const categories = ['delicious', 'food', 'photography'];
-    if (menu.category === 'korean') categories.push('Korean');
-    categories.push(menu.name.en);
-    const searchKeyword = categories.join(',');
+    const menuEnglishName = menu.name.en;
+    const searchKeyword = `delicious,food,${menuEnglishName.replace(/\s+/g, ',')}`;
     
-    // 3. fetchUnsplashImage 함수를 통한 실시간 이미지 획득
+    // 3. 실시간 이미지 획득 (캐시 방지 sig 포함)
     const imageUrl = await fetchUnsplashImage(searchKeyword);
     const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"; 
     
-    // 4. 이미지 소스 업데이트 및 이벤트 바인딩
+    // 4. 이미지 소스 업데이트 및 이벤트 핸들링
     menuImage.src = imageUrl;
     menuImage.alt = menu.name[currentLang];
     
