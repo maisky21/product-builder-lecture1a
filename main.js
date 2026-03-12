@@ -1,173 +1,146 @@
 const menus = [
     // Korean
     { 
-        name: { ko: "김치찌개", en: "Kimchi Stew" }, 
+        name: { ko: "김치찌개", en: "kimchi stew" }, 
         category: "korean", 
-        imageUrl: "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=800&q=80",
         description: { ko: "얼큰하고 시원한 한국인의 소울푸드", en: "Spicy and hearty Korean soul food" } 
     },
     { 
-        name: { ko: "불고기", en: "Bulgogi" }, 
+        name: { ko: "불고기", en: "bulgogi" }, 
         category: "korean", 
-        imageUrl: "https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&w=800&q=80",
         description: { ko: "달콤 짭짤한 양념이 매력적인 소고기 요리", en: "Sweet and savory marinated beef dish" } 
     },
     { 
-        name: { ko: "비빔밥", en: "Bibimbap" }, 
+        name: { ko: "비빔밥", en: "bibimbap" }, 
         category: "korean", 
-        imageUrl: "https://images.unsplash.com/photo-1590301157461-460d3d5272a8?auto=format&fit=crop&w=800&q=80",
         description: { ko: "각종 나물과 고추장의 조화로운 맛", en: "Assorted vegetables with rice and spicy sauce" } 
     },
     { 
-        name: { ko: "삼겹살", en: "Samgyeopsal" }, 
+        name: { ko: "삼겹살", en: "samgyeopsal" }, 
         category: "korean", 
-        imageUrl: "https://images.unsplash.com/photo-1629814203649-1be773950663?auto=format&fit=crop&w=800&q=80",
         description: { ko: "지글지글 구워 먹는 즐거움이 있는 돼지고기", en: "Grilled pork belly, a favorite Korean BBQ" } 
     },
     { 
-        name: { ko: "떡볶이", en: "Tteokbokki" }, 
+        name: { ko: "떡볶이", en: "tteokbokki" }, 
         category: "korean", 
-        imageUrl: "https://images.unsplash.com/photo-1662116206135-7ce3203f13f1?auto=format&fit=crop&w=800&q=80",
         description: { ko: "매콤달콤한 소스와 쫄깃한 떡의 만남", en: "Spicy and sweet rice cakes" } 
     },
     { 
-        name: { ko: "제육볶음", en: "Jeyuk Bokkeum" }, 
+        name: { ko: "제육볶음", en: "spicy pork" }, 
         category: "korean", 
-        imageUrl: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=800&q=80",
         description: { ko: "매콤한 양념으로 볶아낸 밥도둑 돼지고기", en: "Spicy stir-fried pork, a true rice thief" } 
     },
     { 
-        name: { ko: "냉면", en: "Naengmyeon" }, 
+        name: { ko: "냉면", en: "naengmyeon" }, 
         category: "korean", 
-        imageUrl: "https://images.unsplash.com/photo-1605333396915-47ed6b68a00e?auto=format&fit=crop&w=800&q=80",
         description: { ko: "가슴속까지 시원해지는 메밀면 요리", en: "Refreshing cold buckwheat noodles" } 
     },
 
     // Western
     { 
-        name: { ko: "까르보나라", en: "Carbonara" }, 
+        name: { ko: "까르보나라", en: "carbonara" }, 
         category: "western", 
-        imageUrl: "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=800&q=80",
         description: { ko: "고소한 크림과 베이컨이 어우러진 파스타", en: "Creamy pasta with savory bacon" } 
     },
     { 
-        name: { ko: "스테이크", en: "Steak" }, 
+        name: { ko: "스테이크", en: "steak" }, 
         category: "western", 
-        imageUrl: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80",
         description: { ko: "육즙 가득한 고품격 저녁 식사", en: "Juicy and premium beef dinner" } 
     },
     { 
-        name: { ko: "햄버거", en: "Hamburger" }, 
+        name: { ko: "햄버거", en: "hamburger" }, 
         category: "western", 
-        imageUrl: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80",
         description: { ko: "패티와 신선한 채소의 든든한 한 끼", en: "Hearty patty with fresh vegetables" } 
     },
     { 
-        name: { ko: "피자", en: "Pizza" }, 
+        name: { ko: "피자", en: "pizza" }, 
         category: "western", 
-        imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80",
         description: { ko: "다양한 토핑과 치즈의 완벽한 조화", en: "Perfect harmony of toppings and cheese" } 
     },
     { 
-        name: { ko: "리조또", en: "Risotto" }, 
+        name: { ko: "리조또", en: "risotto" }, 
         category: "western", 
-        imageUrl: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=800&q=80",
         description: { ko: "부드럽고 고소한 이탈리아식 쌀 요리", en: "Creamy and savory Italian rice dish" } 
     },
     { 
-        name: { ko: "에그베네딕트", en: "Egg Benedict" }, 
+        name: { ko: "에그베네딕트", en: "egg benedict" }, 
         category: "western", 
-        imageUrl: "https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=800&q=80",
         description: { ko: "수란과 홀랜다이즈 소스의 만남", en: "Poached eggs with hollandaise sauce" } 
     },
     { 
-        name: { ko: "감바스", en: "Gambas" }, 
+        name: { ko: "감바스", en: "gambas" }, 
         category: "western", 
-        imageUrl: "https://images.unsplash.com/photo-1559742811-822873691df8?auto=format&fit=crop&w=800&q=80",
         description: { ko: "마늘 향 가득한 올리브유와 새우", en: "Shrimp in garlic-infused olive oil" } 
     },
 
     // Japanese
     { 
-        name: { ko: "초밥", en: "Sushi" }, 
+        name: { ko: "초밥", en: "sushi" }, 
         category: "japanese", 
-        imageUrl: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80",
         description: { ko: "신선한 생선과 깔끔한 밥의 조화", en: "Fresh fish with seasoned rice" } 
     },
     { 
-        name: { ko: "돈가스", en: "Tonkatsu" }, 
+        name: { ko: "돈가스", en: "tonkatsu" }, 
         category: "japanese", 
-        imageUrl: "https://images.unsplash.com/photo-1651586790924-f7b588390b39?auto=format&fit=crop&w=800&q=80",
         description: { ko: "바삭한 튀김옷 속 촉촉한 고기", en: "Crispy fried pork cutlet" } 
     },
     { 
-        name: { ko: "라멘", en: "Ramen" }, 
+        name: { ko: "라멘", en: "ramen" }, 
         category: "japanese", 
-        imageUrl: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80",
         description: { ko: "깊은 국물 맛이 일품인 일본식 면 요리", en: "Japanese noodle soup with rich broth" } 
     },
     { 
-        name: { ko: "우동", en: "Udon" }, 
+        name: { ko: "우동", en: "udon" }, 
         category: "japanese", 
-        imageUrl: "https://images.unsplash.com/photo-1548946522-4a313e8972a4?auto=format&fit=crop&w=800&q=80",
         description: { ko: "통통한 면발과 따뜻한 국물", en: "Thick noodles in warm, comforting broth" } 
     },
     { 
-        name: { ko: "카레라이스", en: "Japanese Curry" }, 
+        name: { ko: "카레라이스", en: "japanese curry" }, 
         category: "japanese", 
-        imageUrl: "https://images.unsplash.com/photo-1628102431706-96b6d85915d5?auto=format&fit=crop&w=800&q=80",
         description: { ko: "진하고 부드러운 일본식 카레", en: "Thick and smooth Japanese-style curry" } 
     },
 
     // Chinese
     { 
-        name: { ko: "짜장면", en: "Jajangmyeon" }, 
+        name: { ko: "짜장면", en: "jajangmyeon" }, 
         category: "chinese", 
-        imageUrl: "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=800&q=80",
         description: { ko: "달콤 짭짤한 소스의 국민 중식 메뉴", en: "Noodles in savory black bean sauce" } 
     },
     { 
-        name: { ko: "탕수육", en: "Tangsuyuk" }, 
+        name: { ko: "탕수육", en: "tangsuyuk" }, 
         category: "chinese", 
-        imageUrl: "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800&q=80",
         description: { ko: "바삭한 튀김과 새콤달콤한 소스", en: "Crispy sweet and sour pork" } 
     },
     { 
-        name: { ko: "마라탕", en: "Malatang" }, 
+        name: { ko: "마라탕", en: "malatang" }, 
         category: "chinese", 
-        imageUrl: "https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=800&q=80",
         description: { ko: "중독성 강한 매콤하고 얼얼한 맛", en: "Spicy and numbing Szechuan soup" } 
     },
     { 
-        name: { ko: "딤섬", en: "Dim Sum" }, 
+        name: { ko: "딤섬", en: "dim sum" }, 
         category: "chinese", 
-        imageUrl: "https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=800&q=80",
         description: { ko: "한 입에 즐기는 다채로운 맛", en: "Bite-sized delights in various styles" } 
     },
 
     // Simple
     { 
-        name: { ko: "샐러드", en: "Salad" }, 
+        name: { ko: "샐러드", en: "salad" }, 
         category: "simple", 
-        imageUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
         description: { ko: "건강하고 깔끔한 저녁 식사", en: "Healthy and fresh dinner option" } 
     },
     { 
-        name: { ko: "컵라면", en: "Cup Noodles" }, 
+        name: { ko: "컵라면", en: "cup noodles" }, 
         category: "simple", 
-        imageUrl: "https://images.unsplash.com/photo-1526318896980-cf78c088247c?auto=format&fit=crop&w=800&q=80",
         description: { ko: "가장 빠르고 간편하게 해결하는 저녁", en: "Fastest and easiest dinner solution" } 
     },
     { 
-        name: { ko: "타코", en: "Taco" }, 
+        name: { ko: "타코", en: "taco" }, 
         category: "simple", 
-        imageUrl: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=800&q=80",
         description: { ko: "멕시코 풍미를 가볍게 즐기는 한 끼", en: "Light meal with Mexican flavors" } 
     },
     { 
-        name: { ko: "요거트 볼", en: "Yogurt Bowl" }, 
+        name: { ko: "요거트 볼", en: "yogurt bowl" }, 
         category: "simple", 
-        imageUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80",
         description: { ko: "과일과 견과류를 곁들인 가벼운 저녁", en: "Light dinner with fruit and nuts" } 
     }
 ];
@@ -242,7 +215,6 @@ const luckyDigitsContainer = document.getElementById('lucky-digits');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const themeToggle = document.getElementById('theme-toggle');
 const langToggle = document.getElementById('lang-toggle');
-const luckyNumberLabel = document.querySelector('.lucky-number-section span');
 const headerTitle = document.querySelector('header h1');
 const headerSubtitle = document.querySelector('header p');
 
@@ -266,7 +238,6 @@ function updateLanguageUI() {
     headerSubtitle.textContent = strings.subtitle;
     recommendBtn.textContent = strings.recommendBtn;
     shareBtn.textContent = strings.shareBtn;
-    luckyNumberLabel.textContent = strings.luckyNumber;
     langToggle.textContent = strings.langBtn;
     
     filterBtns.forEach(btn => {
@@ -330,6 +301,7 @@ document.getElementById('privacy-link').addEventListener('click', (e) => { e.pre
 modalClose.addEventListener('click', () => footerModal.classList.add('hidden'));
 footerModal.addEventListener('click', (e) => { if(e.target === footerModal) footerModal.classList.add('hidden'); });
 
+// Core Menu Logic
 async function displayMenu() {
     playSound(clickSound);
     
@@ -337,8 +309,10 @@ async function displayMenu() {
     resultCard.classList.add('hidden');
     shareBtn.classList.add('hidden');
     document.querySelector('.app-container').classList.remove('result-shown');
-    menuImage.classList.remove('loaded');
-    menuImage.src = ""; // 이전 사진 즉시 제거 (중요)
+    
+    const foodImg = document.getElementById('menu-image'); 
+    foodImg.classList.remove('loaded');
+    foodImg.src = ""; // 이전 이미지 즉시 제거하여 스켈레톤 노출 보장
     
     const menu = getRandomMenu();
     const luckyNumStr = generateLuckyNumber();
@@ -347,27 +321,26 @@ async function displayMenu() {
     const menuNameEng = menu.name.en;
     
     // 3. 동적 URL 생성 및 강제 업데이트 (Cache-Busting)
-    // 요청하신 필수 코드 형식을 기반으로 최적화된 URL 생성
-    const imageUrl = `https://source.unsplash.com/featured/800x800/?food,${encodeURIComponent(menuNameEng)}&t=${new Date().getTime()}`;
+    const newImageUrl = `https://source.unsplash.com/featured/800x800/?food,${encodeURIComponent(menuNameEng)}&t=${new Date().getTime()}`;
     const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"; 
     
     // 4. DOM 즉시 반영 (이미지 태그 src 할당)
-    menuImage.src = imageUrl;
-    menuImage.alt = menu.name[currentLang];
+    foodImg.src = newImageUrl;
+    foodImg.alt = menu.name[currentLang];
     
-    // 5. 로딩 연출: 이미지 로드 완료 시 페이드인
-    menuImage.onload = () => {
-        menuImage.classList.add('loaded');
+    // 5. 로딩 연출: 이미지 로드 완료 시 페이드인 및 결과 표시
+    foodImg.onload = () => {
+        foodImg.classList.add('loaded');
         resultCard.classList.remove('hidden');
         shareBtn.classList.remove('hidden');
         document.querySelector('.app-container').classList.add('result-shown');
     };
     
-    menuImage.onerror = () => {
-        console.log("Dynamic image load failed, using fallback.");
-        menuImage.src = FALLBACK_IMAGE;
-        menuImage.onload = () => {
-            menuImage.classList.add('loaded');
+    foodImg.onerror = () => {
+        console.log("Image load failed, using fallback.");
+        foodImg.src = FALLBACK_IMAGE;
+        foodImg.onload = () => {
+            foodImg.classList.add('loaded');
             resultCard.classList.remove('hidden');
             shareBtn.classList.remove('hidden');
             document.querySelector('.app-container').classList.add('result-shown');
