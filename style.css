@@ -6,7 +6,7 @@
     --text-primary: #2c003e;
     --text-secondary: #7b1fa2;
     --border-color: #e1bee7;
-    --shadow: 0 10px 30px rgba(142, 68, 173, 0.1);
+    --shadow: 0 10px 40px rgba(142, 68, 173, 0.15);
 }
 
 * {
@@ -22,89 +22,95 @@ body {
     margin: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* 수직 중앙 정렬 */
     min-height: 100vh;
-    overflow: hidden; /* 전체 스크롤 방지 */
+    padding: 20px; /* PC에서 배경이 더 잘 보이도록 여백 추가 */
 }
 
 .container {
     width: 100%;
-    max-width: 400px; /* PC 레이아웃 고정 너비 */
-    height: 100vh; /* 화면 높이에 꽉 차게 */
+    max-width: 400px;
+    height: auto; /* 내용물만큼만 늘어나는 유동적 높이 */
+    max-height: 90vh; /* 너무 길어지지 않게 제한 */
     background-color: var(--card-bg);
     box-shadow: var(--shadow);
-    padding: 20px 20px 10px; /* 상단 20px 여백 */
+    border-radius: 24px; /* 앱 같은 느낌을 위한 둥근 모서리 */
+    padding: 30px 25px; /* 내부 여백 최적화 */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 수직 중앙 정렬 */
     position: relative;
-    gap: 1.5vh; /* 유동적 간격 */
-    overflow: hidden;
+    gap: 15px; /* 요소 간 간격 좁힘 */
+    overflow-y: auto; /* 내용이 많아지면 내부 스크롤 */
+    transition: all 0.3s ease;
+}
+
+/* 모바일 대응: 여백 및 모서리 조정 */
+@media (max-width: 480px) {
+    body { padding: 15px; }
+    .container { padding: 25px 20px; border-radius: 20px; }
 }
 
 /* 상단 컨트롤 */
 .top-controls {
     position: absolute;
-    top: 10px;
-    right: 15px;
+    top: 15px;
+    right: 20px;
     display: flex;
-    gap: 8px;
+    gap: 10px;
     z-index: 10;
 }
 .control-btn {
     background: none;
     border: none;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
 }
+.control-btn:hover { opacity: 1; }
 
 header {
     text-align: center;
-    transition: all 0.3s ease;
+    margin-bottom: 5px; /* 제목과 버튼 사이 간격 좁힘 */
 }
 header h1 {
-    font-size: 24px;
+    font-size: 22px;
     color: var(--primary-color);
-    margin-bottom: 0.5vh;
+    margin-bottom: 4px;
+    font-weight: 700;
 }
 header p {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-secondary);
-}
-
-/* 결과 노출 시 헤더 축소 */
-.container.result-shown header {
-    margin-bottom: 0;
-}
-.container.result-shown header h1 {
-    font-size: 20px;
+    opacity: 0.8;
 }
 
 main {
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: 15px;
 }
 
-/* 카드 스타일 */
+/* 카드 영역 */
 .card {
     background: #fff;
     border: 1px solid var(--border-color);
-    border-radius: 15px;
-    padding: 1.5vh 15px;
+    border-radius: 16px;
+    padding: 20px 15px;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(142, 68, 173, 0.05);
 }
 
 .card.hidden { display: none; }
 
 .menu-image-wrapper {
     width: 100%;
-    height: 25vh; /* 화면 높이의 25% */
+    height: 180px; /* 초기 높이 설정 */
+    max-height: 25vh;
     border-radius: 12px;
     overflow: hidden;
-    margin-bottom: 1vh;
-    background: #f0f0f0;
+    margin-bottom: 12px;
+    background: #f8f9fa;
 }
 
 .menu-image {
@@ -119,26 +125,27 @@ main {
 #menu-name {
     font-size: 20px;
     font-weight: 700;
-    margin-bottom: 0.5vh;
+    margin-bottom: 4px;
 }
 .category-badge {
     font-size: 11px;
     background: var(--bg-color);
     color: var(--primary-color);
-    padding: 2px 10px;
+    padding: 3px 12px;
     border-radius: 20px;
-    margin-bottom: 1vh;
+    margin-bottom: 10px;
     display: inline-block;
+    font-weight: 500;
 }
 #menu-description {
     font-size: 13px;
-    line-height: 1.4;
+    line-height: 1.5;
     color: var(--text-secondary);
 }
 
 .lucky-number-section {
-    margin-top: 1vh;
-    padding-top: 1vh;
+    margin-top: 15px;
+    padding-top: 15px;
     border-top: 1px dashed var(--border-color);
     font-size: 12px;
 }
@@ -146,15 +153,15 @@ main {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 0.5vh;
+    margin-top: 8px;
 }
 .digit {
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
     background: var(--primary-color);
     color: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 18px;
     font-weight: 700;
 }
@@ -163,40 +170,45 @@ main {
 .action-section {
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: 10px;
 }
 .primary-btn {
-    padding: 15px;
+    padding: 16px;
     background: var(--primary-color);
     color: #fff;
     border: none;
-    border-radius: 12px;
+    border-radius: 14px;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
 }
+.primary-btn:active { transform: scale(0.98); }
+
 .secondary-btn {
-    padding: 10px;
-    border: 1px solid var(--primary-color);
+    padding: 12px;
+    border: 1px solid var(--border-color);
     color: var(--primary-color);
     background: transparent;
-    border-radius: 12px;
+    border-radius: 14px;
     font-size: 14px;
+    cursor: pointer;
 }
 
 /* 필터 영역 */
 .filters {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
+    gap: 8px;
 }
 .filter-btn {
-    padding: 8px 0;
+    padding: 10px 0;
     font-size: 12px;
     border: 1px solid var(--border-color);
     background: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
+    transition: all 0.2s;
 }
 .filter-btn.active {
     background: var(--primary-color);
@@ -206,56 +218,52 @@ main {
 
 /* 서비스 정보 슬림화 */
 .service-info {
-    margin-top: 0.5vh;
-    padding-top: 1vh;
+    margin-top: 5px;
+    padding-top: 15px;
     border-top: 1px solid var(--border-color);
 }
 .service-info h3 {
     font-size: 13px;
-    margin-bottom: 0.2vh;
+    margin-bottom: 4px;
+    color: var(--primary-color);
 }
 .service-info .intro {
-    font-size: 12px; /* 요청한 12px */
+    font-size: 12px;
     color: var(--text-secondary);
-    line-height: 1.4;
+    line-height: 1.5;
 }
 .service-info .disclaimer {
     font-size: 10px;
     color: #bbb;
-}
-
-/* 결과 노출 시 서비스 정보 더욱 축소 */
-.container.result-shown .service-info {
-    margin-top: 0;
-    padding-top: 0.5vh;
+    margin-top: 4px;
 }
 
 /* 푸터 */
 .site-footer {
-    margin-top: auto;
-    padding-top: 1vh;
-    border-top: 1px solid #f0f0f0;
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #f8f0fb;
     text-align: center;
     font-size: 10px;
     color: #ccc;
 }
+.footer-nav { margin-bottom: 6px; }
 .footer-nav a {
-    color: #ccc;
+    color: #bbb;
     text-decoration: none;
-    margin: 0 5px;
+    margin: 0 8px;
 }
 
-/* 배경 요소 */
+/* 배경 요소 숨김 */
 #bg-elements { display: none; }
 
-/* 작은 화면 대응 (iPhone SE 등) */
-@media (max-height: 700px) {
-    .container { gap: 1vh; }
-    header h1 { font-size: 20px; }
-    .menu-image-wrapper { height: 20vh; }
-    .primary-btn { padding: 12px; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-height: 600px) {
-    .service-info { display: none; } /* 아주 작은 화면에선 설명 생략 */
+/* 아주 작은 화면 대응 */
+@media (max-height: 650px) {
+    .container { padding: 20px; gap: 10px; }
+    .service-info { display: none; }
 }
