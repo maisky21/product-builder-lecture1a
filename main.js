@@ -298,7 +298,6 @@ function generateLuckyNumber() {
 
 async function fetchUnsplashImage(keyword) {
     // Note: Official Unsplash API requires a client_id. 
-    // If you have one, replace 'YOUR_ACCESS_KEY' below.
     const ACCESS_KEY = ''; 
     
     if (ACCESS_KEY) {
@@ -313,8 +312,8 @@ async function fetchUnsplashImage(keyword) {
         }
     }
     
-    // Fallback to Unsplash Source (Featured) if no Access Key or fetch fails
-    return `https://source.unsplash.com/featured/800x600/?${encodeURIComponent(keyword)}&sig=${Math.random()}`;
+    // Fallback to Unsplash Source patterns (Updated for reliability)
+    return `https://source.unsplash.com/featured/800x800/?${encodeURIComponent(keyword)}&sig=${Math.random()}`;
 }
 
 // Footer Modal Logic
@@ -354,30 +353,30 @@ footerModal.addEventListener('click', (e) => { if(e.target === footerModal) foot
 async function displayMenu() {
     playSound(clickSound);
     
-    // 초기화 및 로딩 상태 (Skeleton) 표시
+    // 1. 초기화 및 로딩 상태 (Skeleton) 표시
     resultCard.classList.add('hidden');
     shareBtn.classList.add('hidden');
     document.querySelector('.app-container').classList.remove('result-shown');
     menuImage.classList.remove('loaded');
+    menuImage.src = ""; // 이전 이미지 즉시 제거
     
     const menu = getRandomMenu();
     const luckyNumStr = generateLuckyNumber();
     
-    // 검색 키워드 정교화: delicious,Korean,food,[menuEnglishName]
+    // 2. 검색 키워드 최적화: delicious,food,[menuEnglishName]
     const categories = ['delicious', 'food', 'photography'];
     if (menu.category === 'korean') categories.push('Korean');
     categories.push(menu.name.en);
     const searchKeyword = categories.join(',');
     
-    // Unsplash Source URL 생성 (캐시 방지 sig 추가)
-    const imageUrl = `https://source.unsplash.com/featured/800x800/?${encodeURIComponent(searchKeyword)}&sig=${Math.random()}`;
-    const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"; // 맛있는 고기/스테이크 기본 이미지
+    // 3. fetchUnsplashImage 함수를 통한 실시간 이미지 획득
+    const imageUrl = await fetchUnsplashImage(searchKeyword);
+    const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"; 
     
-    // 이미지 소스 업데이트
+    // 4. 이미지 소스 업데이트 및 이벤트 바인딩
     menuImage.src = imageUrl;
     menuImage.alt = menu.name[currentLang];
     
-    // 이미지 로드 완료 시 처리
     menuImage.onload = () => {
         menuImage.classList.add('loaded');
         resultCard.classList.remove('hidden');
@@ -385,11 +384,9 @@ async function displayMenu() {
         document.querySelector('.app-container').classList.add('result-shown');
     };
     
-    // 이미지 로드 실패 시 Fallback 처리
     menuImage.onerror = () => {
-        console.log("Dynamic image load failed, using fallback.");
+        console.log("Image load failed, using fallback.");
         menuImage.src = FALLBACK_IMAGE;
-        // Fallback 이미지도 로드되면 카드를 표시
         menuImage.onload = () => {
             menuImage.classList.add('loaded');
             resultCard.classList.remove('hidden');
@@ -398,12 +395,11 @@ async function displayMenu() {
         };
     };
     
-    // 텍스트 정보 업데이트
+    // 5. 텍스트 정보 및 럭키 넘버 업데이트
     menuName.textContent = menu.name[currentLang];
     menuCategory.textContent = uiStrings[currentLang].categories[menu.category];
     menuDescription.textContent = menu.description[currentLang];
     
-    // 행운의 번호 업데이트
     luckyDigitsContainer.innerHTML = '';
     luckyNumStr.split('').forEach((char) => {
         const span = document.createElement('span');
