@@ -321,6 +321,7 @@ async function displayMenu() {
     playSound(clickSound);
     resultCard.classList.add('hidden');
     shareBtn.classList.add('hidden');
+    document.querySelector('.container').classList.remove('result-shown');
     
     menuImage.classList.remove('loaded');
     
@@ -337,12 +338,18 @@ async function displayMenu() {
     
     menuImage.onload = () => {
         menuImage.classList.add('loaded');
+        resultCard.classList.remove('hidden');
+        shareBtn.classList.remove('hidden');
+        document.querySelector('.container').classList.add('result-shown');
     };
     
     menuImage.onerror = () => {
         console.log("Image load failed, using static fallback.");
         menuImage.src = menu.imageUrl;
         menuImage.classList.add('loaded');
+        resultCard.classList.remove('hidden');
+        shareBtn.classList.remove('hidden');
+        document.querySelector('.container').classList.add('result-shown');
     };
     
     menuName.textContent = menu.name[currentLang];
@@ -356,9 +363,6 @@ async function displayMenu() {
         span.textContent = char;
         luckyDigitsContainer.appendChild(span);
     });
-    
-    resultCard.classList.remove('hidden');
-    shareBtn.classList.remove('hidden');
     
     const currentDinnerSound = dinnerSounds[soundIndex];
     setTimeout(() => playSound(currentDinnerSound), 100);
