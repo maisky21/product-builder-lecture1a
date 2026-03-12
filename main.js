@@ -313,7 +313,8 @@ async function fetchUnsplashImage(keyword) {
     }
     
     // Fallback: Unsplash Source API (사용자 요청에 따른 sig 및 키워드 최적화)
-    return `https://source.unsplash.com/featured/800x800/?${encodeURIComponent(keyword)}&sig=${Math.random()}`;
+    // Date.now()를 사용하여 브라우저 캐시를 완벽하게 방지
+    return `https://source.unsplash.com/featured/800x800/?${encodeURIComponent(keyword)}&sig=${Date.now()}`;
 }
 
 // Footer Modal Logic
@@ -363,15 +364,18 @@ async function displayMenu() {
     const menu = getRandomMenu();
     const luckyNumStr = generateLuckyNumber();
     
-    // 2. 검색 키워드 최적화: delicious,food,[menuEnglishName]
-    const menuEnglishName = menu.name.en;
-    const searchKeyword = `delicious,food,${menuEnglishName.replace(/\s+/g, ',')}`;
+    // 2. 추천된 메뉴의 영문 이름(menuNameEng) 가져오기 및 키워드 최적화
+    const menuNameEng = menu.name.en;
+    const categories = ['delicious', 'food', 'photography'];
+    if (menu.category === 'korean') categories.push('Korean');
+    categories.push(menuNameEng);
+    const searchKeyword = categories.join(',');
     
-    // 3. 실시간 이미지 획득 (캐시 방지 sig 포함)
+    // 3. 실시간 이미지 획득 (Date.now()를 통한 강제 갱신 보장)
     const imageUrl = await fetchUnsplashImage(searchKeyword);
     const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"; 
     
-    // 4. 이미지 소스 업데이트 및 이벤트 핸들링
+    // 4. 생성된 imageUrl을 이미지 태그 src에 즉시 할당
     menuImage.src = imageUrl;
     menuImage.alt = menu.name[currentLang];
     
