@@ -317,18 +317,52 @@ async function fetchUnsplashImage(keyword) {
     return `https://source.unsplash.com/featured/800x600/?${encodeURIComponent(keyword)}&sig=${Math.random()}`;
 }
 
+// Footer Modal Logic
+const footerModal = document.getElementById('footer-modal');
+const modalTitle = document.getElementById('modal-title');
+const modalBody = document.getElementById('modal-body');
+const modalClose = document.getElementById('modal-close');
+
+const modalData = {
+    info: {
+        ko: { title: "서비스 정보", body: "20년 차 IT 전문가가 큐레이션한 프리미엄 저녁 메뉴 추천 서비스 '오늘의 미식 운세'입니다. 엄선된 알고리즘으로 당신의 완벽한 식사를 제안합니다." },
+        en: { title: "About Us", body: "Cosmic Dinner Fortune is a premium menu curation service by a 20-year IT veteran, offering the perfect dinner choice through astronomical algorithms." }
+    },
+    contact: {
+        ko: { title: "문의하기", body: "서비스 이용 중 불편사항이나 제안은 이메일(support@vibecoding.com)로 보내주시기 바랍니다." },
+        en: { title: "Contact", body: "For any inquiries or suggestions, please contact us at support@vibecoding.com" }
+    },
+    privacy: {
+        ko: { title: "개인정보처리방침", body: "본 서비스는 사용자의 개인정보를 수집하거나 저장하지 않습니다. 모든 데이터는 브라우저 로컬 환경에서만 처리됩니다." },
+        en: { title: "Privacy Policy", body: "This service does not collect or store any personal information. All data is processed locally within your browser." }
+    }
+};
+
+function showModal(type) {
+    const data = modalData[type][currentLang];
+    modalTitle.textContent = data.title;
+    modalBody.textContent = data.body;
+    footerModal.classList.remove('hidden');
+}
+
+document.getElementById('info-link').addEventListener('click', (e) => { e.preventDefault(); showModal('info'); });
+document.getElementById('contact-link').addEventListener('click', (e) => { e.preventDefault(); showModal('contact'); });
+document.getElementById('privacy-link').addEventListener('click', (e) => { e.preventDefault(); showModal('privacy'); });
+modalClose.addEventListener('click', () => footerModal.classList.add('hidden'));
+footerModal.addEventListener('click', (e) => { if(e.target === footerModal) footerModal.classList.add('hidden'); });
+
 async function displayMenu() {
     playSound(clickSound);
     resultCard.classList.add('hidden');
     shareBtn.classList.add('hidden');
     document.querySelector('.app-container').classList.remove('result-shown');
     
+    // Skeleton State Reset
     menuImage.classList.remove('loaded');
     
     const menu = getRandomMenu();
     const luckyNumStr = generateLuckyNumber();
     
-    // 검색 키워드 보강: "delicious Korean [EnglishName] food"
     const keyword = menu.category === 'korean' ? `Korean ${menu.name.en}` : menu.name.en;
     const searchKeyword = `delicious ${keyword} food`;
     
@@ -344,7 +378,6 @@ async function displayMenu() {
     };
     
     menuImage.onerror = () => {
-        console.log("Image load failed, using static fallback.");
         menuImage.src = menu.imageUrl;
         menuImage.classList.add('loaded');
         resultCard.classList.remove('hidden');

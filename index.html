@@ -100,13 +100,23 @@
 
         <footer class="app-footer">
             <nav class="footer-links">
-                <a href="about.html">정보</a>
-                <a href="contact.html">문의</a>
-                <a href="privacy.html">개인정보</a>
+                <a href="#" id="info-link">정보</a>
+                <a href="#" id="contact-link">문의</a>
+                <a href="#" id="privacy-link">개인정보</a>
             </nav>
             <p class="copyright">© 2026 VibecodingJ</p>
         </footer>
     </div>
+
+    <!-- Footer Modal -->
+    <div id="footer-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title">제목</h2>
+            <div id="modal-body">내용</div>
+            <button id="modal-close" class="modal-close-btn">닫기</button>
+        </div>
+    </div>
+
     <script src="main.js"></script>
 </body>
 </html>
