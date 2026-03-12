@@ -2,42 +2,84 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오늘 뭐 먹지? | 저녁 메뉴 추천 및 미식 운세</title>
-    <meta name="description" content="매일 저녁 메뉴가 고민이신가요? 20년 차 IT 전문가가 큐레이션한 데이터 기반 랜덤 저녁 메뉴 추천 서비스 '오늘의 미식 운세'에서 한식, 양식, 일식, 중식 등 맞춤형 식사를 추천받으세요.">
-    <meta name="keywords" content="저녁 메뉴 추천, 오늘 뭐 먹지, 랜덤 메뉴, 식사 추천, 배달 음식 추천, 한식, 양식, 일식, 중식, 간단한 저녁">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>오늘의 미식 운세 | Instagram Style</title>
+    <meta name="description" content="인스타그램 감성으로 즐기는 오늘의 저녁 메뉴 추천 서비스">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7106063268781346"
-     crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="bg-elements"></div>
-    <div class="container">
-        <div class="top-controls">
-            <button id="lang-toggle" class="control-btn" aria-label="언어 변경">🌐 EN</button>
-            <button id="theme-toggle" class="control-btn" aria-label="다크 모드 전환">☀️</button>
-        </div>
-        <header>
-            <h1>오늘의 미식 운세</h1>
-            <p>신비로운 별들이 당신의 저녁 식사를 점지해드립니다.</p>
+    <div class="app-container">
+        <!-- 상단 헤더: 인스타그램 스타일 -->
+        <header class="app-header">
+            <h1 class="logo">Vibe Fortune</h1>
+            <div class="header-actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="테마 변경">☀️</button>
+                <button id="lang-toggle" class="icon-btn" aria-label="언어 변경">🌐</button>
+            </div>
         </header>
 
-        <main>
-            <div id="capture-area">
-                <div id="result-card" class="card hidden">
-                    <div class="fortune-decoration">✨ ✧ ･ﾟ * ✨</div>
-                    <div class="menu-image-wrapper">
-                        <img id="menu-image" src="" alt="메뉴 이미지" class="menu-image">
+        <!-- 스토리 영역: 카테고리 필터 -->
+        <div class="stories-container">
+            <div class="filters">
+                <button class="filter-btn active" data-category="all">
+                    <div class="story-circle">🍱</div>
+                    <span>전체</span>
+                </button>
+                <button class="filter-btn" data-category="korean">
+                    <div class="story-circle">🥢</div>
+                    <span>한식</span>
+                </button>
+                <button class="filter-btn" data-category="western">
+                    <div class="story-circle">🍔</div>
+                    <span>양식</span>
+                </button>
+                <button class="filter-btn" data-category="japanese">
+                    <div class="story-circle">🍣</div>
+                    <span>일식</span>
+                </button>
+                <button class="filter-btn" data-category="chinese">
+                    <div class="story-circle">🥡</div>
+                    <span>중식</span>
+                </button>
+                <button class="filter-btn" data-category="simple">
+                    <div class="story-circle">🥪</div>
+                    <span>간단</span>
+                </button>
+            </div>
+        </div>
+
+        <main class="app-main">
+            <!-- 인스타그램 카드 영역 -->
+            <div id="result-card" class="insta-card hidden">
+                <div class="card-header">
+                    <div class="profile-pic">✨</div>
+                    <span class="username">cosmic_fortune</span>
+                </div>
+                
+                <div class="card-image-container">
+                    <img id="menu-image" src="" alt="메뉴 이미지" class="menu-image">
+                </div>
+
+                <div class="card-actions">
+                    <div class="left-actions">
+                        <button class="action-icon">❤️</button>
+                        <button id="share-btn" class="action-icon">✈️</button>
                     </div>
-                    <h2 id="menu-name">메뉴 이름</h2>
-                    <div class="category-badge" id="menu-category">카테고리</div>
-                    <p id="menu-description">메뉴에 대한 설명이 이곳에 표시됩니다.</p>
-                    <div class="lucky-number-section">
-                        <span>오늘의 행운 번호</span>
-                        <div id="lucky-digits">
+                    <div class="card-badge" id="menu-category">KOREAN</div>
+                </div>
+
+                <div class="card-body">
+                    <p class="caption">
+                        <span class="bold">cosmic_fortune</span> 
+                        <span id="menu-name">메뉴 이름</span>
+                    </p>
+                    <p id="menu-description" class="description">당신의 우주적 메뉴를 확인하세요.</p>
+                    <div class="lucky-number">
+                        <span>Lucky Numbers: </span>
+                        <div id="lucky-digits" class="digits-row">
                             <span class="digit">?</span>
                             <span class="digit">?</span>
                         </div>
@@ -45,37 +87,24 @@
                 </div>
             </div>
 
-            <div class="action-section">
-                <button id="recommend-btn" class="primary-btn">나의 미식 운세 확인하기</button>
-                <button id="share-btn" class="secondary-btn hidden">내 행운 공유하기</button>
+            <!-- 초기 화면 안내/버튼 -->
+            <div class="action-area">
+                <button id="recommend-btn" class="main-cta">나의 미식 운세 확인하기</button>
             </div>
 
-            <div class="filters">
-                <button class="filter-btn active" data-category="all">🍚 전체</button>
-                <button class="filter-btn" data-category="korean">🥢 한식</button>
-                <button class="filter-btn" data-category="western">🍔 양식</button>
-                <button class="filter-btn" data-category="japanese">🍣 일식</button>
-                <button class="filter-btn" data-category="chinese">🥡 중식</button>
-                <button class="filter-btn" data-category="simple">🥪 간단</button>
-            </div>
-
-            <div class="service-info">
-                <article>
-                    <h3>오늘의 미식 운세란?</h3>
-                    <p class="intro">20년 차 IT 전문가가 큐레이션한 프리미엄 저녁 메뉴 추천 서비스입니다. 우주의 기운을 담은 알고리즘이 당신의 완벽한 식사를 골라드립니다. 매일 새로운 미식을 발견하는 즐거움을 누려보세요.</p>
-                    <p class="disclaimer">※ 추천 결과는 참고용이며, 건강 상태에 따라 메뉴 선택에 주의하시기 바랍니다.</p>
-                </article>
-            </div>
+            <!-- 서비스 정보 (슬림화) -->
+            <section class="service-info">
+                <p class="intro">20년 차 IT 전문가가 큐레이션한 프리미엄 메뉴 서비스</p>
+            </section>
         </main>
 
-        <footer class="site-footer">
-            <nav class="footer-nav">
-                <a href="about.html">서비스 소개</a> | 
-                <a href="contact.html">문의하기</a> | 
-                <a href="privacy.html" target="_blank" rel="noopener noreferrer">개인정보처리방침</a> | 
-                <a href="terms.html" target="_blank" rel="noopener noreferrer">이용약관</a>
+        <footer class="app-footer">
+            <nav class="footer-links">
+                <a href="about.html">정보</a>
+                <a href="contact.html">문의</a>
+                <a href="privacy.html">개인정보</a>
             </nav>
-            <p style="margin-top: 10px;">© 2026 VibecodingJ. All rights reserved.</p>
+            <p class="copyright">© 2026 VibecodingJ</p>
         </footer>
     </div>
     <script src="main.js"></script>
