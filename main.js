@@ -325,8 +325,8 @@ const modalClose = document.getElementById('modal-close');
 
 const modalData = {
     info: {
-        ko: { title: "서비스 정보", body: "20년 차 IT 전문가가 큐레이션한 프리미엄 저녁 메뉴 추천 서비스 '오늘의 미식 운세'입니다. 엄선된 알고리즘으로 당신의 완벽한 식사를 제안합니다." },
-        en: { title: "About Us", body: "Cosmic Dinner Fortune is a premium menu curation service by a 20-year IT veteran, offering the perfect dinner choice through astronomical algorithms." }
+        ko: { title: "서비스 정보", body: "우주의 기운을 담은 알고리즘이 당신의 완벽한 식사를 골라드립니다. 매일 새로운 미식을 발견하는 즐거움을 누려보세요." },
+        en: { title: "About Us", body: "Our cosmic algorithm divines the perfect meal for you. Enjoy the daily discovery of new gourmet experiences." }
     },
     contact: {
         ko: { title: "문의하기", body: "서비스 이용 중 불편사항이나 제안은 이메일(support@vibecoding.com)로 보내주시기 바랍니다." },
@@ -363,10 +363,13 @@ async function displayMenu() {
     const menu = getRandomMenu();
     const luckyNumStr = generateLuckyNumber();
     
-    const keyword = menu.category === 'korean' ? `Korean ${menu.name.en}` : menu.name.en;
-    const searchKeyword = `delicious ${keyword} food`;
+    // 이미지 검색 키워드 고도화: 'delicious Korean [Name] food photography'
+    const baseKeyword = menu.category === 'korean' ? `Korean ${menu.name.en}` : menu.name.en;
+    const searchKeyword = `delicious ${baseKeyword} food photography`;
     
     const imageUrl = await fetchUnsplashImage(searchKeyword);
+    const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80"; // 맛있는 샐러드/스테이크 기본 이미지
+    
     menuImage.src = imageUrl;
     menuImage.alt = menu.name[currentLang];
     
@@ -378,11 +381,15 @@ async function displayMenu() {
     };
     
     menuImage.onerror = () => {
-        menuImage.src = menu.imageUrl;
-        menuImage.classList.add('loaded');
-        resultCard.classList.remove('hidden');
-        shareBtn.classList.remove('hidden');
-        document.querySelector('.app-container').classList.add('result-shown');
+        console.log("Image load failed, using fallback.");
+        menuImage.src = FALLBACK_IMAGE;
+        // Fallback 이미지 로드 시에도 카드 표시 로직 실행
+        menuImage.onload = () => {
+            menuImage.classList.add('loaded');
+            resultCard.classList.remove('hidden');
+            shareBtn.classList.remove('hidden');
+            document.querySelector('.app-container').classList.add('result-shown');
+        };
     };
     
     menuName.textContent = menu.name[currentLang];
