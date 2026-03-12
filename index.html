@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>오늘의 미식 운세 | Instagram Style</title>
-    <meta name="description" content="인스타그램 감성으로 즐기는 오늘의 저녁 메뉴 추천 서비스">
+    <title>오늘의 저녁 메뉴 추천 - 오늘의 미식 운세</title>
+    <meta name="description" content="오늘 뭐 먹지? 결정 장애를 위한 최고의 저녁 메뉴 추천 서비스. 인스타그램 감성의 디자인과 우주적 알고리즘으로 당신에게 딱 맞는 미식을 점지해드립니다.">
+    <meta name="keywords" content="저녁 메뉴 추천, 점심 메뉴 추천, 오늘 뭐 먹지, 미식 운세, 음식 추천, 식사 메뉴, 메뉴 고르기">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,7 +77,9 @@
                         <span class="bold">cosmic_fortune</span> 
                         <span id="menu-name">메뉴 이름</span>
                     </p>
-                    <p id="menu-description" class="description">당신의 우주적 메뉴를 확인하세요.</p>
+                    <div id="menu-description" class="description-box">
+                        <!-- 상세 설명이 여기에 들어갑니다 -->
+                    </div>
                     <div class="lucky-number">
                         <span>Lucky Numbers: </span>
                         <div id="lucky-digits" class="digits-row">
@@ -100,21 +103,12 @@
 
         <footer class="app-footer">
             <nav class="footer-links">
-                <a href="#" id="info-link">정보</a>
-                <a href="#" id="contact-link">문의</a>
-                <a href="#" id="privacy-link">개인정보</a>
+                <a href="about.html">서비스 소개</a>
+                <a href="privacy.html">개인정보처리방침</a>
+                <a href="terms.html">이용약관</a>
             </nav>
             <p class="copyright">© 2026 VibecodingJ</p>
         </footer>
-    </div>
-
-    <!-- Footer Modal -->
-    <div id="footer-modal" class="modal hidden">
-        <div class="modal-content">
-            <h2 id="modal-title">제목</h2>
-            <div id="modal-body">내용</div>
-            <button id="modal-close" class="modal-close-btn">닫기</button>
-        </div>
     </div>
 
     <script src="main.js"></script>
