@@ -1,3 +1,19 @@
+// 1. 메뉴별 영문 키워드 매핑 객체 (이미지 검색 정확도 향상)
+const menuKeywords = {
+    '김치찌개': 'kimchi-stew',
+    '불고기': 'bulgogi',
+    '비빔밥': 'bibimbap',
+    '삼겹살': 'pork-belly',
+    '떡볶이': 'tteokbokki',
+    '제육볶음': 'spicy-pork',
+    '까르보나라': 'carbonara',
+    '스테이크': 'steak',
+    '햄버거': 'hamburger',
+    '피자': 'pizza',
+    '초밥': 'sushi',
+    '라멘': 'ramen'
+};
+
 const menus = [
     // Korean
     { 
@@ -40,7 +56,7 @@ const menus = [
         name: { ko: "떡볶이", en: "tteokbokki" }, 
         category: "korean", 
         descriptions: [
-            "매콤달콤한 소스와 쫄깃한 떡의 조화가 매력적인 국민 간식입니다.",
+            "매콤달콤한 소스와 쫄깃한 떡의 만남이 매력적인 국민 간식입니다.",
             "자꾸만 손이 가는 중독성 강한 맛으로 기분 전환에 최고!",
             "튀김이나 순대를 곁들여 풍성한 분식 파티를 즐겨보세요."
         ]
@@ -61,7 +77,7 @@ const menus = [
         category: "western", 
         descriptions: [
             "고소하고 부드러운 크림 소스가 일품인 이탈리아식 파스타입니다.",
-            "베이컨의 짭조름함과 달걀 노른자의 깊은 풍미를 느껴보세요.",
+            "베이컨의 짭조름함과 달걀 노른자의 깊은 풍미를 동시에 느껴보세요.",
             "부드러운 면발이 입안을 감싸는 로맨틱한 저녁 식사를 제안합니다."
         ]
     },
@@ -192,54 +208,42 @@ function generateLuckyNumber() {
     return Math.floor(Math.random() * 99 + 1).toString().padStart(2, '0');
 }
 
-// Core Logic: Display Recommended Menu
-async function displayMenu() {
-    playSound(clickSound);
-    
-    // 1. 초기화 및 로딩 상태 (Skeleton) 표시
-    resultCard.classList.add('hidden');
-    document.querySelector('.app-container').classList.remove('result-shown');
-    
+// 2. 강제 업데이트 함수 작성 (독립적 기능)
+function forceUpdateImage(koMenuName) {
     const foodImg = document.getElementById('menu-image'); 
-    foodImg.classList.remove('loaded');
-    foodImg.src = ""; // 이전 이미지 즉시 제거하여 스켈레톤 노출 보장
-    
-    const menu = getRandomMenu();
-    const luckyNumStr = generateLuckyNumber();
-    const menuNameEng = menu.name.en;
-    
-    // 2. 동적 이미지 URL 생성 및 강제 업데이트 (Cache-Busting)
-    // 브라우저가 사진을 기억하지 못하도록 타임스탬프를 강제로 붙임
-    const timestamp = new Date().getTime();
-    const newImageUrl = `https://source.unsplash.com/featured/800x800/?food,${encodeURIComponent(menuNameEng)}&t=${timestamp}`;
+    if (!foodImg) return console.error('이미지 태그(#menu-image)를 찾을 수 없음!');
+
+    const keyword = menuKeywords[koMenuName] || 'delicious-food';
+    const timestamp = Date.now();
+    // 캐시 파괴용 타임스탬프 & 정교한 키워드 조합
+    const newUrl = `https://source.unsplash.com/featured/800x800/?food,${keyword}&v=${timestamp}`;
+
+    foodImg.classList.remove('loaded'); // 스켈레톤 로딩 연출용
+    foodImg.src = newUrl;
     
     // 3. 콘솔 로그 출력 (주소 변경 확인용)
-    console.log(`새로운 이미지 주소: ${newImageUrl}`);
-    
+    console.log(`새로운 이미지 주소: ${newUrl}`);
+
     const FALLBACK_IMAGE = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"; 
-    
-    // 4. DOM 즉시 반영 (이미지 태그 src 할당)
-    foodImg.src = newImageUrl;
-    foodImg.alt = menu.name[currentLang];
-    
-    // 5. 로딩 연출 및 에러 핸들링
-    foodImg.onload = () => {
-        foodImg.classList.add('loaded');
-        resultCard.classList.remove('hidden');
-        document.querySelector('.app-container').classList.add('result-shown');
-    };
     
     foodImg.onerror = () => {
         console.log("Unsplash 이미지 로드 실패, 예비 이미지로 대체합니다.");
         foodImg.src = FALLBACK_IMAGE;
-        foodImg.onload = () => {
-            foodImg.classList.add('loaded');
-            resultCard.classList.remove('hidden');
-            document.querySelector('.app-container').classList.add('result-shown');
-        };
     };
+}
+
+// Core Logic: Display Recommended Menu
+async function displayMenu() {
+    playSound(clickSound);
     
-    // 6. 콘텐츠 자동 생성 (상세 설명)
+    // 초기화
+    resultCard.classList.add('hidden');
+    document.querySelector('.app-container').classList.remove('result-shown');
+    
+    const menu = getRandomMenu();
+    const luckyNumStr = generateLuckyNumber();
+    
+    // 콘텐츠 자동 생성 (3줄 상세 설명)
     menuName.textContent = menu.name[currentLang];
     menuCategory.textContent = menu.category.toUpperCase();
     
@@ -251,7 +255,7 @@ async function displayMenu() {
         menuDescription.appendChild(p);
     });
     
-    // 7. 럭키 넘버 업데이트
+    // 럭키 넘버 업데이트
     luckyDigitsContainer.innerHTML = '';
     luckyNumStr.split('').forEach((char) => {
         const span = document.createElement('span');
@@ -259,6 +263,16 @@ async function displayMenu() {
         span.textContent = char;
         luckyDigitsContainer.appendChild(span);
     });
+
+    // 4. 강제 업데이트 함수 호출 (버튼 이벤트 연결의 마지막 단계)
+    forceUpdateImage(menu.name.ko);
+    
+    // 이미지 로드 완료 시 결과 카드 표시
+    menuImage.onload = () => {
+        menuImage.classList.add('loaded');
+        resultCard.classList.remove('hidden');
+        document.querySelector('.app-container').classList.add('result-shown');
+    };
     
     const currentDinnerSound = dinnerSounds[soundIndex];
     setTimeout(() => playSound(currentDinnerSound), 100);
