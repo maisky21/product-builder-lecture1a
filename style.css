@@ -1,65 +1,72 @@
 :root {
-    --bg-color: #f3e5f5; /* 은은한 보라색 배경 */
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --card-bg: #ffffff;
-    --primary: #0095f6;
     --text-main: #262626;
     --text-sub: #8e8e8e;
+    --primary: #0095f6;
     --border: #dbdbdb;
-    --shadow: 0 10px 40px rgba(0,0,0,0.1);
+    --shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --card-bg: #121212;
+        --text-main: #f5f5f5;
+        --text-sub: #a8a8a8;
+        --border: #363636;
+    }
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
-    background-color: var(--bg-color);
+    background: var(--bg-gradient);
     color: var(--text-main);
-    display: flex;
-    align-items: center; /* 수직 정중앙 */
-    justify-content: center; /* 수평 정중앙 */
     min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 20px;
 }
 
 .app-container {
     width: 100%;
     max-width: 420px;
-    max-height: 94vh; /* 화면을 넘지 않도록 제한 */
+    background: var(--card-bg);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
-    background: white;
-    border-radius: 20px;
-    box-shadow: var(--shadow);
     overflow: hidden;
-    position: relative;
+    animation: fadeIn 0.6s ease-out;
 }
 
-/* 모바일 화면 보정 */
-@media (max-width: 480px) {
-    body { padding: 10px; }
-    .app-container { max-height: 98vh; border-radius: 16px; }
-    .logo { font-size: 20px; }
-}
-
+/* 헤더 */
 .app-header {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--border);
+    padding: 20px 16px 10px;
     text-align: center;
-    background: white;
-    z-index: 100;
+    border-bottom: 1px solid var(--border);
 }
 
 .logo {
     font-family: 'Playfair Display', serif;
-    font-size: 22px;
+    font-size: 26px;
     letter-spacing: -0.5px;
+    margin-bottom: 4px;
 }
 
+.subtitle {
+    font-size: 12px;
+    color: var(--text-sub);
+    font-weight: 500;
+}
+
+/* 카테고리 필터 */
 .category-nav {
     overflow-x: auto;
-    padding: 10px 0;
+    padding: 12px 0;
     border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
 }
 .category-nav::-webkit-scrollbar { display: none; }
 
@@ -67,17 +74,18 @@ body {
     display: flex;
     gap: 8px;
     padding: 0 16px;
-    white-space: nowrap;
 }
 
 .filter-btn {
     padding: 6px 14px;
     border-radius: 20px;
     border: 1px solid var(--border);
-    background: white;
+    background: transparent;
+    color: var(--text-main);
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
+    white-space: nowrap;
     transition: all 0.2s;
 }
 
@@ -87,10 +95,10 @@ body {
     border-color: var(--primary);
 }
 
+/* 메인 영역 */
 .app-main {
     flex: 1;
     padding: 16px;
-    overflow-y: auto; /* 내용이 길어질 경우 스크롤 */
     display: flex;
     flex-direction: column;
 }
@@ -99,9 +107,8 @@ body {
     border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
-    margin-bottom: 16px;
-    animation: slideUp 0.4s ease-out;
-    background: white;
+    margin-bottom: 20px;
+    background: var(--card-bg);
 }
 
 .insta-card.hidden { display: none; }
@@ -114,25 +121,27 @@ body {
 }
 
 .profile-pic {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 12px;
+    font-size: 14px;
 }
 
-.username { font-weight: 600; font-size: 13px; }
+.header-text { display: flex; flex-direction: column; }
+.username { font-weight: 700; font-size: 13px; }
+.location { font-size: 10px; color: var(--text-sub); }
 
 .card-image-container {
     width: 100%;
     aspect-ratio: 1 / 1;
-    max-height: 45vh; /* 이미지 크기 축소 (사용자 요청 50vh보다 약간 더 여유 있게) */
+    max-height: 45vh; /* 요청하신 이미지 높이 제한 */
     position: relative;
-    background: #f8f9fa;
+    background: #f0f0f0;
     overflow: hidden;
 }
 
@@ -141,103 +150,143 @@ body {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.6s ease;
 }
 
 .menu-image.loaded { opacity: 1; }
 
+/* 로딩 애니메이션 */
 .loading-overlay {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: #f8f9fa;
+    background: var(--card-bg);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 10;
+    z-index: 5;
 }
 
 .loading-overlay.hidden { display: none; }
 
-.spinner {
-    width: 32px;
-    height: 32px;
-    border: 3px solid #eee;
-    border-top: 3px solid var(--primary);
+.pulse-loader {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary);
     border-radius: 50%;
-    animation: spin 1s linear infinite;
+    animation: pulse 1.2s infinite ease-in-out;
+    margin-bottom: 12px;
+}
+
+.loading-overlay p { font-size: 13px; color: var(--text-sub); font-weight: 500; }
+
+@keyframes pulse {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+/* 카드 본문 */
+.card-body { padding: 12px; }
+
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
 }
 
-.loading-overlay p { font-size: 13px; color: var(--text-sub); font-weight: 500; text-align: center; padding: 0 20px; }
+.action-icons { display: flex; gap: 12px; font-size: 18px; }
+.badge { background: #eef6ff; color: var(--primary); padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; }
 
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.caption { font-size: 14px; line-height: 1.5; margin-bottom: 8px; }
+.bold { font-weight: 700; margin-right: 4px; }
+.highlight { color: var(--primary); font-weight: 700; }
 
-.card-body { padding: 12px; }
-.card-actions { margin-bottom: 6px; }
-.badge { background: #eef6ff; color: var(--primary); padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; }
+.description-box {
+    font-size: 13px;
+    color: var(--text-sub);
+    line-height: 1.6;
+    border-left: 2px solid var(--border);
+    padding-left: 10px;
+}
 
-.caption { font-size: 14px; line-height: 1.4; margin-bottom: 6px; }
-.bold { font-weight: 600; margin-right: 6px; }
-
-.description-box { font-size: 12.5px; color: var(--text-sub); border-left: 2px solid #eee; padding-left: 10px; margin-top: 6px; line-height: 1.5; }
-
+/* 액션 버튼 */
 .action-area { margin-top: auto; padding-top: 10px; }
 .main-cta {
     width: 100%;
-    padding: 14px;
+    padding: 16px;
     background: var(--primary);
     color: white;
     border: none;
     border-radius: 12px;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
     transition: transform 0.1s;
 }
 .main-cta:active { transform: scale(0.98); }
 
+/* 푸터 */
 .app-footer {
-    padding: 16px;
+    padding: 20px 16px;
     text-align: center;
     border-top: 1px solid var(--border);
-    flex-shrink: 0;
+    font-size: 11px;
+    color: var(--text-sub);
 }
 
-.footer-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 8px; }
-.footer-links button { background: none; border: none; font-size: 11px; color: var(--text-sub); cursor: pointer; text-decoration: underline; }
+.footer-info { margin-bottom: 12px; line-height: 1.6; }
+.footer-links button {
+    background: none;
+    border: none;
+    color: var(--text-sub);
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 11px;
+}
 
-.copyright { font-size: 10px; color: var(--text-sub); }
-
-/* 모달 스타일 */
+/* 모달 */
 .modal-overlay {
     position: fixed;
-    top:0; left:0; width:100%; height:100%;
-    background: rgba(0,0,0,0.5);
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
     padding: 20px;
+    backdrop-filter: blur(4px);
 }
 
 .modal-content {
-    background: white;
+    background: var(--card-bg);
     padding: 24px;
-    border-radius: 16px;
+    border-radius: 20px;
     max-width: 360px;
     width: 100%;
-    max-height: 70vh;
-    overflow-y: auto;
 }
 
-.modal-content h2 { font-size: 17px; margin-bottom: 12px; text-align: center; }
-.modal-body { font-size: 12.5px; line-height: 1.6; color: #444; white-space: pre-line; }
-.modal-close { width: 100%; margin-top: 16px; padding: 10px; background: #f0f0f0; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+.modal-content h2 { font-size: 18px; margin-bottom: 16px; text-align: center; }
+.modal-body { font-size: 13px; line-height: 1.6; color: var(--text-main); margin-bottom: 20px; }
+.modal-close {
+    width: 100%;
+    padding: 12px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
 
 .hidden { display: none !important; }
 
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(15px); }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* 모바일 보정 */
+@media (max-width: 400px) {
+    .app-container { border-radius: 0; min-height: 100vh; }
+    body { padding: 0; }
 }
