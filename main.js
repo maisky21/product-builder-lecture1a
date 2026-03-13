@@ -135,54 +135,62 @@ const langToggle = document.getElementById('lang-toggle');
  * Pollinations.ai를 이용한 실시간 AI 이미지 생성
  */
 function updateAIImage(promptText) {
-    // 프롬프트가 없을 경우를 대비한 기본값 설정
-    const finalPrompt = promptText || "delicious gourmet food, high quality photography, 8k";
-    const seed = Math.floor(Math.random() * 100000);
+    // 1. 영어 프롬프트가 없을 경우를 대비한 기본값(Default Prompt) 설정
+    const finalPrompt = promptText || "delicious gourmet food photography, high quality, 8k";
     
-    // 요청하신 정확한 URL 형식 적용
+    // 2. 요청하신 정확한 URL 형식 고정 (seed에 Date.now() 적용)
+    const seed = Date.now();
     const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?width=1080&height=1080&nologo=true&seed=${seed}`;
     
     // 콘솔 출력 (디버깅용)
     console.log(`새로운 이미지 주소: ${imageUrl}`);
     
-    // 로딩 상태 연출
+    // 3. 이미지 태그 연결 및 로딩 효과 (투명도 조절)
     if (imageLoading) imageLoading.classList.remove('hidden');
+    menuImage.style.opacity = "0.5"; // 로딩 중 투명도 조절
     menuImage.classList.remove('loaded');
     
-    // 이미지 소스 할당 및 onload 처리
+    // 4. 이미지 소스 할당 및 이벤트 처리
     menuImage.src = imageUrl;
+    
     menuImage.onload = () => {
         if (imageLoading) imageLoading.classList.add('hidden');
+        menuImage.style.opacity = "1";
         menuImage.classList.add('loaded');
     };
     
+    // 5. 엑박 방지: 이미지 로드 실패 시 기본 이미지로 대체
     menuImage.onerror = () => {
-        console.error("AI 이미지 생성 실패");
-        if (imageLoading) {
-            imageLoading.innerHTML = "<p style='color: #ed4956;'>이미지 생성에 실패했습니다. 다시 시도해 주세요.</p>";
-        }
+        console.warn("AI 이미지 로드 실패, 대체 이미지를 사용합니다.");
+        menuImage.src = "https://via.placeholder.com/1080?text=Delicious+Food";
+        if (imageLoading) imageLoading.classList.add('hidden');
+        menuImage.style.opacity = "1";
     };
 }
 
 /**
- * 필터링된 메뉴 중 하나를 랜덤하게 선택 (중복 방지)
+ * 필터링된 메뉴 중 하나를 랜덤하게 선택 (중복 방지 및 골고루 추출)
  */
 function getRandomMenu() {
+    // 카테고리에 맞는 리스트를 정확히 참조
     const filteredList = currentCategory === 'all' 
         ? menus 
         : menus.filter(m => m.category === currentCategory);
     
-    if (filteredList.length === 0) return menus[0];
+    // 안전 장치: 리스트가 비어있을 경우 전체 메뉴에서 선택
+    const targetList = filteredList.length > 0 ? filteredList : menus;
 
-    // 메뉴가 2개 이상일 경우 직전 메뉴와 겹치지 않게 선택
     let chosen;
-    if (filteredList.length > 1) {
+    // 리스트가 2개 이상일 경우 직전 메뉴(lastMenuId)와 겹치지 않게 무한 루프 방지 로직 포함 추출
+    if (targetList.length > 1) {
+        let attempts = 0;
         do {
-            const randomIndex = Math.floor(Math.random() * filteredList.length);
-            chosen = filteredList[randomIndex];
-        } while (chosen.id === lastMenuId);
+            const randomIndex = Math.floor(Math.random() * targetList.length);
+            chosen = targetList[randomIndex];
+            attempts++;
+        } while (chosen.id === lastMenuId && attempts < 10);
     } else {
-        chosen = filteredList[0];
+        chosen = targetList[0];
     }
     
     lastMenuId = chosen.id;
