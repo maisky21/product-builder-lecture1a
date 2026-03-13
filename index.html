@@ -9,79 +9,68 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- 헤더 -->
         <header class="app-header">
             <h1 class="logo">Vibe Fortune</h1>
-            <p class="subtitle">우주가 추천하는 오늘의 완벽한 한 끼</p>
         </header>
 
-        <!-- 카테고리 필터 -->
         <nav class="category-nav">
-            <button class="filter-btn active" data-category="all">전체</button>
-            <button class="filter-btn" data-category="korean">한식</button>
-            <button class="filter-btn" data-category="western">양식</button>
-            <button class="filter-btn" data-category="japanese">일식</button>
-            <button class="filter-btn" data-category="chinese">중식</button>
+            <div class="filters">
+                <button class="filter-btn active" data-category="all">전체</button>
+                <button class="filter-btn" data-category="korean">한식</button>
+                <button class="filter-btn" data-category="western">양식</button>
+                <button class="filter-btn" data-category="japanese">일식</button>
+                <button class="filter-btn" data-category="chinese">중식</button>
+            </div>
         </nav>
 
         <main class="app-main">
-            <!-- 초기 안내 문구 -->
-            <div id="intro-box" class="intro-box">
-                <div class="fortune-icon">🔮</div>
-                <p>오늘 당신의 미식 운세는 어떨까요?<br>카테고리를 고르고 아래 버튼을 눌러보세요.</p>
-            </div>
-
-            <!-- 인스타그램 스타일 카드 (결과 화면) -->
-            <div id="result-card" class="insta-card hidden">
-                <div class="card-header">
-                    <div class="profile-pic">✨</div>
-                    <div class="header-text">
-                        <span class="username">cosmic_fortune</span>
-                        <span id="res-category" class="location">KOREAN</span>
-                    </div>
-                </div>
-                
-                <div class="card-image-container">
-                    <div id="loading-overlay" class="loading-overlay">
-                        <div class="spinner"></div>
-                        <p>미식을 요리 중입니다...</p>
-                    </div>
-                    <img id="menu-image" src="" alt="추천 메뉴" class="menu-image">
-                </div>
-
-                <div class="card-body">
-                    <p class="caption">
-                        <span class="bold">cosmic_fortune</span> 
-                        오늘의 운명적인 추천 메뉴는 <span id="res-name" class="highlight">김치찌개</span>입니다.
-                    </p>
-                    <div id="res-description" class="description-box"></div>
+            <!-- 초기 화면 -->
+            <div id="intro-view" class="view-content">
+                <div class="intro-card">
+                    <span class="fortune-icon">🔮</span>
+                    <h2>오늘 뭐 먹지?</h2>
+                    <p>우주가 당신을 위해 준비한<br>오늘의 완벽한 메뉴를 확인해보세요.</p>
                 </div>
             </div>
 
-            <!-- 추천 버튼 -->
+            <!-- 결과 화면 -->
+            <div id="result-view" class="view-content hidden">
+                <div class="insta-card">
+                    <div class="card-header">
+                        <div class="profile-pic">✨</div>
+                        <div class="header-text">
+                            <span class="username">cosmic_fortune</span>
+                            <span id="res-category" class="location">CATEGORY</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-image-container">
+                        <div id="loading-overlay" class="loading-overlay">
+                            <div class="spinner"></div>
+                            <p>미식을 요리 중입니다...</p>
+                        </div>
+                        <img id="menu-image" src="" alt="추천 메뉴" class="menu-image">
+                    </div>
+
+                    <div class="card-body">
+                        <p class="caption">
+                            <span class="bold">cosmic_fortune</span> 
+                            오늘의 미식 운세: <span id="res-name" class="highlight">메뉴이름</span>
+                        </p>
+                        <p id="res-description" class="description-text"></p>
+                    </div>
+                </div>
+            </div>
+
             <div class="action-area">
                 <button id="recommend-btn" class="main-cta">나의 미식 운세 확인하기</button>
             </div>
         </main>
 
-        <!-- 푸터 -->
         <footer class="app-footer">
-            <button class="footer-link" onclick="toggleModal(true)">개인정보처리방침</button>
-            <p class="copyright">© 2026 Vibe Fortune. All rights reserved.</p>
+            <p class="copyright">© 2026 Vibe Fortune Studio</p>
         </footer>
     </div>
-
-    <!-- 모달 -->
-    <div id="privacy-modal" class="modal hidden">
-        <div class="modal-content">
-            <h2>개인정보처리방침</h2>
-            <div class="modal-body">
-                본 서비스는 어떠한 개인정보도 서버에 저장하거나 수집하지 않습니다. 모든 데이터는 브라우저 로컬 환경에서만 처리되며 익명성을 보장합니다.
-            </div>
-            <button class="modal-close" onclick="toggleModal(false)">닫기</button>
-        </div>
-    </div>
-
     <script src="main.js"></script>
 </body>
 </html>

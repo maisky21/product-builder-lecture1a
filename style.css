@@ -1,40 +1,37 @@
 :root {
-    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --primary: #0095f6;
     --card-bg: #ffffff;
     --text-main: #262626;
     --text-sub: #8e8e8e;
-    --primary: #0095f6;
     --border: #dbdbdb;
-    --shadow: 0 15px 35px rgba(0,0,0,0.2);
+    --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
-    background: var(--bg-gradient);
-    color: var(--text-main);
+    background: var(--gradient);
     min-height: 100vh;
     display: flex;
-    align-items: center; /* 수직 중앙 */
-    justify-content: center; /* 수평 중앙 */
-    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
 }
 
 .app-container {
     width: 100%;
     max-width: 400px;
     background: var(--card-bg);
-    border-radius: 24px;
-    box-shadow: var(--shadow);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     overflow: hidden;
     display: flex;
     flex-direction: column;
 }
 
-/* 헤더 */
 .app-header {
-    padding: 20px 16px 10px;
+    padding: 16px;
     text-align: center;
     border-bottom: 1px solid var(--border);
 }
@@ -45,25 +42,18 @@ body {
     letter-spacing: -0.5px;
 }
 
-.subtitle {
-    font-size: 11px;
-    color: var(--text-sub);
-    font-weight: 500;
-}
-
-/* 필터 */
 .category-nav {
     display: flex;
     overflow-x: auto;
-    padding: 12px 10px;
+    padding: 10px;
     gap: 8px;
     border-bottom: 1px solid var(--border);
 }
 .category-nav::-webkit-scrollbar { display: none; }
 
 .filter-btn {
-    padding: 6px 14px;
-    border-radius: 20px;
+    padding: 6px 12px;
+    border-radius: 15px;
     border: 1px solid var(--border);
     background: #fff;
     font-size: 12px;
@@ -78,68 +68,61 @@ body {
     border-color: var(--primary);
 }
 
-/* 메인 영역 */
 .app-main {
     padding: 16px;
     flex: 1;
     display: flex;
     flex-direction: column;
+}
+
+.view-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    min-height: 300px;
 }
 
-.intro-box {
-    text-align: center;
-    padding: 40px 20px;
-}
+.intro-card { text-align: center; padding: 40px 0; }
+.fortune-icon { font-size: 48px; margin-bottom: 16px; display: block; }
+.intro-card h2 { font-size: 20px; margin-bottom: 8px; }
+.intro-card p { font-size: 14px; color: var(--text-sub); line-height: 1.5; }
 
-.fortune-icon { font-size: 48px; margin-bottom: 16px; }
-.intro-box p { font-size: 14px; color: var(--text-sub); line-height: 1.6; }
-
-/* 인스타 카드 */
 .insta-card {
     border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
-    background: #fff;
-    animation: fadeIn 0.5s ease;
 }
 
 .card-header {
-    padding: 10px 12px;
+    padding: 10px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .profile-pic {
-    width: 32px;
-    height: 32px;
+    width: 30px; height: 30px;
     background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 12px;
 }
 
 .header-text { display: flex; flex-direction: column; }
 .username { font-weight: 700; font-size: 13px; }
-.location { font-size: 10px; color: var(--text-sub); font-weight: 600; }
+.location { font-size: 10px; color: var(--text-sub); }
 
 .card-image-container {
     width: 100%;
-    aspect-ratio: 1 / 1;
-    max-height: 40vh; /* 요청하신 한 화면 최적화 */
+    aspect-ratio: 1/1;
+    max-height: 40vh; /* 최적화 */
     position: relative;
     background: #f8f9fa;
     overflow: hidden;
 }
 
 .menu-image {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     opacity: 0;
     transition: opacity 0.5s ease;
@@ -148,111 +131,40 @@ body {
 .menu-image.loaded { opacity: 1; }
 
 .loading-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 5;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    z-index: 10;
 }
 
 .spinner {
-    width: 36px;
-    height: 36px;
+    width: 30px; height: 30px;
     border: 3px solid #f3f3f3;
     border-top: 3px solid var(--primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
-
-.loading-overlay p { font-size: 13px; color: var(--text-sub); font-weight: 500; }
 
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+.loading-overlay p { font-size: 12px; color: var(--text-sub); font-weight: 500; }
+
 .card-body { padding: 12px; }
-.caption { font-size: 14px; line-height: 1.5; }
+.caption { font-size: 14px; line-height: 1.4; margin-bottom: 4px; }
 .bold { font-weight: 700; margin-right: 4px; }
 .highlight { color: var(--primary); font-weight: 700; }
+.description-text { font-size: 12px; color: var(--text-sub); line-height: 1.5; }
 
-.description-box {
-    margin-top: 8px;
-    font-size: 13px;
-    color: var(--text-sub);
-    line-height: 1.6;
-    border-left: 2px solid var(--border);
-    padding-left: 10px;
-}
-
-/* 액션 */
-.action-area { margin-top: 20px; }
+.action-area { margin-top: 16px; }
 .main-cta {
-    width: 100%;
-    padding: 16px;
+    width: 100%; padding: 14px;
     background: var(--primary);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.1s;
-}
-.main-cta:active { transform: scale(0.98); }
-
-/* 푸터 */
-.app-footer {
-    padding: 20px 16px;
-    text-align: center;
-    border-top: 1px solid var(--border);
+    color: #fff; border: none; border-radius: 10px;
+    font-size: 15px; font-weight: 700; cursor: pointer;
 }
 
-.footer-link {
-    background: none;
-    border: none;
-    color: var(--text-sub);
-    font-size: 11px;
-    text-decoration: underline;
-    cursor: pointer;
-    margin-bottom: 8px;
-}
-
+.app-footer { padding: 16px; text-align: center; border-top: 1px solid var(--border); }
 .copyright { font-size: 10px; color: var(--text-sub); }
 
-/* 모달 */
-.modal {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 20px;
-}
-
-.modal-content {
-    background: #fff;
-    padding: 24px;
-    border-radius: 20px;
-    max-width: 360px;
-    width: 100%;
-}
-
-.modal-content h2 { font-size: 18px; margin-bottom: 12px; text-align: center; }
-.modal-body { font-size: 13px; line-height: 1.6; color: #444; margin-bottom: 20px; }
-.modal-close {
-    width: 100%;
-    padding: 12px;
-    background: #f0f0f0;
-    border: none;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
 .hidden { display: none !important; }
-
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
