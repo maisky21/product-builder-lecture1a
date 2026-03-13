@@ -222,7 +222,7 @@ function updateAIImage(aiPrompt) {
     if (!foodImg) return console.error('이미지 태그(#menu-image)를 찾을 수 없음!');
 
     const seed = Math.random();
-    const newUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(aiPrompt)}?nologo=true&seed=${seed}`;
+    const newUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(aiPrompt)}?nologo=true&seed=${new Date().getTime()}`;
 
     foodImg.classList.remove('loaded'); // 스켈레톤 로딩 연출 시작
     foodImg.src = newUrl;

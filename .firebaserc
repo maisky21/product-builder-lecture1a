@@ -1,5 +1,7 @@
 {
-  "projects": {},
+  "projects": {
+    "default": "productbuiler-week1-5510-63290"
+  },
   "targets": {},
   "etags": {}
 }
