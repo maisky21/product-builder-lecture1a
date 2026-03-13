@@ -120,13 +120,13 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const langToggle = document.getElementById('lang-toggle');
 
 function updateAIImage(aiPrompt) {
-    const timestamp = new Date().getTime();
-    // 프롬프트에 타임스탬프를 강제로 섞어 캐시를 100% 우회합니다.
-    const newUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(aiPrompt + " , " + timestamp)}?nologo=true&seed=${timestamp}`;
+    const seed = Math.floor(Math.random() * 10000);
+    const newUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(aiPrompt)}?width=1080&height=1080&nologo=true&seed=${seed}`;
+    
+    console.log("Generated Pollinations URL:", newUrl);
     
     menuImage.classList.remove('loaded');
     menuImage.src = newUrl;
-    console.log("새 이미지 요청:", newUrl);
 }
 
 function displayMenu() {
