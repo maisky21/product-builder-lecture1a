@@ -313,3 +313,21 @@ filterBtns.forEach(btn => {
 });
 
 updateLanguageUI();
+// AI 이미지 업데이트 함수 (파일 맨 아래에 추가하세요)
+function updateAIImage(aiPrompt) {
+    const foodImg = document.getElementById('menu-image'); 
+    if (!foodImg) return;
+
+    const timestamp = new Date().getTime();
+    // 프롬프트 자체에 타임스탬프를 넣어 AI가 매번 다른 그림을 그리게 강제합니다.
+    const newUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(aiPrompt + " , " + timestamp)}?nologo=true&seed=${timestamp}`;
+
+    foodImg.classList.remove('loaded');
+    foodImg.src = newUrl;
+    
+    console.log(`[DEBUG] 새로운 이미지 요청: ${newUrl}`);
+
+    foodImg.onerror = () => {
+        foodImg.src = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80";
+    };
+}
