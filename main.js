@@ -35,6 +35,8 @@ const menus = [
 ];
 
 let currentCategory = 'all';
+let lastMenu = null;
+
 const recommendBtn = document.getElementById('recommend-btn');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const resultCard = document.getElementById('result-card');
@@ -53,11 +55,20 @@ filterBtns.forEach(btn => {
     });
 });
 
-// 추천 로직 (메뉴 골고루 추출)
+// 추천 로직 (메뉴 골고루 추출 및 Pollinations.ai 연동)
 recommendBtn.addEventListener('click', () => {
     const filtered = menus.filter(m => currentCategory === 'all' || m.category === currentCategory);
-    const randomIndex = Math.floor(Math.random() * filtered.length);
-    const selectedMenu = filtered[randomIndex];
+    
+    // 중복 방지 로직 강화
+    let selectedMenu;
+    if (filtered.length > 1) {
+        do {
+            selectedMenu = filtered[Math.floor(Math.random() * filtered.length)];
+        } while (selectedMenu === lastMenu);
+    } else {
+        selectedMenu = filtered[0];
+    }
+    lastMenu = selectedMenu;
 
     // UI 업데이트
     resultCard.classList.remove('hidden');
@@ -68,9 +79,12 @@ recommendBtn.addEventListener('click', () => {
     resCategory.textContent = selectedMenu.category.toUpperCase();
     resDescription.textContent = selectedMenu.desc;
 
-    // Unsplash 이미지 생성 (요청하신 형식)
-    const menuEngName = encodeURIComponent(selectedMenu.eng);
-    const imageUrl = `https://source.unsplash.com/featured/?food,${menuEngName}&sig=${Math.random()}`;
+    // Pollinations.ai 이미지 생성 URL (요청하신 형식)
+    const prompt = encodeURIComponent(selectedMenu.eng + " delicious food photography, high quality, 8k");
+    const seed = Math.floor(Math.random() * 100000);
+    const imageUrl = `https://image.pollinations.ai/prompt/${prompt}?width=1080&height=1080&nologo=true&seed=${seed}`;
+
+    console.log("Generated AI Image URL:", imageUrl);
 
     // 이미지 로딩 처리
     menuImage.src = imageUrl;
@@ -81,7 +95,7 @@ recommendBtn.addEventListener('click', () => {
 
     menuImage.onerror = () => {
         console.error("Image loading failed");
-        loadingOverlay.innerHTML = "<p>이미지를 불러오지 못했습니다. 다시 시도해 주세요.</p>";
+        loadingOverlay.innerHTML = "<p>미식을 가져오는 데 실패했습니다. 다시 시도해 주세요.</p>";
     };
 });
 

@@ -25,20 +25,22 @@ body {
     color: var(--text-main);
     min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center; /* 수직 정중앙 */
+    justify-content: center; /* 수평 정중앙 */
     padding: 20px;
+    overflow-y: auto; /* 전체 컨테이너 스크롤 보정 */
 }
 
 .app-container {
     width: 100%;
     max-width: 420px;
+    max-height: 95vh; /* 화면 하단 잘림 방지 */
     background: var(--card-bg);
     border-radius: 24px;
     box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: hidden; /* 내부 스크롤을 위해 컨테이너는 hidden */
     animation: fadeIn 0.6s ease-out;
 }
 
@@ -47,6 +49,7 @@ body {
     padding: 20px 16px 10px;
     text-align: center;
     border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
 }
 
 .logo {
@@ -67,6 +70,7 @@ body {
     overflow-x: auto;
     padding: 12px 0;
     border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
 }
 .category-nav::-webkit-scrollbar { display: none; }
 
@@ -101,14 +105,22 @@ body {
     padding: 16px;
     display: flex;
     flex-direction: column;
+    overflow-y: auto; /* 내용이 길 경우 내부 스크롤 */
+    justify-content: center; /* 초기 상태 수직 중앙 정렬을 위함 */
+}
+
+/* 추천 결과가 있을 때의 레이아웃 조정 */
+.insta-card:not(.hidden) ~ .action-area {
+    margin-top: 10px;
 }
 
 .insta-card {
     border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     background: var(--card-bg);
+    flex-shrink: 0;
 }
 
 .insta-card.hidden { display: none; }
@@ -139,7 +151,7 @@ body {
 .card-image-container {
     width: 100%;
     aspect-ratio: 1 / 1;
-    max-height: 45vh; /* 요청하신 이미지 높이 제한 */
+    max-height: 40vh; /* 요청하신 이미지 높이 제한 */
     position: relative;
     background: #f0f0f0;
     overflow: hidden;
@@ -148,9 +160,9 @@ body {
 .menu-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; /* 40vh 제한 내에서 꽉 차게 */
     opacity: 0;
-    transition: opacity 0.6s ease;
+    transition: opacity 0.8s ease; /* 부드러운 페이드 인 */
 }
 
 .menu-image.loaded { opacity: 1; }
@@ -178,7 +190,13 @@ body {
     margin-bottom: 12px;
 }
 
-.loading-overlay p { font-size: 13px; color: var(--text-sub); font-weight: 500; }
+.loading-overlay p { 
+    font-size: 13px; 
+    color: var(--text-sub); 
+    font-weight: 500; 
+    text-align: center;
+    padding: 0 20px;
+}
 
 @keyframes pulse {
     0% { transform: scale(0); opacity: 1; }
@@ -192,26 +210,26 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .action-icons { display: flex; gap: 12px; font-size: 18px; }
 .badge { background: #eef6ff; color: var(--primary); padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; }
 
-.caption { font-size: 14px; line-height: 1.5; margin-bottom: 8px; }
+.caption { font-size: 14px; line-height: 1.4; margin-bottom: 6px; }
 .bold { font-weight: 700; margin-right: 4px; }
 .highlight { color: var(--primary); font-weight: 700; }
 
 .description-box {
     font-size: 13px;
     color: var(--text-sub);
-    line-height: 1.6;
+    line-height: 1.5;
     border-left: 2px solid var(--border);
     padding-left: 10px;
 }
 
 /* 액션 버튼 */
-.action-area { margin-top: auto; padding-top: 10px; }
+.action-area { padding-top: 10px; flex-shrink: 0; }
 .main-cta {
     width: 100%;
     padding: 16px;
@@ -228,14 +246,15 @@ body {
 
 /* 푸터 */
 .app-footer {
-    padding: 20px 16px;
+    padding: 15px 16px;
     text-align: center;
     border-top: 1px solid var(--border);
     font-size: 11px;
     color: var(--text-sub);
+    flex-shrink: 0;
 }
 
-.footer-info { margin-bottom: 12px; line-height: 1.6; }
+.footer-info { margin-bottom: 8px; line-height: 1.5; }
 .footer-links button {
     background: none;
     border: none;
@@ -287,6 +306,6 @@ body {
 
 /* 모바일 보정 */
 @media (max-width: 400px) {
-    .app-container { border-radius: 0; min-height: 100vh; }
+    .app-container { border-radius: 0; max-height: 100vh; }
     body { padding: 0; }
 }
