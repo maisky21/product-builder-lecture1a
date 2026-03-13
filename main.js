@@ -108,10 +108,12 @@ const uiStrings = {
 
 let currentLang = localStorage.getItem('lang') || 'ko';
 let currentCategory = 'all';
+let lastMenu = null; // 중복 방지용
 
 const recommendBtn = document.getElementById('recommend-btn');
 const resultCard = document.getElementById('result-card');
 const menuImage = document.getElementById('menu-image');
+const imageLoading = document.getElementById('image-loading');
 const menuName = document.getElementById('menu-name');
 const menuCategory = document.getElementById('menu-category');
 const menuDescription = document.getElementById('menu-description');
@@ -120,19 +122,57 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const langToggle = document.getElementById('lang-toggle');
 
 function updateAIImage(aiPrompt) {
-    const seed = Math.floor(Math.random() * 10000);
-    const newUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(aiPrompt)}?width=1080&height=1080&nologo=true&seed=${seed}`;
+    // 엑박 방지를 위한 기본 프롬프트 설정
+    const prompt = aiPrompt || "delicious food photography, 8k, gourmet";
+    const seed = Math.floor(Math.random() * 100000);
+    const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1080&height=1080&nologo=true&seed=${seed}`;
     
-    console.log("Generated Pollinations URL:", newUrl);
+    console.log("Generated Pollinations URL:", imageUrl);
     
+    // 로딩 상태 표시
+    imageLoading.classList.remove('hidden');
     menuImage.classList.remove('loaded');
-    menuImage.src = newUrl;
+    
+    // 이미지 소스 할당
+    menuImage.src = imageUrl;
+
+    // 완료 시 처리
+    menuImage.onload = () => {
+        imageLoading.classList.add('hidden');
+        menuImage.classList.add('loaded');
+    };
+
+    menuImage.onerror = () => {
+        console.error("Image load failed");
+        imageLoading.innerHTML = "<p>이미지 생성에 실패했습니다. 다시 시도해 주세요.</p>";
+    };
+}
+
+function getRandomMenu() {
+    const filtered = currentCategory === 'all' 
+        ? menus 
+        : menus.filter(m => m.category === currentCategory);
+    
+    if (filtered.length === 0) return menus[0]; // 안전 장치
+
+    // 필터링된 메뉴가 2개 이상일 경우 직전 메뉴와 겹치지 않게 선택
+    let selected;
+    if (filtered.length > 1) {
+        do {
+            selected = filtered[Math.floor(Math.random() * filtered.length)];
+        } while (selected === lastMenu);
+    } else {
+        selected = filtered[0];
+    }
+    
+    lastMenu = selected;
+    return selected;
 }
 
 function displayMenu() {
     resultCard.classList.remove('hidden');
-    const filtered = currentCategory === 'all' ? menus : menus.filter(m => m.category === currentCategory);
-    const menu = filtered[Math.floor(Math.random() * filtered.length)];
+    
+    const menu = getRandomMenu();
     
     menuName.textContent = menu.name[currentLang];
     menuCategory.textContent = menu.category.toUpperCase();
@@ -142,7 +182,6 @@ function displayMenu() {
     luckyDigitsContainer.innerHTML = num.split('').map(n => `<span class="digit">${n}</span>`).join('');
 
     updateAIImage(menu.aiDescription);
-    menuImage.onload = () => menuImage.classList.add('loaded');
 }
 
 recommendBtn.addEventListener('click', displayMenu);
@@ -151,6 +190,11 @@ langToggle.addEventListener('click', () => {
     localStorage.setItem('lang', currentLang);
     recommendBtn.textContent = uiStrings[currentLang].recommendBtn;
     langToggle.textContent = uiStrings[currentLang].langBtn;
+    
+    // 현재 결과가 있을 경우 언어만 즉시 업데이트
+    if (!resultCard.classList.contains('hidden') && lastMenu) {
+        menuName.textContent = lastMenu.name[currentLang];
+    }
 });
 
 filterBtns.forEach(btn => {
