@@ -3,57 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>오늘의 저녁 메뉴 추천 - 오늘의 미식 운세</title>
-    <meta name="description" content="오늘 뭐 먹지? 결정 장애를 위한 최고의 저녁 메뉴 추천 서비스. 인스타그램 감성의 디자인과 우주적 알고리즘으로 당신에게 딱 맞는 미식을 점지해드립니다.">
-    <meta name="keywords" content="저녁 메뉴 추천, 점심 메뉴 추천, 오늘 뭐 먹지, 미식 운세, 음식 추천, 식사 메뉴, 메뉴 고르기">
+    <title>Vibe Fortune - 오늘의 미식 운세</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="app-container">
-        <!-- 상단 헤더: 인스타그램 스타일 -->
         <header class="app-header">
             <h1 class="logo">Vibe Fortune</h1>
-            <div class="header-actions">
-                <button id="theme-toggle" class="icon-btn" aria-label="테마 변경">☀️</button>
-                <button id="lang-toggle" class="icon-btn" aria-label="언어 변경">🌐</button>
-            </div>
         </header>
 
-        <!-- 스토리 영역: 카테고리 필터 -->
-        <div class="stories-container">
+        <nav class="category-nav">
             <div class="filters">
-                <button class="filter-btn active" data-category="all">
-                    <div class="story-circle">🍱</div>
-                    <span>전체</span>
-                </button>
-                <button class="filter-btn" data-category="korean">
-                    <div class="story-circle">🥢</div>
-                    <span>한식</span>
-                </button>
-                <button class="filter-btn" data-category="western">
-                    <div class="story-circle">🍔</div>
-                    <span>양식</span>
-                </button>
-                <button class="filter-btn" data-category="japanese">
-                    <div class="story-circle">🍣</div>
-                    <span>일식</span>
-                </button>
-                <button class="filter-btn" data-category="chinese">
-                    <div class="story-circle">🥡</div>
-                    <span>중식</span>
-                </button>
-                <button class="filter-btn" data-category="simple">
-                    <div class="story-circle">🥪</div>
-                    <span>간단</span>
-                </button>
+                <button class="filter-btn active" data-category="all">전체</button>
+                <button class="filter-btn" data-category="korean">한식</button>
+                <button class="filter-btn" data-category="western">양식</button>
+                <button class="filter-btn" data-category="japanese">일식</button>
+                <button class="filter-btn" data-category="chinese">중식</button>
+                <button class="filter-btn" data-category="simple">간단</button>
             </div>
-        </div>
+        </nav>
 
         <main class="app-main">
-            <!-- 인스타그램 카드 영역 -->
             <div id="result-card" class="insta-card hidden">
                 <div class="card-header">
                     <div class="profile-pic">✨</div>
@@ -61,58 +32,46 @@
                 </div>
                 
                 <div class="card-image-container">
-                    <div id="image-loading" class="image-loading-overlay">
+                    <div id="loading-overlay" class="loading-overlay">
                         <div class="spinner"></div>
-                        <p>이미지를 생성 중입니다...</p>
+                        <p>우주에서 미식을 가져오는 중...</p>
                     </div>
-                    <img id="menu-image" src="" alt="메뉴 이미지" class="menu-image">
-                </div>
-
-                <div class="card-actions">
-                    <div class="left-actions">
-                        <button class="action-icon">❤️</button>
-                        <button id="share-btn" class="action-icon">✈️</button>
-                    </div>
-                    <div class="card-badge" id="menu-category">KOREAN</div>
+                    <img id="menu-image" src="" alt="추천 메뉴" class="menu-image">
                 </div>
 
                 <div class="card-body">
+                    <div class="card-actions">
+                        <span class="badge" id="res-category">KOREAN</span>
+                    </div>
                     <p class="caption">
                         <span class="bold">cosmic_fortune</span> 
-                        <span id="menu-name">메뉴 이름</span>
+                        <span id="res-name">메뉴 이름</span>
                     </p>
-                    <div id="menu-description" class="description-box">
-                        <!-- 상세 설명이 여기에 들어갑니다 -->
-                    </div>
-                    <div class="lucky-number">
-                        <span>Lucky Numbers: </span>
-                        <div id="lucky-digits" class="digits-row">
-                            <span class="digit">?</span>
-                            <span class="digit">?</span>
-                        </div>
-                    </div>
+                    <div id="res-description" class="description-box"></div>
                 </div>
             </div>
 
-            <!-- 초기 화면 안내/버튼 -->
             <div class="action-area">
                 <button id="recommend-btn" class="main-cta">나의 미식 운세 확인하기</button>
             </div>
-
-            <!-- 서비스 정보 (슬림화) -->
-            <section class="service-info">
-                <p class="intro">우주의 기운을 담은 알고리즘이 당신의 완벽한 식사를 골라드립니다.</p>
-            </section>
         </main>
 
         <footer class="app-footer">
-            <nav class="footer-links">
-                <a href="about.html">서비스 소개</a>
-                <a href="privacy.html">개인정보처리방침</a>
-                <a href="terms.html">이용약관</a>
-            </nav>
-            <p class="copyright">© 2026 VibecodingJ</p>
+            <div class="footer-links">
+                <button onclick="openModal('privacy')">개인정보처리방침</button>
+                <button onclick="openModal('terms')">이용약관</button>
+            </div>
+            <p class="copyright">© 2026 Vibe Fortune</p>
         </footer>
+    </div>
+
+    <!-- 모달 창 -->
+    <div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2 id="modal-title"></h2>
+            <div id="modal-body" class="modal-body"></div>
+            <button class="modal-close" onclick="closeModal()">닫기</button>
+        </div>
     </div>
 
     <script src="main.js"></script>
