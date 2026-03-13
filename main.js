@@ -1,5 +1,6 @@
 const menus = [
     { 
+        id: 1,
         name: { ko: "김치찌개", en: "kimchi stew" }, 
         category: "korean", 
         descriptions: [
@@ -10,6 +11,7 @@ const menus = [
         aiDescription: "A steaming bowl of Korean Kimchi stew with tofu and pork, vibrant red broth, traditional earthenware bowl, photorealistic food photography, 8k"
     },
     { 
+        id: 2,
         name: { ko: "불고기", en: "bulgogi" }, 
         category: "korean", 
         descriptions: [
@@ -20,6 +22,7 @@ const menus = [
         aiDescription: "Thinly sliced marinated Korean beef bulgogi, sizzling on a plate, garnished with green onions and sesame seeds, photorealistic food photography, 8k"
     },
     { 
+        id: 3,
         name: { ko: "비빔밥", en: "bibimbap" }, 
         category: "korean", 
         descriptions: [
@@ -30,6 +33,7 @@ const menus = [
         aiDescription: "A delicious bowl of Korean bibimbap, colorful vegetables, fried egg on top, spicy sauce, photorealistic food photography, 8k"
     },
     { 
+        id: 4,
         name: { ko: "삼겹살", en: "samgyeopsal" }, 
         category: "korean", 
         descriptions: [
@@ -40,6 +44,7 @@ const menus = [
         aiDescription: "Sizzling Korean pork belly samgyeopsal on a grill, crispy and golden brown, with side dishes like garlic and lettuce, photorealistic food photography, 8k"
     },
     { 
+        id: 5,
         name: { ko: "떡볶이", en: "tteokbokki" }, 
         category: "korean", 
         descriptions: [
@@ -50,6 +55,7 @@ const menus = [
         aiDescription: "Spicy Korean rice cakes tteokbokki in a thick red sauce, with fish cakes and a boiled egg, photorealistic food photography, 8k"
     },
     { 
+        id: 6,
         name: { ko: "제육볶음", en: "spicy pork" }, 
         category: "korean", 
         descriptions: [
@@ -60,6 +66,7 @@ const menus = [
         aiDescription: "Korean spicy stir-fried pork Jeyuk-bokkeum, vibrant red color, garnished with sesame seeds and vegetables, photorealistic food photography, 8k"
     },
     { 
+        id: 7,
         name: { ko: "까르보나라", en: "carbonara" }, 
         category: "western", 
         descriptions: [
@@ -70,16 +77,18 @@ const menus = [
         aiDescription: "Creamy pasta carbonara with crispy bacon, parmesan cheese, and black pepper, elegant presentation, photorealistic food photography, 8k"
     },
     { 
+        id: 8,
         name: { ko: "스테이크", en: "steak" }, 
         category: "western", 
         descriptions: [
-            "육즙이 가득 가둬진 고품격 소고기 구이 요리입니다.",
+            "육즙이 가둬진 고품격 소고기 구이 요리입니다.",
             "특별한 날, 혹은 자신을 격려하고 싶은 날 최고의 선택!",
             "레드 와인 한 잔과 함께 영화 속 주인공 같은 분위기를 만끽해 보세요."
         ],
         aiDescription: "Juicy grilled beef steak with grill marks, served with roasted vegetables and a sprig of rosemary, gourmet plating, photorealistic food photography, 8k"
     },
     { 
+        id: 9,
         name: { ko: "초밥", en: "sushi" }, 
         category: "japanese", 
         descriptions: [
@@ -90,6 +99,7 @@ const menus = [
         aiDescription: "An assortment of fresh sushi and sashimi on a wooden platter, including salmon, tuna, and shrimp, photorealistic food photography, 8k"
     },
     {
+        id: 10,
         name: { ko: "나노바나나", en: "Nanobanana" },
         category: "simple",
         descriptions: [
@@ -108,92 +118,113 @@ const uiStrings = {
 
 let currentLang = localStorage.getItem('lang') || 'ko';
 let currentCategory = 'all';
-let lastMenu = null; // 중복 방지용
+let lastMenuId = null;
 
 const recommendBtn = document.getElementById('recommend-btn');
 const resultCard = document.getElementById('result-card');
 const menuImage = document.getElementById('menu-image');
 const imageLoading = document.getElementById('image-loading');
-const menuName = document.getElementById('menu-name');
-const menuCategory = document.getElementById('menu-category');
-const menuDescription = document.getElementById('menu-description');
+const menuNameDisplay = document.getElementById('menu-name');
+const menuCategoryDisplay = document.getElementById('menu-category');
+const menuDescDisplay = document.getElementById('menu-description');
 const luckyDigitsContainer = document.getElementById('lucky-digits');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const langToggle = document.getElementById('lang-toggle');
 
-function updateAIImage(aiPrompt) {
-    // 엑박 방지를 위한 기본 프롬프트 설정
-    const prompt = aiPrompt || "delicious food photography, 8k, gourmet";
+/**
+ * Pollinations.ai를 이용한 실시간 AI 이미지 생성
+ */
+function updateAIImage(promptText) {
+    // 프롬프트가 없을 경우를 대비한 기본값 설정
+    const finalPrompt = promptText || "delicious gourmet food, high quality photography, 8k";
     const seed = Math.floor(Math.random() * 100000);
-    const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1080&height=1080&nologo=true&seed=${seed}`;
     
-    console.log("Generated Pollinations URL:", imageUrl);
+    // 요청하신 정확한 URL 형식 적용
+    const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(finalPrompt)}?width=1080&height=1080&nologo=true&seed=${seed}`;
     
-    // 로딩 상태 표시
-    imageLoading.classList.remove('hidden');
+    // 콘솔 출력 (디버깅용)
+    console.log(`새로운 이미지 주소: ${imageUrl}`);
+    
+    // 로딩 상태 연출
+    if (imageLoading) imageLoading.classList.remove('hidden');
     menuImage.classList.remove('loaded');
     
-    // 이미지 소스 할당
+    // 이미지 소스 할당 및 onload 처리
     menuImage.src = imageUrl;
-
-    // 완료 시 처리
     menuImage.onload = () => {
-        imageLoading.classList.add('hidden');
+        if (imageLoading) imageLoading.classList.add('hidden');
         menuImage.classList.add('loaded');
     };
-
+    
     menuImage.onerror = () => {
-        console.error("Image load failed");
-        imageLoading.innerHTML = "<p>이미지 생성에 실패했습니다. 다시 시도해 주세요.</p>";
+        console.error("AI 이미지 생성 실패");
+        if (imageLoading) {
+            imageLoading.innerHTML = "<p style='color: #ed4956;'>이미지 생성에 실패했습니다. 다시 시도해 주세요.</p>";
+        }
     };
 }
 
+/**
+ * 필터링된 메뉴 중 하나를 랜덤하게 선택 (중복 방지)
+ */
 function getRandomMenu() {
-    const filtered = currentCategory === 'all' 
+    const filteredList = currentCategory === 'all' 
         ? menus 
         : menus.filter(m => m.category === currentCategory);
     
-    if (filtered.length === 0) return menus[0]; // 안전 장치
+    if (filteredList.length === 0) return menus[0];
 
-    // 필터링된 메뉴가 2개 이상일 경우 직전 메뉴와 겹치지 않게 선택
-    let selected;
-    if (filtered.length > 1) {
+    // 메뉴가 2개 이상일 경우 직전 메뉴와 겹치지 않게 선택
+    let chosen;
+    if (filteredList.length > 1) {
         do {
-            selected = filtered[Math.floor(Math.random() * filtered.length)];
-        } while (selected === lastMenu);
+            const randomIndex = Math.floor(Math.random() * filteredList.length);
+            chosen = filteredList[randomIndex];
+        } while (chosen.id === lastMenuId);
     } else {
-        selected = filtered[0];
+        chosen = filteredList[0];
     }
     
-    lastMenu = selected;
-    return selected;
+    lastMenuId = chosen.id;
+    return chosen;
 }
 
+/**
+ * 추천 결과 표시 메인 로직
+ */
 function displayMenu() {
     resultCard.classList.remove('hidden');
     
     const menu = getRandomMenu();
     
-    menuName.textContent = menu.name[currentLang];
-    menuCategory.textContent = menu.category.toUpperCase();
-    menuDescription.innerHTML = menu.descriptions.map(d => `<p style="margin-bottom:4px;">${d}</p>`).join('');
+    // DOM 업데이트
+    menuNameDisplay.textContent = menu.name[currentLang];
+    menuCategoryDisplay.textContent = menu.category.toUpperCase();
+    menuDescDisplay.innerHTML = menu.descriptions.map(d => `<p style="margin-bottom:4px;">${d}</p>`).join('');
     
-    const num = Math.floor(Math.random() * 99 + 1).toString().padStart(2, '0');
-    luckyDigitsContainer.innerHTML = num.split('').map(n => `<span class="digit">${n}</span>`).join('');
+    // 행운 번호 생성
+    const luckyNum = Math.floor(Math.random() * 99 + 1).toString().padStart(2, '0');
+    luckyDigitsContainer.innerHTML = luckyNum.split('').map(n => `<span class="digit">${n}</span>`).join('');
 
+    // AI 이미지 업데이트 호출 (menu.aiDescription 사용)
     updateAIImage(menu.aiDescription);
 }
 
+// 이벤트 리스너 등록
 recommendBtn.addEventListener('click', displayMenu);
+
 langToggle.addEventListener('click', () => {
     currentLang = currentLang === 'ko' ? 'en' : 'ko';
     localStorage.setItem('lang', currentLang);
     recommendBtn.textContent = uiStrings[currentLang].recommendBtn;
     langToggle.textContent = uiStrings[currentLang].langBtn;
     
-    // 현재 결과가 있을 경우 언어만 즉시 업데이트
-    if (!resultCard.classList.contains('hidden') && lastMenu) {
-        menuName.textContent = lastMenu.name[currentLang];
+    // 언어 변경 시 현재 보이는 메뉴 이름도 즉시 업데이트
+    if (!resultCard.classList.contains('hidden')) {
+        const currentMenu = menus.find(m => m.id === lastMenuId);
+        if (currentMenu) {
+            menuNameDisplay.textContent = currentMenu.name[currentLang];
+        }
     }
 });
 
