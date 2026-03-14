@@ -1,170 +1,109 @@
 :root {
-    --primary: #0095f6;
-    --card-bg: #ffffff;
-    --text-main: #262626;
-    --text-sub: #8e8e8e;
+    --bg: #fafafa;
+    --card: #ffffff;
+    --text: #262626;
+    --sub: #8e8e8e;
+    --blue: #0095f6;
     --border: #dbdbdb;
-    --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
-    background: var(--gradient);
-    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px;
+    min-height: 100vh;
 }
 
 .app-container {
     width: 100%;
     max-width: 400px;
-    background: var(--card-bg);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-.app-header {
-    padding: 16px;
-    text-align: center;
-    border-bottom: 1px solid var(--border);
-}
-
-.logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    letter-spacing: -0.5px;
-}
-
-.category-nav {
-    display: flex;
-    overflow-x: auto;
-    padding: 10px;
-    gap: 8px;
-    border-bottom: 1px solid var(--border);
-}
-.category-nav::-webkit-scrollbar { display: none; }
-
-.filter-btn {
-    padding: 6px 12px;
-    border-radius: 15px;
-    border: 1px solid var(--border);
-    background: #fff;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.filter-btn.active {
-    background: var(--primary);
-    color: #fff;
-    border-color: var(--primary);
-}
-
-.app-main {
-    padding: 16px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.view-content {
-    flex: 1;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 20px;
 }
 
-.intro-card { text-align: center; padding: 40px 0; }
-.fortune-icon { font-size: 48px; margin-bottom: 16px; display: block; }
-.intro-card h2 { font-size: 20px; margin-bottom: 8px; }
-.intro-card p { font-size: 14px; color: var(--text-sub); line-height: 1.5; }
+.view-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 0.4s ease;
+}
 
+.view-content.hidden { display: none; }
+
+.logo { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.subtitle { color: var(--sub); margin-bottom: 32px; font-size: 14px; }
+
+.main-cta {
+    width: 100%; padding: 12px;
+    background-color: var(--blue);
+    color: white; border: none; border-radius: 8px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+}
+
+.main-cta.secondary {
+    background-color: #efefef;
+    color: var(--text);
+    margin-top: 12px;
+}
+
+/* Insta Card Styles */
 .insta-card {
+    width: 100%; background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
+    border-radius: 8px; overflow: hidden;
+    margin-bottom: 12px; text-align: left;
 }
 
 .card-header {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    padding: 12px; display: flex; align-items: center;
 }
 
 .profile-pic {
-    width: 30px; height: 30px;
+    width: 32px; height: 32px;
     background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-    border-radius: 50%;
+    border-radius: 50%; margin-right: 10px;
     display: flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 12px;
+    color: white; font-size: 8px; font-weight: bold;
 }
 
-.header-text { display: flex; flex-direction: column; }
-.username { font-weight: 700; font-size: 13px; }
-.location { font-size: 10px; color: var(--text-sub); }
+.username { font-size: 13px; font-weight: 600; display: block; }
+.location { font-size: 11px; color: var(--sub); }
 
-.card-image-container {
-    width: 100%;
-    aspect-ratio: 1/1;
-    max-height: 40vh; /* 최적화 */
-    position: relative;
-    background: #f8f9fa;
-    overflow: hidden;
+.image-container {
+    width: 100%; max-height: 45vh; aspect-ratio: 1/1;
+    position: relative; background: #eee; overflow: hidden;
 }
 
-.menu-image {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
+#menu-image { width: 100%; height: 100%; object-fit: cover; }
 
-.menu-image.loaded { opacity: 1; }
-
-.loading-overlay {
+#loading-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: #fff;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    z-index: 10;
+    background: white; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; z-index: 5;
 }
 
 .spinner {
-    width: 30px; height: 30px;
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid var(--primary);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 10px;
+    width: 30px; height: 30px; border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--blue); border-radius: 50%;
+    animation: spin 1s linear infinite; margin-bottom: 8px;
 }
 
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-.loading-overlay p { font-size: 12px; color: var(--text-sub); font-weight: 500; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
 .card-body { padding: 12px; }
-.caption { font-size: 14px; line-height: 1.4; margin-bottom: 4px; }
-.bold { font-weight: 700; margin-right: 4px; }
-.highlight { color: var(--primary); font-weight: 700; }
-.description-text { font-size: 12px; color: var(--text-sub); line-height: 1.5; }
+.action-icons { font-size: 18px; margin-bottom: 8px; display: flex; gap: 12px; }
+.caption { font-size: 14px; line-height: 1.4; }
+.bold { font-weight: 600; margin-right: 5px; }
 
-.action-area { margin-top: 16px; }
-.main-cta {
-    width: 100%; padding: 14px;
-    background: var(--primary);
-    color: #fff; border: none; border-radius: 10px;
-    font-size: 15px; font-weight: 700; cursor: pointer;
-}
-
-.app-footer { padding: 16px; text-align: center; border-top: 1px solid var(--border); }
-.copyright { font-size: 10px; color: var(--text-sub); }
-
-.hidden { display: none !important; }
+.app-footer { margin-top: auto; padding: 20px 0; text-align: center; font-size: 11px; }
+.privacy-link { color: var(--sub); text-decoration: none; display: inline-block; margin-bottom: 4px; }
+.copyright { color: #ccc; }
