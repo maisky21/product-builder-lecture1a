@@ -2,74 +2,44 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>오늘의 미식 운세 | Vibe Fortune</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의 미식 운세</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="app-container">
-        <header class="app-header">
-            <h1 class="logo">Vibe Fortune</h1>
-        </header>
-
-        <nav class="category-nav">
-            <div class="filters">
+        <!-- 초기 화면 -->
+        <div id="intro-view" class="view-content">
+            <h1>오늘의 미식 운세</h1>
+            <p>당신을 위한 완벽한 메뉴를 추천해드립니다.</p>
+            <div class="category-filters">
                 <button class="filter-btn active" data-category="all">전체</button>
                 <button class="filter-btn" data-category="korean">한식</button>
                 <button class="filter-btn" data-category="western">양식</button>
                 <button class="filter-btn" data-category="japanese">일식</button>
                 <button class="filter-btn" data-category="chinese">중식</button>
             </div>
-        </nav>
+            <button id="recommend-btn" class="main-cta">추천 받기</button>
+        </div>
 
-        <main class="app-main">
-            <!-- 초기 화면 -->
-            <div id="intro-view" class="view-content">
-                <div class="intro-card">
-                    <span class="fortune-icon">🔮</span>
-                    <h2>오늘 뭐 먹지?</h2>
-                    <p>우주가 당신을 위해 준비한<br>오늘의 완벽한 메뉴를 확인해보세요.</p>
+        <!-- 결과 화면 -->
+        <div id="result-view" class="view-content hidden">
+            <div class="result-header">
+                <span id="res-category" class="category-badge">CATEGORY</span>
+                <h2 id="res-name">메뉴 이름</h2>
+            </div>
+            
+            <div class="image-wrapper">
+                <div id="loading-overlay">
+                    <div class="spinner"></div>
+                    <p>미식을 요리 중입니다...</p>
                 </div>
+                <img id="menu-image" src="" alt="추천 메뉴">
             </div>
-
-            <!-- 결과 화면 -->
-            <div id="result-view" class="view-content hidden">
-                <div class="insta-card">
-                    <div class="card-header">
-                        <div class="profile-pic">✨</div>
-                        <div class="header-text">
-                            <span class="username">cosmic_fortune</span>
-                            <span id="res-category" class="location">CATEGORY</span>
-                        </div>
-                    </div>
-                    
-                    <div class="card-image-container">
-                        <div id="loading-overlay" class="loading-overlay">
-                            <div class="spinner"></div>
-                            <p>미식을 요리 중입니다...</p>
-                        </div>
-                        <img id="menu-image" src="" alt="추천 메뉴" class="menu-image">
-                    </div>
-
-                    <div class="card-body">
-                        <p class="caption">
-                            <span class="bold">cosmic_fortune</span> 
-                            오늘의 미식 운세: <span id="res-name" class="highlight">메뉴이름</span>
-                        </p>
-                        <p id="res-description" class="description-text"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="action-area">
-                <button id="recommend-btn" class="main-cta">나의 미식 운세 확인하기</button>
-            </div>
-        </main>
-
-        <footer class="app-footer">
-            <p class="copyright">© 2026 Vibe Fortune Studio</p>
-        </footer>
+            
+            <p id="res-description">메뉴 설명</p>
+            <button id="retry-btn" class="main-cta secondary">다시 추천 받기</button>
+        </div>
     </div>
     <script src="main.js"></script>
 </body>

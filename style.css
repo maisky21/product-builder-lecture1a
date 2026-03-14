@@ -162,6 +162,42 @@ body {
     background: var(--primary);
     color: #fff; border: none; border-radius: 10px;
     font-size: 15px; font-weight: 700; cursor: pointer;
+    transition: background 0.2s;
+}
+
+.main-cta:active { background: #0077c7; }
+
+.main-cta.secondary {
+    background: #efefef;
+    color: #262626;
+    margin-top: 12px;
+}
+
+.main-cta.secondary:active { background: #dbdbdb; }
+
+.result-header {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.category-badge {
+    background: #f0f0f0;
+    color: var(--text-sub);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+#res-description {
+    padding: 16px;
+    font-size: 14px;
+    color: var(--text-main);
+    line-height: 1.6;
 }
 
 .app-footer { padding: 16px; text-align: center; border-top: 1px solid var(--border); }

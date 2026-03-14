@@ -24,6 +24,7 @@ const loadingOverlay = document.getElementById('loading-overlay');
 const resName = document.getElementById('res-name');
 const resCategory = document.getElementById('res-category');
 const resDescription = document.getElementById('res-description');
+const retryBtn = document.getElementById('retry-btn');
 
 // 필터 버튼 처리
 filterBtns.forEach(btn => {
@@ -41,7 +42,7 @@ function recommendMenu() {
         ? menus 
         : menus.filter(m => m.category === currentCategory);
     
-    // 2. 랜덤 선택 (정확한 인덱스 추출)
+    // 2. 랜덤 선택
     const randomIndex = Math.floor(Math.random() * filtered.length);
     const selected = filtered[randomIndex];
 
@@ -51,18 +52,19 @@ function recommendMenu() {
     loadingOverlay.classList.remove('hidden');
     menuImage.classList.remove('loaded');
 
-    resName.textContent = selected.name;
-    resCategory.textContent = selected.category.toUpperCase();
-    resDescription.textContent = selected.desc;
+    if (resName) resName.textContent = selected.name;
+    if (resCategory) resCategory.textContent = selected.category.toUpperCase();
+    if (resDescription) resDescription.textContent = selected.desc;
 
     // 4. 이미지 생성 및 로드 (Pollinations.ai)
     const seed = Math.floor(Math.random() * 1000);
-    const prompt = encodeURIComponent(selected.eng + " professional food photography");
+    const prompt = encodeURIComponent(selected.eng + " professional food photography, top view, delicious, high quality, 4k");
     const imageUrl = `https://image.pollinations.ai/prompt/${prompt}?width=800&height=800&nologo=true&seed=${seed}`;
 
     // 이전 타임아웃 제거
     if (loadingTimeout) clearTimeout(loadingTimeout);
 
+    // 이미지 로드 시도
     menuImage.src = imageUrl;
 
     // onload 이벤트: 이미지 로드 완료 시
@@ -70,10 +72,17 @@ function recommendMenu() {
         finishLoading();
     };
 
-    // 안전장치: 5초 후 강제 표시
+    // onerror 이벤트: 이미지 로드 실패 시
+    menuImage.onerror = () => {
+        console.error("Image failed to load:", imageUrl);
+        // 실패 시 기본 이미지나 재시도 로직을 넣을 수 있지만, 일단은 로딩을 끝냄
+        finishLoading();
+    };
+
+    // 안전장치: 8초 후 강제 표시 (이미지 생성이 느릴 수 있음)
     loadingTimeout = setTimeout(() => {
         finishLoading();
-    }, 5000);
+    }, 8000);
 }
 
 function finishLoading() {
@@ -82,4 +91,12 @@ function finishLoading() {
     if (loadingTimeout) clearTimeout(loadingTimeout);
 }
 
+// 초기화: 다시 추천 받기
+function resetView() {
+    resultView.classList.add('hidden');
+    introView.classList.remove('hidden');
+    if (loadingTimeout) clearTimeout(loadingTimeout);
+}
+
 recommendBtn.addEventListener('click', recommendMenu);
+if (retryBtn) retryBtn.addEventListener('click', resetView);
