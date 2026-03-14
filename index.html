@@ -8,35 +8,37 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- 초기 화면 -->
+        <!-- 초기 화면: 정중앙 배치 -->
         <div id="intro-view" class="view-content">
             <h1 class="logo">오늘 뭐 먹지?</h1>
             <p class="subtitle">당신을 위한 오늘의 미식 가이드</p>
             <button id="recommend-btn" class="main-cta">추천 받기</button>
         </div>
 
-        <!-- 결과 화면 -->
+        <!-- 결과 화면: 인스타그램 카드 스타일 -->
         <div id="result-view" class="view-content hidden">
             <div class="insta-card">
                 <div class="card-header">
                     <div class="profile-pic">CHEF</div>
                     <div class="header-text">
                         <span class="username">Daily_Menu_Bot</span>
-                        <span class="location">당신의 주방</span>
+                        <span class="location">오늘의 추천 메뉴</span>
                     </div>
                 </div>
                 
-                <div class="image-container">
+                <div class="image-wrapper">
                     <div id="loading-overlay">
                         <div class="spinner"></div>
-                        <p>메뉴를 준비 중입니다...</p>
+                        <p>미식을 준비 중입니다...</p>
                     </div>
                     <img id="menu-image" src="" alt="추천 메뉴">
                 </div>
 
                 <div class="card-body">
-                    <div class="action-icons">
-                        <span>❤️</span> <span>💬</span> <span>✈️</span>
+                    <div class="action-bar">
+                        <span class="icon">❤️</span>
+                        <span class="icon">💬</span>
+                        <span class="icon">✈️</span>
                     </div>
                     <div class="caption">
                         <span class="bold" id="res-name">메뉴 이름</span>

@@ -1,16 +1,16 @@
-const menus = [
-    { name: "매콤한 짬뽕", eng: "spicy seafood noodle jjamppong", desc: "해산물이 듬뿍 들어간 얼큰하고 시원한 국물 요리" },
-    { name: "신선한 모듬 초밥", eng: "assorted fresh sushi platter", desc: "장인의 손길이 느껴지는 신선하고 깔끔한 초밥" },
-    { name: "육즙 가득 스테이크", eng: "premium grilled beef steak", desc: "고소한 육즙과 부드러운 식감이 일품인 스테이크" },
-    { name: "영양 가득 비빔밥", eng: "korean traditional bibimbap with vegetables", desc: "각종 나물과 고추장의 조화로운 건강식" },
-    { name: "크림 파스타", eng: "creamy pasta carbonara", desc: "진하고 고소한 소스가 매력적인 정통 파스타" },
-    { name: "바삭한 돈카츠", eng: "crispy japanese tonkatsu", desc: "겉은 바삭하고 속은 촉촉한 일식 돈가스" },
-    { name: "얼큰 김치찌개", eng: "korean kimchi stew with pork", desc: "깊은 맛의 육수와 잘 익은 김치의 환상적인 맛" },
-    { name: "달콤한 불고기", eng: "korean marinated beef bulgogi", desc: "남녀노소 좋아하는 달콤 짭짤한 한국식 소고기 볶음" },
-    { name: "치즈 듬뿍 피자", eng: "classic cheese pizza with tomato sauce", desc: "쭉 늘어나는 고소한 치즈가 일품인 피자" },
-    { name: "매콤달콤 떡볶이", eng: "korean spicy rice cake tteokbokki", desc: "쫄깃한 떡과 중독성 있는 매콤한 양념" },
-    { name: "진한 돈코츠 라멘", eng: "japanese tonkotsu ramen with egg", desc: "오랜 시간 우려낸 진한 국물의 정통 일본식 라멘" },
-    { name: "담백한 쌀국수", eng: "vietnamese beef pho noodle soup", desc: "시원하고 담백한 국물의 베트남식 쌀국수" }
+const menuList = [
+    { name: "불고기", eng: "Korean beef bulgogi", desc: "달콤 짭짤한 양념이 매력적인 한국의 대표 소고기 요리" },
+    { name: "짬뽕", eng: "Spicy seafood noodle soup jjamppong", desc: "얼큰하고 시원한 국물에 해산물이 듬뿍 들어간 면 요리" },
+    { name: "스테이크", eng: "Juicy grilled beef steak", desc: "육즙이 가득하고 풍미가 일품인 프리미엄 스테이크" },
+    { name: "초밥", eng: "Fresh assorted sushi platter", desc: "신선한 생선과 고슬고슬한 밥의 완벽한 조화" },
+    { name: "비빔밥", eng: "Korean traditional bibimbap with vegetables", desc: "각종 나물과 고추장이 어우러진 건강하고 맛있는 한 끼" },
+    { name: "파스타", eng: "Creamy pasta carbonara", desc: "고소한 크림 소스와 짭짤한 베이컨이 어우러진 이탈리안 요리" },
+    { name: "돈카츠", eng: "Crispy fried pork cutlet tonkatsu", desc: "겉은 바삭하고 속은 촉촉한 정통 일식 돈가스" },
+    { name: "라멘", eng: "Japanese tonkotsu ramen with egg", desc: "진한 돼지뼈 육수가 일품인 일본식 라멘" },
+    { name: "쌀국수", eng: "Vietnamese beef pho noodle soup", desc: "담백하고 시원한 국물의 베트남식 쌀국수" },
+    { name: "피자", eng: "Cheesy pepperoni pizza", desc: "풍성한 치즈와 페퍼로니가 가득한 클래식 피자" },
+    { name: "치킨", eng: "Korean style crispy fried chicken", desc: "바삭한 튀김옷과 촉촉한 속살의 완벽한 치킨" },
+    { name: "마라탕", eng: "Spicy chinese malatang with ingredients", desc: "중독성 있는 매운맛과 다양한 재료의 만남" }
 ];
 
 const introView = document.getElementById('intro-view');
@@ -26,9 +26,10 @@ let loadingTimeout;
 
 function recommendMenu() {
     // 1. 랜덤 메뉴 선택
-    const selected = menus[Math.floor(Math.random() * menus.length)];
+    const randomIdx = Math.floor(Math.random() * menuList.length);
+    const selected = menuList[randomIdx];
 
-    // 2. UI 전환 및 데이터 세팅
+    // 2. UI 전환 및 초기화
     introView.classList.add('hidden');
     resultView.classList.remove('hidden');
     loadingOverlay.style.display = 'flex';
@@ -36,9 +37,9 @@ function recommendMenu() {
     resName.textContent = selected.name;
     resDesc.textContent = selected.desc;
 
-    // 3. 이미지 생성 (Pollinations.ai)
+    // 3. 이미지 생성 URL 설정
     const seed = Math.floor(Math.random() * 10000);
-    const prompt = encodeURIComponent(selected.eng + " professional food photography, high quality, 4k");
+    const prompt = encodeURIComponent(selected.eng + " delicious food photography");
     const imageUrl = `https://image.pollinations.ai/prompt/${prompt}?width=1080&height=1080&nologo=true&seed=${seed}`;
 
     // 4. 이미지 로드 및 안전장치
@@ -46,17 +47,18 @@ function recommendMenu() {
     
     menuImage.src = imageUrl;
 
+    // 로드 완료 시
     menuImage.onload = () => {
-        hideSpinner();
+        finishLoading();
     };
 
-    // 3초 안전장치: 이미지 로딩이 느려도 3초 후에는 스피너 제거
+    // 3초 후 강제 표시 (안전장치)
     loadingTimeout = setTimeout(() => {
-        hideSpinner();
+        finishLoading();
     }, 3000);
 }
 
-function hideSpinner() {
+function finishLoading() {
     loadingOverlay.style.display = 'none';
     if (loadingTimeout) clearTimeout(loadingTimeout);
 }
@@ -64,6 +66,7 @@ function hideSpinner() {
 function resetApp() {
     resultView.classList.add('hidden');
     introView.classList.remove('hidden');
+    if (loadingTimeout) clearTimeout(loadingTimeout);
 }
 
 recommendBtn.addEventListener('click', recommendMenu);
